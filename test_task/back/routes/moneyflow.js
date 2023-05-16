@@ -7,7 +7,9 @@ router.get('/', (req, res) => {
         database.connection.query(`
         SELECT *
             FROM moneyflow
-        WHERE user_id=${req.query.user_id}`,
+        WHERE user_id=${req.query.user_id} AND
+        operation_date < '${req.query.date_end}' AND 
+        operation_date > '${req.query.date_start}'`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {

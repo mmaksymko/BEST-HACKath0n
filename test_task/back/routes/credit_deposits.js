@@ -8,7 +8,10 @@ router.get('/', (req, res) => {
         database.connection.query(`
         SELECT *
             FROM credit_deposit
-        WHERE user_id=${req.query.user_id} AND operation_type='${req.query.operation_type}'`,
+        WHERE user_id=${req.query.user_id} AND
+            operation_type='${req.query.operation_type}' AND
+        operation_date < '${req.query.date_end}' AND 
+        operation_date > '${req.query.date_start}'`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {
