@@ -1,11 +1,22 @@
 const database = require('../database')
 
+const getAllTransactions = (req, res) => {
+    try {
+        database.connection.query(`
+        SELECT id, operation_date, summa, descript FROM moneyflow`,
+            (err, rows, fields) => res.send(rows))
+    }
+    catch (e) {
+        console.log(e)
+    };
+}
+
 const getTransactions = (req, res) => {
     try {
         database.connection.query(`
-        SELECT *
+        SELECT id, operation_date, summa, descript
             FROM moneyflow
-        WHERE user_id=${req.query.user_id} AND
+        WHERE user_id=${req.params.id} AND
         operation_date < '${req.query.date_end}' AND 
         operation_date > '${req.query.date_start}'`,
             (err, rows, fields) => res.send(rows))
@@ -35,7 +46,7 @@ const editTransaction = (req, res) => {
         database.connection.query(`
             UPDATE moneyflow 
                 SET operation_date = '${body.operation_date}', summa = ${body.summa}, descript = '${body.descript}'
-            WHERE id = ${body.id}`,
+            WHERE id = ${req.params.id}`,
             () => res.send(body))
     }
     catch (e) {
@@ -48,7 +59,35 @@ const deleteTransaction = (req, res) => {
         database.connection.query(
             `DELETE
             FROM moneyflow
-        WHERE id=${req.query.id}`)
+        WHERE id=${req.params.id}`)
+    }
+    catch (e) {
+        console.log(e)
+    };
+}
+
+const getExprenses = (req, res) => {
+    try {
+        database.connection.query(`
+        SELECT id, operation_date, summa, descript
+            FROM moneyflow
+        WHERE user_id=${req.params.id} AND
+        summa < 0`,
+            (err, rows, fields) => res.send(rows))
+    }
+    catch (e) {
+        console.log(e)
+    };
+}
+
+const getProfits = (req, res) => {
+    try {
+        database.connection.query(`
+        SELECT id, operation_date, summa, descript
+            FROM moneyflow
+        WHERE user_id=${req.params.id} AND
+        summa > 0`,
+            (err, rows, fields) => res.send(rows))
     }
     catch (e) {
         console.log(e)
@@ -57,7 +96,10 @@ const deleteTransaction = (req, res) => {
 
 module.exports = {
     getTransactions,
+    getAllTransactions,
     addTransaction,
     editTransaction,
-    deleteTransaction
+    deleteTransaction,
+    getExprenses,
+    getProfits
 }

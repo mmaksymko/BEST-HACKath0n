@@ -3,9 +3,21 @@ const database = require('../database')
 const getUser = (req, res) => {
     try {
         database.connection.query(`
-    SELECT *
+    SELECT firstName, lastName, birthday, email
         FROM user
-    WHERE id=${req.query.id}`,
+    WHERE id=${req.params.id}`,
+            (err, rows, fields) => res.send(rows))
+    }
+    catch (e) {
+        console.log(e)
+    };
+}
+
+const getAllUsers = (req, res) => {
+    try {
+        database.connection.query(`
+    SELECT firstName, lastName, birthday, email
+        FROM user`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {
@@ -33,7 +45,7 @@ const editUser = (req, res) => {
         database.connection.query(`
             UPDATE user 
                 SET firstName = '${body.firstName}', lastName = '${body.lastName}', birthday = '${body.birthday}', email = '${body.email}', pass = '${body.pass}'
-            WHERE id = ${body.id}`,
+            WHERE id = ${req.params.id}`,
             () => res.send(body))
     }
     catch (e) {
@@ -46,7 +58,7 @@ const removeUser = (req, res) => {
         database.connection.query(
             `DELETE
             FROM user
-        WHERE id=${req.query.id}`)
+        WHERE id=${req.params.id}`)
     }
     catch (e) {
         console.log(e)
@@ -55,6 +67,7 @@ const removeUser = (req, res) => {
 
 module.exports = {
     getUser,
+    getAllUsers,
     addUser,
     editUser,
     removeUser

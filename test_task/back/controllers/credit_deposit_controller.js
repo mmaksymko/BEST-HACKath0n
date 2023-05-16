@@ -1,11 +1,23 @@
 const database = require('../database')
 
+const getAllCreditsOrDeposits = (req, res) => {
+    try {
+        database.connection.query(`
+        SELECT id, operation_date, duration, total_amount, current_amount, interest_rate, operation_type, descript
+            FROM credit_deposit`,
+            (err, rows, fields) => res.send(rows))
+    }
+    catch (e) {
+        console.log(e)
+    };
+}
+
 const getUsersCreditsOrDeposits = (req, res) => {
     try {
         database.connection.query(`
-        SELECT *
+        SELECT id, operation_date, duration, total_amount, current_amount, interest_rate, descript
             FROM credit_deposit
-        WHERE user_id=${req.query.user_id} AND
+        WHERE user_id=${req.params.id} AND
             operation_type='${req.query.operation_type}' AND
         operation_date < '${req.query.date_end}' AND 
         operation_date > '${req.query.date_start}'`,
@@ -36,7 +48,7 @@ const editCreditOrDeposit = (req, res) => {
         database.connection.query(`
             UPDATE credit_deposit 
                 SET operation_date = '${body.operation_date}', duration = ${body.duration}, total_amount = ${body.total_amount}, current_amount = ${body.current_amount}, interest_rate = ${body.interest_rate}, operation_type = '${body.operation_type}', descript = '${body.descript}'
-            WHERE id = ${body.id}`,
+            WHERE id = ${req.params.id}`,
             () => res.send(body))
     }
     catch (e) {
@@ -49,7 +61,7 @@ const deleteCreditOrDeposit = (req, res) => {
         database.connection.query(
             `DELETE
             FROM credit_deposit
-        WHERE id=${req.query.id}`)
+        WHERE id=${req.params.id}`)
     }
     catch (e) {
         console.log(e)
@@ -57,6 +69,7 @@ const deleteCreditOrDeposit = (req, res) => {
 }
 
 module.exports = {
+    getAllCreditsOrDeposits,
     getUsersCreditsOrDeposits,
     addCreditOrDeposit,
     editCreditOrDeposit,
