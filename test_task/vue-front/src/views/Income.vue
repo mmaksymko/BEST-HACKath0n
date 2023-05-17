@@ -8,8 +8,8 @@ import Modal from "../components/income/AddModal.vue"
   <main>
     <Diagram></Diagram>
     <History></History>
-    
   </main>
+  <Modal></Modal>
 </template>
 
 <style scoped>
