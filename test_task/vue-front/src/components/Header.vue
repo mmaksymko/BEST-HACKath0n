@@ -20,10 +20,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
     padding: 0.25rem;
     padding-left: 2rem;
     padding-right: 2rem;
