@@ -2,7 +2,6 @@
     
     <div class="history">
         <div class="history-body">
-            <!-- <button class="add-expenses-btn">Додати витрати</button> -->
         </div>
         <footer>
             <button>Додати доходи</button>
