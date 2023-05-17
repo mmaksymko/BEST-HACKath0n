@@ -5,7 +5,7 @@
 <template>
     <div class="topnav">
         <div class="topnav-row">
-            <router-link to="/revenues" class="plain-link active">Доходи</router-link>
+            <router-link to="/income" class="plain-link active">Доходи</router-link>
             <router-link to="/expenses" class="plain-link">Витрати</router-link>
         </div>
         <div class="topnav-row">
