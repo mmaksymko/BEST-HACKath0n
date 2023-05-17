@@ -4,10 +4,13 @@ const getAllTransactions = (req, res) => {
     try {
         database.connection.query(`
         SELECT * FROM moneyflow`,
-            (err, rows, fields) => res.send(rows))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(rows)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
@@ -19,10 +22,13 @@ const getTransactions = (req, res) => {
         WHERE user_id=${req.params.id} AND
         operation_date < '${req.query.date_end}' AND 
         operation_date > '${req.query.date_start}'`,
-            (err, rows, fields) => res.send(rows))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(rows)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
@@ -33,10 +39,13 @@ const addTransaction = (req, res) => {
         INSERT INTO 
            moneyflow(user_id, operation_date, summa, descript)
         VALUES (${body.user_id}, '${body.operation_date}', ${body.summa}, '${body.descript}')`,
-            () => res.send(body))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(body)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
@@ -47,10 +56,13 @@ const editTransaction = (req, res) => {
             UPDATE moneyflow 
                 SET operation_date = '${body.operation_date}', summa = ${body.summa}, descript = '${body.descript}'
             WHERE id = ${req.params.id}`,
-            () => res.send(body))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(body)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
@@ -59,10 +71,14 @@ const deleteTransaction = (req, res) => {
         database.connection.query(
             `DELETE
             FROM moneyflow
-        WHERE id=${req.params.id}`)
+        WHERE id=${req.params.id}`),
+            (err, rows, fields) => {
+                if (!err) res.status(204)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            }
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(404).send(JSON.stringify(err))
     };
 }
 
@@ -75,10 +91,13 @@ const getExprenses = (req, res) => {
               summa < 0 AND
               operation_date < '${req.query.date_end}' AND 
               operation_date > '${req.query.date_start}'`,
-            (err, rows, fields) => res.send(rows))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(rows)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
@@ -91,10 +110,13 @@ const getProfits = (req, res) => {
               summa > 0 AND
               operation_date < '${req.query.date_end}' AND 
               operation_date > '${req.query.date_start}'`,
-            (err, rows, fields) => res.send(rows))
+            (err, rows, fields) => {
+                if (!err) res.status(200).send(rows)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            })
     }
-    catch (e) {
-        console.log(e)
+    catch (err) {
+        res.status(400).send(JSON.stringify(err))
     };
 }
 

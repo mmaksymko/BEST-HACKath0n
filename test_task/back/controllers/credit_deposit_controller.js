@@ -78,11 +78,14 @@ const deleteCreditOrDeposit = (req, res) => {
         database.connection.query(
             `DELETE
             FROM credit_deposit
-        WHERE id=${req.params.id}`)
-        res.status(204)
+        WHERE id=${req.params.id}`),
+            (err, rows, fields) => {
+                if (!err) res.status(204)
+                else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+            }
     }
-    catch (e) {
-        res.status(404).body(e)
+    catch (err) {
+        res.status(404).send(JSON.stringify(err))
     };
 }
 

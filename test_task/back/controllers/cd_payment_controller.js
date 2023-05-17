@@ -5,13 +5,6 @@ const addCreditOrDepositPayment = (req, res) => {
     try {
         let body = req.body
 
-
-        console.log(`
-        INSERT INTO 
-            cd_payment(cd_id, operation_date, amount)
-        values (${body.cd_id}, '${body.operation_date}', ${body.amount})`)
-
-
         database.connection.query(`
         INSERT INTO 
             cd_payment(cd_id, operation_date, amount)
@@ -62,7 +55,6 @@ const editCreditOrDepositPayment = (req, res) => {
 
 const removeCreditOrDepositPayment = (req, res) => {
     try {
-        let body = req.body
         database.connection.query(`
         DELETE
             FROM cd_payment
@@ -71,7 +63,7 @@ const removeCreditOrDepositPayment = (req, res) => {
         res.status(204)
     }
     catch (e) {
-        res.status(404).body(e)
+        res.status(400).send(JSON.stringify(err))
     };
 }
 
