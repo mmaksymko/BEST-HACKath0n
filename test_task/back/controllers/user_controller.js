@@ -16,7 +16,7 @@ const getUser = (req, res) => {
 const getAllUsers = (req, res) => {
     try {
         database.connection.query(`
-    SELECT firstName, lastName, birthday, email
+    SELECT *
         FROM user`,
             (err, rows, fields) => res.send(rows))
     }

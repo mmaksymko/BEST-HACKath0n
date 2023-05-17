@@ -3,7 +3,7 @@ const database = require('../database')
 const getAllTransactions = (req, res) => {
     try {
         database.connection.query(`
-        SELECT id, operation_date, summa, descript FROM moneyflow`,
+        SELECT * FROM moneyflow`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {
@@ -72,7 +72,9 @@ const getExprenses = (req, res) => {
         SELECT id, operation_date, summa, descript
             FROM moneyflow
         WHERE user_id=${req.params.id} AND
-        summa < 0`,
+              summa < 0 AND
+              operation_date < '${req.query.date_end}' AND 
+              operation_date > '${req.query.date_start}'`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {
@@ -86,7 +88,9 @@ const getProfits = (req, res) => {
         SELECT id, operation_date, summa, descript
             FROM moneyflow
         WHERE user_id=${req.params.id} AND
-        summa > 0`,
+              summa > 0 AND
+              operation_date < '${req.query.date_end}' AND 
+              operation_date > '${req.query.date_start}'`,
             (err, rows, fields) => res.send(rows))
     }
     catch (e) {
