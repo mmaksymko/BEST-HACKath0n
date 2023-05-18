@@ -101,9 +101,7 @@ const getUsersCreditsOrDeposits = (req, res) => {
             SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript
                 FROM credit_deposit
             WHERE user_id=${req.params.user_id}  AND
-                operation_type='${req.query.operation_type}' AND
-                operation_date < '${req.query.date_end}' AND 
-                operation_date > '${req.query.date_start}' 
+                operation_type='${req.query.operation_type}'
             ) AS CD
             INNER JOIN cd_payment ON cd_payment.cd_id!=CD.id
         GROUP BY id`,
