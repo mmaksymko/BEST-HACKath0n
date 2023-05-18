@@ -7,9 +7,9 @@
     <header class="main-header">
         <h1>fiNaNce</h1>
         <div class="navigation-props">
-            <router-link to="/about" class="plain-link">Про нас</router-link>
-            <router-link to="/tutorial" class="plain-link">Послуги</router-link>
-            <router-link to="/login" class="plain-link">Увійти</router-link>
+            <router-link to="/about" class="header-link">Про нас</router-link>
+            <router-link to="/tutorial" class="header-link">Послуги</router-link>
+            <router-link to="/login" class="header-link">Увійти</router-link>
         </div>
     </header>
 </template>
@@ -24,7 +24,7 @@
     padding-left: 2rem;
     padding-right: 2rem;
     padding-top: 0.5rem;
-    height: var(--header-height);
+    height: var(--header-part-height);
 }
 
 h1 {
@@ -46,4 +46,35 @@ h1 {
         gap: 0.75rem;
     }
 
-}</style>
+}
+.header-link{
+    position: relative;
+    color: var(--color-text);
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .header-link:hover {
+    color: var(--color-text);
+    background-color: transparent;
+  }
+  
+  .header-link::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-text);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .header-link:hover::before {
+    transform: scaleX(1);
+  }
+  
+
+</style>

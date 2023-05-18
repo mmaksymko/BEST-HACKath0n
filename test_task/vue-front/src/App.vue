@@ -13,7 +13,7 @@ const route = useRoute();
     <TopNavigation v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)">
     </TopNavigation>
   </div>
-  <RouterView />
+  <RouterView/>
 </template>
 
 <style scoped>

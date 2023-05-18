@@ -6,7 +6,9 @@
   --vt-b-green: #33673B;
   --vt-b-red: #CC3F0C;
   --vt-b-yellow: #CCA43B;
-  --header-height: 5rem;
+  --header-height: 8rem;
+  --header-part-height: 5rem;
+  --topbar-height: 3rem;
 }
 
 :root {
@@ -26,46 +28,11 @@
 
 body {
   min-height: 100vh;
+  display: flex;
   /*width: 100%;*/
   color: var(--color-text);
   background-color: var(--color-background);
   background: url(./back.svg);
   background-size: cover;
   font-family: Montserrat;
-}
-
-.plain-link {
-  color: var(--color-text);
-  font-size: 20px;
-  text-align: center;
-}
-
-.plain-link:hover {
-  color: var(--color-text);
-  font-size: 24px;
-  font-weight: bold;
-  background-color: transparent;
-}
-
-
-@media screen and (max-width: 600px) {
-
-  *,
-  *::before,
-  *::after {
-    font-weight: normal;
-  }
-
-  .plain-link {
-    color: var(--color-text);
-    font-size: 16px;
-  }
-
-  .plain-link:hover {
-    color: var(--color-text);
-    font-size: 18px;
-    font-weight: bold;
-    background-color: transparent;
-  }
-
 }
