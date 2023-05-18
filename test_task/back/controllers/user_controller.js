@@ -1,4 +1,5 @@
 const database = require('../database')
+
 const Validator = require('../middleware/validator')
 
 const getUser = (req, res) => {
