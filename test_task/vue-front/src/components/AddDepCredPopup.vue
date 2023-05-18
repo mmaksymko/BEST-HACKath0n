@@ -1,43 +1,38 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const { setPopupVisibility, addCreditTransaction } = defineProps<{
-  setPopupVisibility: (vis: boolean) => void;
-  addCreditTransaction: (sum: number, date: Date) => void;
-}>();
-
-const today = ref(new Date().toISOString().split('T')[0]);
-const sum = ref(0);
-const date = ref(new Date());
-
-const handleSubmit = () => {
-  addCreditTransaction(sum.value, date.value);
-};
 
 </script>
 
 <template>
-  <div class="popup">
-    <div class="popup__container">
-      <div class="popup_head">
-        <h3 id="addTransLoanDepPopup">Оплатити</h3>
+    <div class="popup">
+      <div class="popup__container">
+         <div class="popup_head">
+            <h3 id="addTransLoanDepPopup">Додати кредит</h3>
+         </div>
+         <button type="button" class="close" id="closePopup">✖</button>
+         <form class="input__group">
+            <div class="input__item">
+               <p class="form__item__title">активний до</p>
+               <input required type="date" id="expires">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">ставка</p>
+               <input required type="text" pattern="^(?:[1-9][0-9]?|0\.[1-9]|[1-9][0-9]\.[0-9]|99\.[0-9])$">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">сума</p>
+               <input required type="text" pattern="^[0-9]+$">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">опис</p>
+               <input required type="text" pattern="^.{1,40}$">
+            </div>
+
+            <div class="popup__footer">
+               <button type="button" class="submit_form">підтвердити</button>
+            </div>
+         </form>
       </div>
-      <button type="button" @click="setPopupVisibility(false)" class="close" id="closePopup">✖</button>
-      <form class="input__group" @submit.prevent="handleSubmit">
-        <div class="input__item">
-          <p class="form__item__title">сума</p>
-          <input required type="text" v-model="sum" pattern="^[1-9]([0-9]{1,10})?(\.[1-9])?$" class="input" name="sum">
-        </div>
-        <div class="input__item">
-          <p class="form__item__title">дата</p>
-          <input required type="date" v-model="date" id="expires" class="input" :max="today" name="">
-        </div>
-        <div class="popup__footer">
-          <button type="submit" class="submit_form">підтвердити</button>
-        </div>
-      </form>
-    </div>
-  </div>
+   </div>
 </template>
 
 <style scoped>
@@ -62,10 +57,6 @@ const handleSubmit = () => {
     position: relative;
     text-align: center;
     align-items: center;
-}
-
-.input{
-    color: var(--color-text);
 }
 
 .popup_head {

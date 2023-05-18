@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue';
+
 import Diagram from "../components/Diagram.vue"
 import History from "../components/History.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"
+import LoanDep from "../components/AddDepCredPopup.vue"
 import type { CreditInfo, CreditDeposit } from '../types';
 
 const route = useRoute();
@@ -126,6 +128,8 @@ function setCurrCreditId(id: number) {
       :getCurrCreditId="getCurrCreditId" :setCurrCreditId="setCurrCreditId"></Diagram>
     <History :setPopupVisibility=setPopupVisibility :creditsTransactions="creditsTransactions"></History>
   </div>
+
+  <LoanDep></LoanDep>
   <TransDepLoan v-if=popopVisibility :setPopupVisibility=setPopupVisibility :addCreditTransaction="putCreditTransaction">
   </TransDepLoan>
 </template>
