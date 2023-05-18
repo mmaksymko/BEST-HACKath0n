@@ -19,6 +19,7 @@ const getAllCreditsOrDeposits = (req, res) => {
     };
 }
 
+// user_id, operation_date, duration, total_amount, interest_rate, operation_type, descript
 const addCreditOrDeposit = (req, res) => {
     try {
         let body = req.body
@@ -36,6 +37,7 @@ const addCreditOrDeposit = (req, res) => {
     };
 }
 
+// id
 const getCreditOrDeposit = (req, res) => {
     try {
         database.connection.query(`
@@ -56,6 +58,7 @@ const getCreditOrDeposit = (req, res) => {
     };
 }
 
+// id, operation_date, duration, total_amount, interest_rate, descript
 const editCreditOrDeposit = (req, res) => {
     try {
         let body = req.body
@@ -73,6 +76,7 @@ const editCreditOrDeposit = (req, res) => {
     };
 }
 
+// id
 const deleteCreditOrDeposit = (req, res) => {
     try {
         database.connection.query(
@@ -89,6 +93,7 @@ const deleteCreditOrDeposit = (req, res) => {
     };
 }
 
+// id, operation_type, date_end, date_start
 const getUsersCreditsOrDeposits = (req, res) => {
     try {
         database.connection.query(`
