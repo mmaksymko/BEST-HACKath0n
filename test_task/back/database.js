@@ -1,6 +1,6 @@
 require('dotenv').config()
 const mysql = require('mysql2')
-const connection = mysql.createConnection('mysql://s9zon6vkgsoz7eiyxtxu:pscale_pw_ByOc3LEtwnrKIWwC59jcDwSAMfErhLGHJqFA6UuHLED@aws.connect.psdb.cloud/besthackathon4yk?ssl={"rejectUnauthorized":true}')
+const connection = mysql.createConnection('mysql://p672w9wi6g13wsylryan:pscale_pw_bhKQrhVddX9rDMwopdHvFrVWOnMAfovHHqkiI21gV5g@aws.connect.psdb.cloud/besthackathon4yk?ssl={"rejectUnauthorized":true}')
 // const connection = mysql.createConnection({
 //     host: 'fdb1029.awardspace.net',
 //     port: 3306,
