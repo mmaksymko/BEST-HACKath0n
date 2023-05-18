@@ -1,8 +1,15 @@
 const database = require('../database')
+const Validator = require('../middleware/validator')
 
 const addCreditOrDepositPayment = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isID(body.cd_id)
+            .isDate(body.operation_date)
+            .isNumber(body.amount).validated
+        ) throw 'Bad input data'
+
         database.connection.query(`
         INSERT INTO 
             cd_payment(cd_id, operation_date, amount)
@@ -28,6 +35,10 @@ const addCreditOrDepositPayment = (req, res) => {
 
 const getCreditOrDepositPayment = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT operation_date, amount
             FROM cd_payment
@@ -44,8 +55,13 @@ const getCreditOrDepositPayment = (req, res) => {
 }
 
 const editCreditOrDepositPayment = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isDate(body.operation_date)
+            .isNumber(body.amount).validated
+        ) throw 'Bad input data'
+
         database.connection.query(`
         UPDATE cd_payment
             SET operation_date = '${body.operation_date}', amount = ${body.amount}
@@ -62,6 +78,10 @@ const editCreditOrDepositPayment = (req, res) => {
 
 const removeCreditOrDepositPayment = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         DELETE
             FROM cd_payment
@@ -76,6 +96,10 @@ const removeCreditOrDepositPayment = (req, res) => {
 
 const getCreditOrDepositPayments = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.cd_id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT id, operation_date, amount
             FROM cd_payment

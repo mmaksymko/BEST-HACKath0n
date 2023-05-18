@@ -1,4 +1,6 @@
 const database = require('../database')
+const Validator = require('../middleware/validator')
+
 
 const getAllTransactions = (req, res) => {
     try {
@@ -16,6 +18,11 @@ const getAllTransactions = (req, res) => {
 
 const getTransactions = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+            .datesAreInOrder(req.query.date_start, req.query.date_end)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT id, operation_date, summa, descript
             FROM moneyflow
@@ -33,8 +40,15 @@ const getTransactions = (req, res) => {
 }
 
 const addTransaction = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isID(body.user_id)
+            .isDate(body.operation_date)
+            .isNumber(body.summa)
+            .isString(body.descript)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         INSERT INTO 
            moneyflow(user_id, operation_date, summa, descript)
@@ -49,9 +63,17 @@ const addTransaction = (req, res) => {
     };
 }
 
+// id, operation_date, summa, descript
 const editTransaction = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isID(req.params.id)
+            .isDate(body.operation_date)
+            .isNumber(body.summa)
+            .isString(body.descript)
+        ) throw 'Bad input data'
+
         database.connection.query(`
             UPDATE moneyflow 
                 SET operation_date = '${body.operation_date}', summa = ${body.summa}, descript = '${body.descript}'
@@ -66,8 +88,13 @@ const editTransaction = (req, res) => {
     };
 }
 
+// id
 const deleteTransaction = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(
             `DELETE
             FROM moneyflow
@@ -82,8 +109,14 @@ const deleteTransaction = (req, res) => {
     };
 }
 
+// id, date_end, date_start
 const getExprenses = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+            .datesAreInOrder(req.query.date_start, req.query.date_end)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT id, operation_date, summa, descript
             FROM moneyflow
@@ -101,8 +134,14 @@ const getExprenses = (req, res) => {
     };
 }
 
+// id, date_end, date_start
 const getProfits = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+            .datesAreInOrder(req.query.date_start, req.query.date_end)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT id, operation_date, summa, descript
             FROM moneyflow

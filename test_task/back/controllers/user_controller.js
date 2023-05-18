@@ -1,7 +1,12 @@
 const database = require('../database')
+const Validator = require('../middleware/validator')
 
 const getUser = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
     SELECT firstName, lastName, birthday, email
         FROM user
@@ -32,8 +37,16 @@ const getAllUsers = (req, res) => {
 }
 
 const addUser = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isString(body.firstName)
+            .isString(body.lastName)
+            .isDate(body.birthday)
+            .isEmail(body.email)
+            .isString(body.pass)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         INSERT INTO 
            user(firstName, lastName, birthday, email, pass)
@@ -49,8 +62,16 @@ const addUser = (req, res) => {
 }
 
 const editUser = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isString(body.firstName)
+            .isString(body.lastName)
+            .isDate(body.birthday)
+            .isEmail(body.email)
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
             UPDATE user 
                 SET firstName = '${body.firstName}', lastName = '${body.lastName}', birthday = '${body.birthday}', email = '${body.email}'
@@ -65,8 +86,13 @@ const editUser = (req, res) => {
     };
 }
 
+// id
 const removeUser = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(
             `DELETE
             FROM user

@@ -1,4 +1,5 @@
 const database = require('../database')
+const Validator = require('../middleware/validator')
 
 const getAllCreditsOrDeposits = (req, res) => {
     try {
@@ -19,10 +20,19 @@ const getAllCreditsOrDeposits = (req, res) => {
     };
 }
 
-// user_id, operation_date, duration, total_amount, interest_rate, operation_type, descript
 const addCreditOrDeposit = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isID(body.user_id)
+            .isDate(body.operation_date)
+            .isNumber(body.duration)
+            .isNumber(body.total_amount)
+            .isNumber(body.interest_rate)
+            .isType(body.operation_type)
+            .isString(body.descript).validated
+        ) throw 'Bad input data'
+
         database.connection.query(`
         INSERT INTO
         credit_deposit(user_id, operation_date, duration, total_amount, interest_rate, operation_type, descript)
@@ -37,9 +47,12 @@ const addCreditOrDeposit = (req, res) => {
     };
 }
 
-// id
 const getCreditOrDeposit = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT cd.id, cd.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript FROM (
             SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript
@@ -58,10 +71,18 @@ const getCreditOrDeposit = (req, res) => {
     };
 }
 
-// id, operation_date, duration, total_amount, interest_rate, descript
 const editCreditOrDeposit = (req, res) => {
+    let body = req.body
     try {
-        let body = req.body
+        if (!new Validator()
+            .isID(req.params.id)
+            .isDate(body.operation_date)
+            .isNumber(body.duration)
+            .isNumber(body.total_amount)
+            .isNumber(body.interest_rate)
+            .isString(body.descript).validated
+        ) throw 'Bad input data'
+
         database.connection.query(`
             UPDATE credit_deposit 
                 SET operation_date = '${body.operation_date}', duration = ${body.duration}, total_amount = ${body.total_amount}, interest_rate = ${body.interest_rate}, descript = '${body.descript}'
@@ -79,6 +100,10 @@ const editCreditOrDeposit = (req, res) => {
 // id
 const deleteCreditOrDeposit = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+        ) throw 'Bad input data'
+
         database.connection.query(
             `DELETE
             FROM credit_deposit
@@ -96,6 +121,11 @@ const deleteCreditOrDeposit = (req, res) => {
 // id, operation_type, date_end, date_start
 const getUsersCreditsOrDeposits = (req, res) => {
     try {
+        if (!new Validator()
+            .isID(req.params.id)
+            .isType(req.query.operation_type)
+        ) throw 'Bad input data'
+
         database.connection.query(`
         SELECT cd.id, cd.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript FROM (
             SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript
