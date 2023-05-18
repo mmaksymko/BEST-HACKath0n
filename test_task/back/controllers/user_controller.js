@@ -99,34 +99,7 @@ const removeUser = (req, res) => {
         WHERE id=${req.params.id}`),
             (err, rows, fields) => {
                 if (!err) {
-                    database.connection.query(
-                        `DELETE
-                        FROM moneyflow
-                    WHERE user_id=${req.params.id}`),
-                        (err, rows, fields) => {
-                            if (!err) {
-                                database.connection.query(
-                                    `DELETE
-                                    FROM user
-                                WHERE id=${req.params.id}`),
-                                    (err, rows, fields) => {
-                                        if (!err) {
-                                            database.connection.query(
-                                                `DELETE
-                                                FROM user
-                                            WHERE id=${req.params.id}`),
-                                                (err, rows, fields) => {
-                                                    if (!err) {
-                                                        res.status(204)
-                                                    }
-                                                    else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
-                                                }
-                                        }
-                                        else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
-                                    }
-                            }
-                            else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
-                        }
+                    res.status(204)
                 }
                 else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
             }
