@@ -3,10 +3,10 @@ export const data = {
     datasets: [
       {
         backgroundColor: [                
-          'rgba(204, 163, 59, 0.5)',
-          'rgba(204, 163, 59, 0.0)'],
+          'rgba(36, 47, 64, 0.5)',
+          'rgba(36, 47, 64, 0.0)'],
         data: [0.75, 0.25],
-        borderColor: '#CCA43B',
+        borderColor: '#242F40',
         borderWidth: 1,
       }
     ]
@@ -14,6 +14,11 @@ export const data = {
   
   export const options = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+         display: false
+      }
+  }
   }
   

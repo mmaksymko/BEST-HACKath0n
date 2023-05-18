@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue';
+
 import Diagram from "../components/Diagram.vue"
 import History from "../components/History.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"

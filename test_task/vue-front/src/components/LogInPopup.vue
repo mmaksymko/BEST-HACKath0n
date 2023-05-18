@@ -1,43 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const { setPopupVisibility, addCreditTransaction } = defineProps<{
-  setPopupVisibility: (vis: boolean) => void;
-  addCreditTransaction: (sum: number, date: Date) => void;
-}>();
-
-const today = ref(new Date().toISOString().split('T')[0]);
-const sum = ref(0);
-const date = ref(new Date());
-
-const handleSubmit = () => {
-  addCreditTransaction(sum.value, date.value);
-};
-
 </script>
 
 <template>
-  <div class="popup">
-    <div class="popup__container">
-      <div class="popup_head">
-        <h3 id="addTransLoanDepPopup">Оплатити</h3>
+    <div class="popup">
+      <div class="popup__container">
+         <div class="popup_head">
+            <h3 id="addTransLoanDepPopup">Увійти</h3>
+         </div>
+         <button type="button" class="close" id="closePopup">✖</button>
+         <form class="input__group">
+            <div class="input__item">
+               <p class="form__item__title">пошта</p>
+               <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">пароль</p>
+               <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+            </div>
+            <a id="forgotPass">забули пароль?</a>
+            <div class="popup__footer">
+               <button type="button" class="submit_form">підтвердити</button>
+            </div>
+         </form>
       </div>
-      <button type="button" @click="setPopupVisibility(false)" class="close" id="closePopup">✖</button>
-      <form class="input__group" @submit.prevent="handleSubmit">
-        <div class="input__item">
-          <p class="form__item__title">сума</p>
-          <input required type="text" v-model="sum" pattern="^[1-9]([0-9]{1,10})?(\.[1-9])?$" class="input" name="sum">
-        </div>
-        <div class="input__item">
-          <p class="form__item__title">дата</p>
-          <input required type="date" v-model="date" id="expires" class="input" :max="today" name="">
-        </div>
-        <div class="popup__footer">
-          <button type="submit" class="submit_form">підтвердити</button>
-        </div>
-      </form>
-    </div>
-  </div>
+   </div>
 </template>
 
 <style scoped>
@@ -57,15 +43,11 @@ const handleSubmit = () => {
 .popup__container {
     height: auto;
     width: 42rem;
-    background-image: url("../assets/popUp-back.svg");
+    background-image: url("../assets/login_back.svg");
     border-radius: 2rem;
     position: relative;
     text-align: center;
     align-items: center;
-}
-
-.input{
-    color: var(--color-text);
 }
 
 .popup_head {
@@ -94,6 +76,7 @@ const handleSubmit = () => {
 .input__group {
     display: flex;
     flex-direction: column;
+
     padding: 1em 1.875em 0.375em 1.875em;
     align-items: center;
     justify-content: center;
@@ -120,6 +103,10 @@ const handleSubmit = () => {
 #expires {
     color-scheme: dark;
 }
+#forgotPass {
+    color: white;
+    font-size: 0.75rem;
+}
 .popup__footer {
     display: flex;
     justify-content: center;
@@ -127,7 +114,7 @@ const handleSubmit = () => {
 }
 .submit_form {
     background-color: white;
-    color: #242F40;
+    color: #33673B;
     font-weight: bold;
     font-size: 1rem;
     border: none;

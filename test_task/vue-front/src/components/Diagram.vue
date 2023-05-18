@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
-import * as chartConfig from '../chartConfig.js'
+import * as chartConfig from '../doughnutChartConfigCr.js'
 import type { CreditDeposit } from '@/types';
 
 const { getCredits,updateCreditTransactions,getCurrCreditId,setCurrCreditId } = defineProps<{
