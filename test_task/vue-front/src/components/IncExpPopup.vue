@@ -6,7 +6,7 @@
     <div class="popup">
       <div class="popup__container">
          <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Оплатити</h3>
+            <h3 id="addTransLoanDepPopup">Додати витрати</h3>
          </div>
          <button type="button" class="close" id="closePopup">✖</button>
          <form class="input__group">
@@ -16,7 +16,11 @@
             </div>
             <div class="input__item">
                <p class="form__item__title">дата</p>
-               <input required type="date" id="expires">
+               <input required type="date" id="date">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">опис</p>
+               <input required type="text" pattern="^.{1,40}$">
             </div>
             <div class="popup__footer">
                <button type="button" class="submit_form">підтвердити</button>
@@ -99,7 +103,7 @@
     width: 30rem;
     height: 2rem
 }
-#expires {
+#date {
     color-scheme: dark;
 }
 .popup__footer {

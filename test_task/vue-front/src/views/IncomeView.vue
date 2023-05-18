@@ -1,28 +1,23 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-import Diagram from "../components/DoughnutDiagramDeposit.vue"
-import History from "../components/DepositHistory.vue"
-import TransDepLoan from "../components/LoanDepositPopup.vue"
-import LoanDep from "../components/AddDepCredPopup.vue"
-
-
+import Diagram from "../components/LineDiagramIncome.vue"
+import History from "../components/IncomeHistory.vue"
+import TransIncomeExp from "../components/IncomeExpencesPopup.vue"
 const route = useRoute();
-
 </script>
 
 <template>
-  <div class="credits__container">
+  <div class="income__container">
       <Diagram></Diagram>
       <History></History>
   </div>
-  <TransDepLoan></TransDepLoan>
-  <LoanDep></LoanDep>
+  <TransIncomeExp></TransIncomeExp>
   <RouterView />
 </template>
 
 <style scoped>
-.credits__container {
+.income__container {
   display: grid;
   width: 100%;
   align-items: center;

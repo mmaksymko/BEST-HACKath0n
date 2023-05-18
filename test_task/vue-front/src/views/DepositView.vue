@@ -6,13 +6,12 @@ import History from "../components/DepositHistory.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"
 import LoanDep from "../components/AddDepCredPopup.vue"
 
-
 const route = useRoute();
 
 </script>
 
 <template>
-  <div class="credits__container">
+  <div class="deposits__container">
       <Diagram></Diagram>
       <History></History>
   </div>
@@ -22,7 +21,7 @@ const route = useRoute();
 </template>
 
 <style scoped>
-.credits__container {
+.deposits__container {
   display: grid;
   width: 100%;
   align-items: center;

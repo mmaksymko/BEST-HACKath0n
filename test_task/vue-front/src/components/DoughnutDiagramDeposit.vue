@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
-import * as chartConfig from '../doughnutChartConfigCr.js'
+import * as chartConfig from '../doughnutChartConfigDep.js'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
@@ -24,7 +24,7 @@ export default {
             <div class="diagram_info">
                 <p class="period">Активний до 11.12.2023</p>
                 <p class="add_info">ставка: 1,9% щомісяця</p>
-                <p class="add_info">опис кредиту</p>
+                <p class="add_info">опис депозиту</p>
             </div>
         </div>
         <div class="diagram">
@@ -69,7 +69,6 @@ export default {
     width: auto;
     top: -4rem;
     justify-content: space-between;
-    /*flex-direction: row;*/
     padding: 0 1rem;
     align-items: center;
 }
@@ -86,7 +85,7 @@ canvas {
     justify-content: right;
 }
 .add_credit {
-    background: rgba(204, 163, 59, 0.5);
+    background: rgba(36, 47, 64, 0.5);
     border: none;
     color: white;
     font-size: 1rem;

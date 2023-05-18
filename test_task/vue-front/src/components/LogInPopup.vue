@@ -1,23 +1,23 @@
 <script lang="ts">
-
 </script>
 
 <template>
     <div class="popup">
       <div class="popup__container">
          <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Оплатити</h3>
+            <h3 id="addTransLoanDepPopup">Увійти</h3>
          </div>
          <button type="button" class="close" id="closePopup">✖</button>
          <form class="input__group">
             <div class="input__item">
-               <p class="form__item__title">сума</p>
-               <input required type="text" pattern="^[0-9]+$">
+               <p class="form__item__title">пошта</p>
+               <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
             </div>
             <div class="input__item">
-               <p class="form__item__title">дата</p>
-               <input required type="date" id="expires">
+               <p class="form__item__title">пароль</p>
+               <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
             </div>
+            <a id="forgotPass">забули пароль?</a>
             <div class="popup__footer">
                <button type="button" class="submit_form">підтвердити</button>
             </div>
@@ -43,7 +43,7 @@
 .popup__container {
     height: auto;
     width: 42rem;
-    background-image: url("../assets/popUp-back.svg");
+    background-image: url("../assets/login_back.svg");
     border-radius: 2rem;
     position: relative;
     text-align: center;
@@ -76,6 +76,7 @@
 .input__group {
     display: flex;
     flex-direction: column;
+
     padding: 1em 1.875em 0.375em 1.875em;
     align-items: center;
     justify-content: center;
@@ -102,6 +103,10 @@
 #expires {
     color-scheme: dark;
 }
+#forgotPass {
+    color: white;
+    font-size: 0.75rem;
+}
 .popup__footer {
     display: flex;
     justify-content: center;
@@ -109,7 +114,7 @@
 }
 .submit_form {
     background-color: white;
-    color: #242F40;
+    color: #33673B;
     font-weight: bold;
     font-size: 1rem;
     border: none;

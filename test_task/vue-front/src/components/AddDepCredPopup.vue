@@ -6,18 +6,27 @@
     <div class="popup">
       <div class="popup__container">
          <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Оплатити</h3>
+            <h3 id="addTransLoanDepPopup">Додати кредит</h3>
          </div>
          <button type="button" class="close" id="closePopup">✖</button>
          <form class="input__group">
+            <div class="input__item">
+               <p class="form__item__title">активний до</p>
+               <input required type="date" id="expires">
+            </div>
+            <div class="input__item">
+               <p class="form__item__title">ставка</p>
+               <input required type="text" pattern="^(?:[1-9][0-9]?|0\.[1-9]|[1-9][0-9]\.[0-9]|99\.[0-9])$">
+            </div>
             <div class="input__item">
                <p class="form__item__title">сума</p>
                <input required type="text" pattern="^[0-9]+$">
             </div>
             <div class="input__item">
-               <p class="form__item__title">дата</p>
-               <input required type="date" id="expires">
+               <p class="form__item__title">опис</p>
+               <input required type="text" pattern="^.{1,40}$">
             </div>
+
             <div class="popup__footer">
                <button type="button" class="submit_form">підтвердити</button>
             </div>

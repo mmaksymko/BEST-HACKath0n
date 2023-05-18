@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { defineComponent, onMounted, ref } from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 
-
+const route = useRoute();
 </script>
 
 <template>
@@ -9,7 +11,7 @@
         <div class="navigation-props">
             <router-link to="/about" class="plain-link">Про нас</router-link>
             <router-link to="/tutorial" class="plain-link">Послуги</router-link>
-            <router-link to="/login" class="plain-link">Увійти</router-link>
+            <a href="#" class="plain-link" @click="$emit('showLoginPopup')">Увійти</a>
         </div>
     </header>
 </template>

@@ -38,13 +38,26 @@ body {
   color: var(--color-text);
   font-size: 20px;
   text-align: center;
+  display: inline-block;
+  position: relative;
 }
 
-.plain-link:hover {
-  color: var(--color-text);
-  font-size: 24px;
-  font-weight: bold;
-  background-color: transparent;
+.plain-link:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-text);
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.plain-link:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 
@@ -59,13 +72,6 @@ body {
   .plain-link {
     color: var(--color-text);
     font-size: 16px;
-  }
-
-  .plain-link:hover {
-    color: var(--color-text);
-    font-size: 18px;
-    font-weight: bold;
-    background-color: transparent;
   }
 
 }
