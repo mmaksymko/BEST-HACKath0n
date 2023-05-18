@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/LineDiagramExpences.vue"
 import History from "../components/IncomeHistory.vue"
-import TransIncomeExp from "../components/IncomeExpencesPopup.vue"
+import TransIncomeExp from "../components/IncExpPopup.vue"
 const route = useRoute();
 </script>
 
