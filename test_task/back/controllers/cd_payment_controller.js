@@ -11,20 +11,21 @@ const addCreditOrDepositPayment = (req, res) => {
         ) throw 'Bad input data'
 
         database.connection.query(`
-        INSERT INTO 
-            cd_payment(cd_id, operation_date, amount)
-        SELECT ${body.cd_id}, '${body.operation_date}', ${body.amount} FROM 
-            ( SELECT * FROM cd_payment LIMIT 1 ) AS x 
-        WHERE
-            ( SELECT cd.sum + ${body.amount} <= credit_deposit.total_amount AND cd.sum + ${body.amount} >= 0 FROM
-                ( SELECT SUM(amount) as sum, cd_id
-                    FROM cd_payment
-                        WHERE cd_id = ${body.cd_id}
-                ) as cd
-                inner join credit_deposit where id = cd.cd_id
-            ) = true`,
+        SELECT operation_type FROM credit_deposit WHERE id = ${body.cd_id}`,
             (err, rows, fields) => {
-                if (!err) res.status(200).send(body)
+                if (!err && rows.length === 1) {
+                    body.amount = rows.operation_type == 'credit' ? Math.abs(body.amount) : Math.abs(body.amount) * -1
+
+                    database.connection.query(`
+                    INSERT INTO 
+                        cd_payment(cd_id, operation_date, amount)
+                    VALUES(${body.cd_id}, '${body.operation_date}', ${body.amount})`,
+                        (err, rows, fields) => {
+                            if (!err) res.status(200).send(body)
+                            else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+                        })
+                }
+                else if (!err) res.status(400).send(JSON.stringify(`Bad input data`))
                 else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
             })
     }
@@ -42,7 +43,6 @@ const getCreditOrDepositPayment = (req, res) => {
         database.connection.query(`
         SELECT operation_date, amount
             FROM cd_payment
-
         WHERE id = ${req.params.id}`,
             (err, rows, fields) => {
                 if (!err) res.status(200).send(rows)

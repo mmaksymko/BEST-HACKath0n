@@ -1,7 +1,6 @@
 const database = require('../database')
 const Validator = require('../middleware/validator')
 
-
 const getAllTransactions = (req, res) => {
     try {
         database.connection.query(`
@@ -9,6 +8,7 @@ const getAllTransactions = (req, res) => {
             (err, rows, fields) => {
                 if (!err) res.status(200).send(rows)
                 else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+
             })
     }
     catch (err) {
@@ -50,11 +50,18 @@ const addTransaction = (req, res) => {
         ) throw 'Bad input data'
 
         database.connection.query(`
-        INSERT INTO 
-           moneyflow(user_id, operation_date, summa, descript)
-        VALUES (${body.user_id}, '${body.operation_date}', ${body.summa}, '${body.descript}')`,
+        SELECT * FROM user WHERE id = ${body.user_id}`,
             (err, rows, fields) => {
-                if (!err) res.status(200).send(body)
+                if (!err && rows.length === 1) {
+                    database.connection.query(`
+                    INSERT INTO 
+                        moneyflow(user_id, operation_date, summa, descript)
+                    VALUES (${body.user_id}, '${body.operation_date}', ${body.summa}, '${body.descript}')`,
+                        (err, rows, fields) => {
+                            if (!err) res.status(200).send(body)
+                            else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+                        })
+                } else if (!err) res.status(400).send(JSON.stringify(`Bad input data`))
                 else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
             })
     }
