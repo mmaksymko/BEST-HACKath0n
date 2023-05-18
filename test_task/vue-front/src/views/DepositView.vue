@@ -5,18 +5,29 @@ import Diagram from "../components/DoughnutDiagramDeposit.vue"
 import History from "../components/DepositHistory.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"
 import LoanDep from "../components/AddDepCredPopup.vue"
+import {addTransactionModalVis, addNewDepositCreditModalVis, 
+  setPopupVisibility, setNewCreditPopupVis, unsetVars} from "@/visibilityvars";
 
 const route = useRoute();
-
+onMounted(async () => {
+  unsetVars();
+});
 </script>
 
 <template>
   <div class="deposits__container">
-      <Diagram></Diagram>
-      <History></History>
+      <Diagram
+      :setNewCreditPopupVis="setNewCreditPopupVis"
+      ></Diagram>
+      <History
+      :setPopupVisibility=setPopupVisibility ></History>
   </div>
-  <TransDepLoan></TransDepLoan>
-  <LoanDep></LoanDep>
+  <TransDepLoan v-if=addTransactionModalVis 
+  :setPopupVisibility=setPopupVisibility 
+  >
+  </TransDepLoan>
+  <LoanDep v-if="addNewDepositCreditModalVis" 
+  :setNewCreditPopupVis="setNewCreditPopupVis"></LoanDep>
   <RouterView />
 </template>
 

@@ -5,13 +5,13 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/Diagram.vue"
 import History from "../components/History.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"
+import LoanDep from "../components/AddDepCredPopup.vue"
 import type { CreditInfo, CreditDeposit } from '../types';
+import {addTransactionModalVis, addNewDepositCreditModalVis, setPopupVisibility, 
+  setNewCreditPopupVis,unsetVars} from "@/visibilityvars";
+
 
 const route = useRoute();
-const popopVisibility = ref<boolean>(false);
-function setPopupVisibility(vis: boolean) {
-  popopVisibility.value = vis;
-}
 const currCreditId = ref(-1);
 const creditsTransactions = ref<CreditInfo[]>([{
   id: 0,
@@ -101,6 +101,7 @@ function JSONToCreditTransArray(json: any): CreditInfo[] {
 }
 
 onMounted(async () => {
+  unsetVars();
   await getCreditDepositList(1, "credit"); // Wait for the credits to be loaded
   setCurrCreditId(credits.value[0].id);
 });
@@ -123,12 +124,21 @@ function setCurrCreditId(id: number) {
 
 <template>
   <div class="credits__container">
-    <Diagram v-if="credits.length > 0" :getCredits="getCredits" :updateCreditTransactions="updateCreditTransactions"
-      :getCurrCreditId="getCurrCreditId" :setCurrCreditId="setCurrCreditId"></Diagram>
-    <History :setPopupVisibility=setPopupVisibility :creditsTransactions="creditsTransactions"></History>
+    <Diagram v-if="credits.length > 0" 
+      :getCredits="getCredits" 
+      :updateCreditTransactions="updateCreditTransactions"
+      :getCurrCreditId="getCurrCreditId" 
+      :setCurrCreditId="setCurrCreditId" 
+      :setNewCreditPopupVis="setNewCreditPopupVis"></Diagram>
+    <History :setPopupVisibility=setPopupVisibility 
+    :creditsTransactions="creditsTransactions"></History>
   </div>
-  <TransDepLoan v-if=popopVisibility :setPopupVisibility=setPopupVisibility :addCreditTransaction="putCreditTransaction">
+  <TransDepLoan v-if=addTransactionModalVis 
+  :setPopupVisibility=setPopupVisibility 
+  :addCreditTransaction="putCreditTransaction">
   </TransDepLoan>
+  <LoanDep v-if="addNewDepositCreditModalVis" 
+  :setNewCreditPopupVis="setNewCreditPopupVis"></LoanDep>
 </template>
 
 <style scoped>

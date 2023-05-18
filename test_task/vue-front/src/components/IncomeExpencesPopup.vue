@@ -1,5 +1,7 @@
 <script setup lang="ts">
-
+const props = defineProps<{
+    setPopupVisibility: (vis: boolean) => void;
+}>()
 </script>
 
 <template>
@@ -8,7 +10,7 @@
          <div class="popup_head">
             <h3 id="addTransLoanDepPopup">Додати дохід</h3>
          </div>
-         <button type="button" class="close" id="closePopup">✖</button>
+         <button type="button" class="close" @click="setPopupVisibility(false)" id="closePopup">✖</button>
          <form class="input__group">
             <div class="input__item">
                <p class="form__item__title">сума</p>

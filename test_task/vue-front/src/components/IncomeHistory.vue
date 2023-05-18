@@ -1,5 +1,8 @@
 <script setup lang="ts">
 
+const props = defineProps<{
+    setPopupVisibility: (vis: boolean) => void;
+}>()
 </script>
 <template>
     <div class="history__container">
@@ -56,7 +59,7 @@
                 </div>
             </div>
         </div>
-        <button class="add_transaction">додати дохід</button>
+        <button @click="setPopupVisibility(true)" class="add_transaction">додати дохід</button>
     </div>
 </template>
 

@@ -4,15 +4,25 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/LineDiagramIncome.vue"
 import History from "../components/IncomeHistory.vue"
 import TransIncomeExp from "../components/IncomeExpencesPopup.vue"
+import {addTransactionModalVis, setPopupVisibility, unsetVars} from "@/visibilityvars";
 const route = useRoute();
+
+
+
+onMounted(async () => {
+  unsetVars();
+});
+
 </script>
 
 <template>
   <div class="income__container">
-      <Diagram></Diagram>
-      <History></History>
+      <Diagram ></Diagram>
+      <History
+      :setPopupVisibility="setPopupVisibility"></History>
   </div>
-  <TransIncomeExp></TransIncomeExp>
+  <TransIncomeExp v-if="addTransactionModalVis"
+  :setPopupVisibility="setPopupVisibility"></TransIncomeExp>
   <RouterView />
 </template>
 
