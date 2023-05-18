@@ -9,10 +9,11 @@
 
 .diagram{
     margin-top: 8rem;
-    margin-right: 10rem;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     display: flex;
     flex-direction: column;
-    width: 40rem;
+    width: 20rem;
     height: 25rem;
     height: 25rem;
     background: rgba(0, 0, 0, 0.5);
