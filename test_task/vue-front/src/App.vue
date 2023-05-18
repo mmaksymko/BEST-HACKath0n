@@ -5,22 +5,16 @@ import Header from "../src/components/Header.vue"
 import TopNavigation from "../src/components/TopNavigation.vue"
 import LogIn from "./components/LogInPopup.vue"
 import SingUp from "./components/SignUpPopup.vue"
-
-const isVisible = ref<boolean>(false); // Reactive variable to control the display
-
 const route = useRoute();
-function change(vis: boolean) {
-  isVisible.value = vis
-}
 </script>
 
 <template>
   <div class="navigation-container">
-    <Header v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)" @showLoginPopup="isVisible = true"></Header>
+    <Header v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)"></Header>
     <TopNavigation v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)">
     </TopNavigation>
   </div>
-  <LogIn v-if="isVisible"></LogIn>
+  <LogIn></LogIn>
   <SingUp></SingUp>
   <RouterView />
 </template>

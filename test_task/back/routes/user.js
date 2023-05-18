@@ -3,8 +3,11 @@ const router = express.Router()
 const userController = require('../controllers/user_controller')
 
 router.route('/')
-    .get(userController.getUser)
+    .get(userController.getAllUsers)
     .post(userController.addUser)
+
+router.route('/:id')
+    .get(userController.getUser)
     .patch(userController.editUser)
     .delete(userController.removeUser)
 

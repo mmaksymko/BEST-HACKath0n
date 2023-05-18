@@ -4,10 +4,14 @@
 
 <template>
     <div class="topnav">
+        <div class="topnav-row">
             <router-link to="/revenues" class="plain-link active">Доходи</router-link>
             <router-link to="/expenses" class="plain-link">Витрати</router-link>
+        </div>
+        <div class="topnav-row">
             <router-link to="/deposits" class="plain-link">Депозити</router-link>
             <router-link to="/credits" class="plain-link">Кредити</router-link>
+        </div>
     </div>
 </template>
 
@@ -15,13 +19,54 @@
 .topnav {
     display: flex;
     position: fixed;
-    margin-top: var(--header-height);
     justify-content: center;
     align-items: center;
-    top: 0;
+    top: 5rem;
     right: 0;
     left: 0;
+    height: var(--topbar-height);
     gap: 6rem;
+}
+
+.plain-link {
+    color: var(--color-text);
+    font-size: 20px;
+    text-align: center;
+}
+
+.plain-link:hover {
+    color: var(--color-text);
+    font-size: 24px;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    *,
+    *::before,
+    *::after {
+        font-weight: normal;
+    }
+
+    .plain-link {
+        color: var(--color-text);
+        font-size: 16px;
+    }
+
+    .plain-link:hover {
+        color: var(--color-text);
+        font-size: 18px;
+        font-weight: bold;
+        background-color: transparent;
+    }
+
+}
+
+.topnav-row {
+    display: flex;
+    gap: 2rem;
 }
 
 
