@@ -59,9 +59,10 @@ const getCreditOrDeposit = (req, res) => {
 const editCreditOrDeposit = (req, res) => {
     try {
         let body = req.body
+        console.log(body);
         database.connection.query(`
             UPDATE credit_deposit 
-                SET operation_date = '${body.operation_date}', duration = ${body.duration}, total_amount = ${body.total_amount}, interest_rate = ${body.interest_rate}, operation_type = '${body.operation_type}', descript = '${body.descript}'
+                SET operation_date = '${body.operation_date}', duration = ${body.duration}, total_amount = ${body.total_amount}, interest_rate = ${body.interest_rate}, descript = '${body.descript}'
             WHERE id = ${req.params.id}`,
             (err, rows, fields) => {
                 if (!err) res.status(200).send(body)

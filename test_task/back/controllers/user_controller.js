@@ -19,7 +19,7 @@ const getUser = (req, res) => {
 const getAllUsers = (req, res) => {
     try {
         database.connection.query(`
-    SELECT *
+    SELECT id, firstName, lastName, birthday, email
         FROM user`,
             (err, rows, fields) => {
                 if (!err) res.status(200).send(rows)
@@ -53,7 +53,7 @@ const editUser = (req, res) => {
         let body = req.body
         database.connection.query(`
             UPDATE user 
-                SET firstName = '${body.firstName}', lastName = '${body.lastName}', birthday = '${body.birthday}', email = '${body.email}', pass = '${body.pass}'
+                SET firstName = '${body.firstName}', lastName = '${body.lastName}', birthday = '${body.birthday}', email = '${body.email}'
             WHERE id = ${req.params.id}`,
             (err, rows, fields) => {
                 if (!err) res.status(200).send(body)
