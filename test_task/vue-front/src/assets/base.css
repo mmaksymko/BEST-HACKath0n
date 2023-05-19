@@ -29,16 +29,11 @@
 body {
   min-height: 100vh;
   display: flex;
-  /*width: 100%;*/
   color: var(--color-text);
   background-color: var(--color-background);
   background: url(./back.svg);
   background-size: cover;
   font-family: Montserrat;
-}
-
-input{
-  color: var(--color-text);
 }
 
 .plain-link {

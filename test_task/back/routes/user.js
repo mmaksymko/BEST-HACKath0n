@@ -11,4 +11,9 @@ router.route('/:id')
     .patch(userController.editUser)
     .delete(userController.removeUser)
 
+router.route('/signup')
+    .post(userController.addUser)
+router.route('/login')
+    .post(userController.checkUser)
+
 module.exports = router

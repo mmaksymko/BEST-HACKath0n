@@ -2,7 +2,7 @@
 import { onMounted, ref , provide } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/LineDiagramExpences.vue"
-import History from "../components/IncomeHistory.vue"
+import History from "../components/ExpencesHistory.vue"
 import TransIncomeExp from "../components/IncExpPopup.vue"
 import {addTransactionModalVis, setPopupVisibility, unsetVars} from "@/visibilityvars";
 import type { MoneyFlowInfo } from '@/types'

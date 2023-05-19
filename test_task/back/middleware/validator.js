@@ -7,6 +7,14 @@ class Validator {
         this.validated = this.validated && (typeof value === "number" || /^-?\d+$/.test(value))
         return this
     }
+    isPositiveNumber = (value) => {
+        this.validated = this.validated && this.isNumber(value) && value > 0
+        return this
+    }
+    isPercent = (value) => {
+        this.validated = this.validated && this.isNumber(value) && (value >= 0 || value <= 100)
+        return this
+    }
     isID = (value) => {
         this.validated = this.validated && this.isNumber(value) && value > 0
         return this
