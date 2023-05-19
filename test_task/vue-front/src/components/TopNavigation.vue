@@ -4,14 +4,10 @@
 
 <template>
     <div class="topnav">
-        <div class="topnav-row">
             <router-link to="/revenues" class="plain-link active">Доходи</router-link>
             <router-link to="/expenses" class="plain-link">Витрати</router-link>
-        </div>
-        <div class="topnav-row">
             <router-link to="/deposits" class="plain-link">Депозити</router-link>
             <router-link to="/credits" class="plain-link">Кредити</router-link>
-        </div>
     </div>
 </template>
 
@@ -62,11 +58,6 @@
         background-color: transparent;
     }
 
-}
-
-.topnav-row {
-    display: flex;
-    gap: 2rem;
 }
 
 
