@@ -72,7 +72,6 @@ const transactions = inject('transactions');
     margin-bottom: 1rem;
 }
 .diagram {
-    display: flex;
     width: auto;
     justify-content: space-between;
     padding: 0 1rem;
@@ -85,14 +84,28 @@ canvas {
     position: relative;
     margin-top: 1rem;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 920px) {
+    .diagram__container {
+        margin-top: 9rem;
+        height: 32rem;
+    }
 }
+@media screen and (max-width: 740px) {
+    .diagram__container {
+        margin-top: 9rem;
+        height: 26rem;
+    }
+    canvas {
+        height: 20rem;
+    }
+}
+
 @media screen and (max-width: 414px) {
     h1 {
         font-size: 1.2rem;
     }
     .diagram__container {
-        height: 19rem;
+        height: 20rem;
         width: 21rem;
         margin-bottom: 2rem;
         margin-top: 7.5rem;

@@ -43,12 +43,24 @@ onMounted(async () => {
   grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 1280px) {
+  .income__container {
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+}
+@media screen and (max-width: 920px) {
   .income__container {
     display: flex;
     flex-direction: column;
+    margin-bottom: 6rem;
+  }
+}
+@media screen and (max-width: 414px) {
+  .income__container {
     padding: 0 1rem;
     gap: 2rem;
+    margin-bottom: 3rem;
   }
 }
 </style>

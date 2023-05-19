@@ -101,10 +101,12 @@ const props = defineProps<{
 .input__item input {
     border: none;
     background: none;
+    color: white;
     border-bottom: 2px solid white;
     width: 30rem;
     height: 2rem
 }
+.input__item input:focus{ outline: none; }
 #expires {
     color-scheme: dark;
 }

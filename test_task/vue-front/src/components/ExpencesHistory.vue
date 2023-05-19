@@ -130,8 +130,39 @@
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1280px) {
+    .history__container {
+        padding-right: 3rem;
+    }
+    .add_transaction {
+        padding: 1rem 4rem;
+    }
+}
+@media screen and (max-width: 920px) {
+    .history__container {
+        padding-right: 0;
+        margin-top: 2.75rem;
+    }
+    .add_transaction {
+        padding: 1rem 2rem;
+    }
+    .transaction {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 1rem;
+    }
+}
+@media screen and (max-width: 740px) {
+    .history__container {
+        height: 26rem;
+    }
+}
+@media screen and (max-width: 460px) {
+    .transaction {
+        flex-direction: column;
+        gap: 0;
+    }
 }
 @media screen and (max-width: 414px) {
     .history__container {
@@ -144,7 +175,8 @@
     }
     .transaction {
         margin-bottom: 0.5rem;
+        flex-direction: column;
+        gap: 0;
     }
 }
-
 </style>

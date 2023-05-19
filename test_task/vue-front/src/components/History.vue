@@ -26,10 +26,11 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
 <style scoped>
 .history__container {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
     height: 30rem;
+    padding-right: 5rem;
 }
 
 .transactions {
@@ -101,17 +102,53 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
+@media screen and (max-width: 1280px) {
+    .history__container {
+        padding-right: 3rem;
+    }
+    .add_transaction {
+        padding: 1rem 2rem;
+    }
+}
+@media screen and (max-width: 920px) {
+    .history__container {
+        padding-right: 3rem;
+        margin-top: 2.75rem;
+    }
+    .add_transaction {
+        padding: 1rem 2rem;
+    }
+    .transaction {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-right: 1rem;
+    }
+}
+@media screen and (max-width: 740px) {
+    .history__container {
+        height: 26rem;
+    }
+}
+@media screen and (max-width: 460px) {
+    .transaction {
+        flex-direction: column;
+        gap: 0;
+    }
+}
 @media screen and (max-width: 414px) {
     .history__container {
         width: 21rem;
         font-size: 16px;
-        padding: 0;
+        padding: 2rem;
         height: 21rem;
         margin-bottom: 2rem;
         margin-top: 0;
     }
     .transaction {
         margin-bottom: 0.5rem;
+        flex-direction: column;
+        gap: 0;
     }
 }
 </style>

@@ -117,6 +117,14 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     padding: 1rem 5rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
+@media screen and (max-width: 1280px) {
+    .history__container {
+        padding-right: 3rem;
+    }
+    .add_transaction {
+        padding: 1rem 2rem;
+    }
+}
 @media screen and (max-width: 414px) {
     .history__container {
         width: 21rem;
