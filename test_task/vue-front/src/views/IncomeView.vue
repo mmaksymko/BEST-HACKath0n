@@ -46,7 +46,7 @@ onMounted(async () => {
 @media screen and (max-width: 414px) {
   .income__container {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     padding: 0 1rem;
     gap: 2rem;
   }

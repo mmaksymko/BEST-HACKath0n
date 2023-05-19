@@ -141,10 +141,10 @@ const props = defineProps<{
     .history__container {
         width: 21rem;
         font-size: 16px;
-        margin-top: 8.5rem;
         padding: 0;
         height: 21rem;
         margin-bottom: 2rem;
+        margin-top: 0;
     }
     .transaction {
         margin-bottom: 0.5rem;
@@ -159,17 +159,6 @@ const props = defineProps<{
     .gen_info {
         display: flex;
         gap: 0.5rem;
-    }
-    .add_transaction {
-        align-content: center;
-        text-align: center;
-        justify-content: center;
-        background: rgba(51, 103, 59, 0.5);
-        border: none;
-        color: white;
-        font-size: 1rem;
-        padding: 1rem 6rem;
-        border-radius: 0 0 1.25rem 1.25rem;
     }
 }
 </style>

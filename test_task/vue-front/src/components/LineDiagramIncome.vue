@@ -86,7 +86,7 @@ canvas {
         height: 19rem;
         width: 21rem;
         margin-bottom: 2rem;
-        margin-top: 0;
+        margin-top: 7.5rem;
     }
     .diagram {
         width: 18rem;
