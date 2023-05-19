@@ -65,7 +65,6 @@ function redirectToOtherPage() {
     min-height: 3.75rem;
     font-size: 1.5rem;
     margin-top: 0.5rem;
-
 }
 
 .close {
@@ -143,6 +142,13 @@ function redirectToOtherPage() {
 @media screen and (max-width: 414px) {
     .popup__container {
         width: 21rem;
+    }
+    .popup_head {
+        font-size: 1.2rem;
+    }
+    .close {
+        width: 1.5rem;
+        height: 1.5rem;
     }
     .input__item {
         width: 15rem;

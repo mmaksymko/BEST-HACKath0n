@@ -19,6 +19,6 @@ export const data = {
       legend: {
          display: false
       }
-  }
+    }
   }
   

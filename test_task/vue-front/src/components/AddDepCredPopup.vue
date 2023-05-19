@@ -171,4 +171,24 @@ const submitForm = () => {
     width: 9rem;
     margin: 1rem 0 2rem;
 }
+@media screen and (max-width: 414px) {
+    .popup__container {
+        width: 21rem;
+    }
+    .popup_head {
+        font-size: 1.2rem;
+    }
+    .close {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .input__item {
+        width: 15rem;
+        margin-bottom: 0.25rem;
+    }
+    .input__item input {
+        width: 15rem;
+        height: 1.75rem;
+    }
+}
 </style>

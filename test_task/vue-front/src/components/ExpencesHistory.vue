@@ -132,10 +132,19 @@
 }
 
 @media screen and (max-width: 600px) {
-    .topnav-row {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+}
+@media screen and (max-width: 414px) {
+    .history__container {
+        width: 21rem;
+        font-size: 16px;
+        padding: 0;
+        height: 21rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+    .transaction {
+        margin-bottom: 0.5rem;
     }
 }
+
 </style>

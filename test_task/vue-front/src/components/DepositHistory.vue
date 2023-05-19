@@ -110,11 +110,24 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     align-content: center;
     text-align: center;
     justify-content: center;
-    background: rgba(204, 163, 59, 0.5);
+    background: rgba(36, 47, 64, 0.5);
     border: none;
     color: white;
     font-size: 1rem;
     padding: 1rem 5rem;
     border-radius: 0 0 1.25rem 1.25rem;
+}
+@media screen and (max-width: 414px) {
+    .history__container {
+        width: 21rem;
+        font-size: 16px;
+        padding: 0;
+        height: 21rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+    .transaction {
+        margin-bottom: 0.5rem;
+    }
 }
 </style>

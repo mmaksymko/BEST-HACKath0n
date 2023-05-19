@@ -57,18 +57,15 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     height: 0.5rem;
 }
 
-/* style of the scrollbar thumb */
 ::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;
 }
 
-/* hover style of the scrollbar thumb */
 ::-webkit-scrollbar-thumb:hover {
     background: #aaa;
 }
 
-/* style of the scrollbar track */
 ::-webkit-scrollbar-track {
     background: #eee;
     border-radius: 0.25rem;
@@ -104,5 +101,17 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
-
+@media screen and (max-width: 414px) {
+    .history__container {
+        width: 21rem;
+        font-size: 16px;
+        padding: 0;
+        height: 21rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+    .transaction {
+        margin-bottom: 0.5rem;
+    }
+}
 </style>

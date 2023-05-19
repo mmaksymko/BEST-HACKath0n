@@ -41,8 +41,8 @@ function setData() {
             datasets: [
                 {
                     backgroundColor: [
-                        'rgba(0, 105, 255, 0.5)',
-                        'rgba(0, 105, 255, 0.0)'],
+                        'rgba(36, 47, 64, 0.5)',
+                        'rgba(36, 47, 64, 0.0)'],
                     data: [credits[currIndex.value].total_amount-credits[currIndex.value].paid, credits[currIndex.value].paid],
                     borderColor: '#242F40',
                     borderWidth: 1,
@@ -70,7 +70,12 @@ function setData() {
 
 const options = {
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+         display: false
+      }
+    }
 }
 
 function update() {
@@ -207,10 +212,46 @@ canvas {
 }
 
 @media screen and (max-width: 600px) {
-    .topnav-row {
+}
+@media screen and (max-width: 414px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+    .period {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    }
+    .diagram__container {
+        height: 25rem;
+        width: 21rem;
+        margin-bottom: 2rem;
+    }
+    .add_info {
+        text-align: right;
+        font-size: 0.75rem;
+    }
+
+    .add_info:first-child {
+        margin-bottom: 0.75rem;
+    }
+
+    .diagram {
+        width: 19rem;
+        padding: 0;
+        height: 16rem;
+        margin-top: 0.25rem;
+        top: 0rem;
+    }
+    canvas {
+        height: 16rem;
+        width: 16rem;
+    }
+    .diagram__footer {
+        position: relative;
+        top: 0;
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        margin-top: 0.5rem;
+        justify-content: right;
     }
 }
 </style>

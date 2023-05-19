@@ -149,16 +149,5 @@ const props = defineProps<{
     .transaction {
         margin-bottom: 0.5rem;
     }
-    .transactions {
-        padding: 1.5rem 1rem;
-        background: rgba(0, 0, 0, 0.5);
-        border-radius: 1.25rem 1.25rem 0 0;
-        height: 100%;
-        
-    }
-    .gen_info {
-        display: flex;
-        gap: 0.5rem;
-    }
 }
 </style>

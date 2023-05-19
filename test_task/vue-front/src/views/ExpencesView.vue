@@ -44,4 +44,12 @@ onMounted(async () => {
   grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
+@media screen and (max-width: 414px) {
+  .expences__container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+}
 </style>

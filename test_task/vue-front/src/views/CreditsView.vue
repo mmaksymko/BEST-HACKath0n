@@ -172,4 +172,13 @@ function setCurrCreditId(id: number) {
   margin-top: var(--header-height);
   padding: 0 5rem;
 }
+
+@media screen and (max-width: 414px) {
+  .credits__container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+}
 </style>
