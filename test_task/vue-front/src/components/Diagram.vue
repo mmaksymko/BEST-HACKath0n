@@ -5,11 +5,12 @@ import { Doughnut } from 'vue-chartjs'
 import * as chartConfig from '../doughnutChartConfigCr.js'
 import type { CreditDeposit } from '@/types';
 
-const { getCredits,updateCreditTransactions,getCurrCreditId,setCurrCreditId } = defineProps<{
+const { setNewCreditPopupVis, getCredits,updateCreditTransactions,getCurrCreditId,setCurrCreditId } = defineProps<{
     getCredits: () => CreditDeposit[];
     updateCreditTransactions: (id:number) => void;
     setCurrCreditId: (i:number) => void;
     getCurrCreditId: () => number;
+    setNewCreditPopupVis: (vis: boolean) => void;
 }>();
 
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -105,7 +106,7 @@ onMounted(() => {
             </div>
             <font-awesome-icon @click="nextCredit" :icon="['fas', 'chevron-right']" style="color: #ffffff;" />
         </div>
-        <div class="diagram__footer"><button class="add_credit">додати</button></div>
+        <div class="diagram__footer"><button @click="setNewCreditPopupVis(true)" class="add_credit">додати</button></div>
     </div>
 </template>
 

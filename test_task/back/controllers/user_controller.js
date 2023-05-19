@@ -37,7 +37,7 @@ const getAllUsers = (req, res) => {
     };
 }
 
-const addUser = (req, res) => {
+const addUser = async (req, res) => {
     let body = req.body
     try {
         if (!new Validator()
@@ -47,11 +47,11 @@ const addUser = (req, res) => {
             .isEmail(body.email)
             .isString(body.pass)
         ) throw 'Bad input data'
-
+        const salt = await bcrypt.getSalt()
         database.connection.query(`
         INSERT INTO 
            user(firstName, lastName, birthday, email, pass)
-        VALUES ('${body.firstName}', '${body.lastName}', '${body.birthday}', '${body.email}', '${body.pass}')`,
+        VALUES ('${body.firstName}', '${body.lastName}', '${body.birthday}', '${body.email}', '${await bcrypt.hash(body.pass, salt)}')`,
             (err, rows, fields) => {
                 if (!err) res.status(200).send(body)
                 else res.status(400).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
@@ -110,10 +110,31 @@ const removeUser = (req, res) => {
     };
 }
 
+const checkUser = async(req, res) => {
+    try {
+        const salt = await bcrypt.getSalt()
+        database.connection.query(
+            `SELECT *
+             FROM user
+             WHERE email = '${req.body.email}' AND pass = '${await bcrypt.hash(req.body.pass, salt)}'`,
+            function (err, rows, fields){
+                if(err)
+                    res.status(500).send(JSON.stringify(`Error ${err.errno}: ${err.sqlMessage}`))
+                if(rows.length == 0)
+                    res.status(404).send(JSON.stringify(`Error 404 : User not found.`))
+                res.status(200).send(rows)
+            }
+        )
+    } catch (error) {
+        res.status(400).send(JSON.stringify(err))
+    }
+}
+
 module.exports = {
     getUser,
     getAllUsers,
     addUser,
     editUser,
-    removeUser
+    removeUser,
+    checkUser
 }
