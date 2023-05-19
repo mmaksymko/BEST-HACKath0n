@@ -37,6 +37,10 @@ body {
   font-family: Montserrat;
 }
 
+input{
+  color: var(--color-text);
+}
+
 .plain-link {
   color: var(--color-text);
   font-size: 20px;

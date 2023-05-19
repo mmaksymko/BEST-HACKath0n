@@ -33,6 +33,12 @@ export default {
     return chartConfig
   }
 }
+
+import { inject } from 'vue';
+
+// Inject the parentRef from the parent component
+const transactions = inject('transactions');
+
 </script>
 
 <template>

@@ -1,36 +1,43 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+function redirectToOtherPage() {
+    router.push('/revenues');
+}
 </script>
 
 <template>
     <div class="popup">
-      <div class="popup__container">
-         <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Увійти</h3>
-         </div>
-         <button type="button" class="close" id="closePopup">✖</button>
-         <form class="input__group">
-            <div class="input__item">
-               <p class="form__item__title">пошта</p>
-               <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div class="popup__container">
+            <div class="popup_head">
+                <h3 id="addTransLoanDepPopup">Увійти</h3>
             </div>
-            <div class="input__item">
-               <p class="form__item__title">пароль</p>
-               <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-            </div>
-            <a id="forgotPass">забули пароль?</a>
-            <div class="popup__footer">
-               <button type="button" class="submit_form">підтвердити</button>
-            </div>
-         </form>
-      </div>
-   </div>
+            <button type="button" class="close" id="closePopup" @click="redirectToOtherPage()">✖</button>
+            <form class="input__group">
+                <div class="input__item">
+                    <p class="form__item__title">пошта</p>
+                    <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="input__item">
+                    <p class="form__item__title">пароль</p>
+                    <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                </div>
+                <a id="forgotPass">забули пароль?</a>
+                <div class="popup__footer">
+                    <button type="button" class="submit_form">підтвердити</button>
+                    <span>На нашому сайті вперше? <router-link to="/register">Зареєструйтеся</router-link>, це займе кілька хвилин</span>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <style scoped>
 .popup {
     background-image: url("../assets/back_random.svg");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -40,6 +47,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .popup__container {
     height: auto;
     width: 42rem;
@@ -59,6 +67,7 @@
     margin-top: 0.5rem;
 
 }
+
 .close {
     position: absolute;
     top: 0;
@@ -81,11 +90,13 @@
     align-items: center;
     justify-content: center;
 }
+
 .input__item {
     width: 30rem;
     flex-direction: column;
     margin-bottom: 0.5rem;
 }
+
 .form__item__title {
     display: flex;
     width: 100%;
@@ -93,6 +104,7 @@
     align-items: center;
     text-align: left;
 }
+
 .input__item input {
     border: none;
     background: none;
@@ -100,18 +112,23 @@
     width: 30rem;
     height: 2rem
 }
+
 #expires {
     color-scheme: dark;
 }
+
 #forgotPass {
     color: white;
     font-size: 0.75rem;
 }
+
 .popup__footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
+
 .submit_form {
     background-color: white;
     color: #33673B;
@@ -122,5 +139,4 @@
     height: 2.75rem;
     width: 9rem;
     margin: 1rem 0 2rem;
-}
-</style>
+}</style>

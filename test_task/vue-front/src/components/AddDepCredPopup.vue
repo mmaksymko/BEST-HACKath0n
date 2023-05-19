@@ -1,40 +1,82 @@
 <script setup lang="ts">
-const { setNewCreditPopupVis } = defineProps<{
-    setNewCreditPopupVis: (vis: boolean) => void;
+
+const { setNewCreditPopupVis,addCreditOrDeposit } = defineProps<{
+  setNewCreditPopupVis: (vis: boolean) => void;
+  addCreditOrDeposit: (
+    user_id: number,
+    operation_date: Date,
+    duration: number,
+    total_amount: number,
+    interest_rate: number,
+    descript: string,
+    type: string
+  ) => void;
 }>();
+
+let expires = '';
+let interestRate = '';
+let totalAmount = '';
+let description = '';
+
+function getMonthDifference(startDate:Date, endDate:Date) {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+
+  const startYear = start.getFullYear();
+  const startMonth = start.getMonth();
+  const endYear = end.getFullYear();
+  const endMonth = end.getMonth();
+
+  return (endYear - startYear) * 12 + (endMonth - startMonth);
+}
+
+const submitForm = () => {
+  const operation_date = new Date(); 
+  addCreditOrDeposit(
+    1, 
+    operation_date,
+    getMonthDifference(operation_date,new Date(expires)),
+    parseFloat(totalAmount),
+    parseFloat(interestRate),
+    description,
+    'credit' 
+  );
+  setNewCreditPopupVis(false);
+};
+
 </script>
 
 <template>
-    <div class="popup">
-      <div class="popup__container">
-         <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Додати кредит</h3>
-         </div>
-         <button type="button" class="close" @click="setNewCreditPopupVis(false)" id="closePopup">✖</button>
-         <form class="input__group">
-            <div class="input__item">
-               <p class="form__item__title">активний до</p>
-               <input required type="date" id="expires">
-            </div>
-            <div class="input__item">
-               <p class="form__item__title">ставка</p>
-               <input required type="text" pattern="^(?:[1-9][0-9]?|0\.[1-9]|[1-9][0-9]\.[0-9]|99\.[0-9])$">
-            </div>
-            <div class="input__item">
-               <p class="form__item__title">сума</p>
-               <input required type="text" pattern="^[0-9]+$">
-            </div>
-            <div class="input__item">
-               <p class="form__item__title">опис</p>
-               <input required type="text" pattern="^.{1,40}$">
-            </div>
-
-            <div class="popup__footer">
-               <button type="button" class="submit_form">підтвердити</button>
-            </div>
-         </form>
+  <div class="popup">
+    <div class="popup__container">
+      <div class="popup_head">
+        <h3 id="addTransLoanDepPopup">Додати кредит</h3>
       </div>
-   </div>
+      <button type="button" class="close" @click="setNewCreditPopupVis(false)" id="closePopup">✖</button>
+      <form class="input__group">
+        <div class="input__item">
+          <p class="form__item__title">активний до</p>
+          <input required type="date" v-model="expires">
+        </div>
+        <div class="input__item">
+          <p class="form__item__title">ставка</p>
+          <input required type="text" pattern="^(?:[1-9][0-9]?|0\.[1-9]|[1-9][0-9]\.[0-9]|99\.[0-9])$" v-model="interestRate">
+        </div>
+        <div class="input__item">
+          <p class="form__item__title">сума</p>
+          <input required type="text" pattern="^[0-9]+$" v-model="totalAmount">
+        </div>
+        <div class="input__item">
+          <p class="form__item__title">опис</p>
+          <input required type="text" pattern="^.{1,40}$" v-model="description">
+        </div>
+
+        <div class="popup__footer">
+          <button type="button" class="submit_form" @click="submitForm">підтвердити</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <style scoped>

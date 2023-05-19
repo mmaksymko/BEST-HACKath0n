@@ -7,7 +7,15 @@ import TransIncomeExp from "../components/IncomeExpencesPopup.vue"
 import {addTransactionModalVis, setPopupVisibility, unsetVars} from "@/visibilityvars";
 const route = useRoute();
 
-
+async function getTransactions(id: number, date_start: Date, date_end: Date) {
+  const response = await fetch(`https://trandafyl-test.onrender.com/moneyflow/${id}?`
+    + new URLSearchParams({
+      "date_start": date_start.toISOString().slice(0, 19).replace('T', ' '),
+      "date_end": date_end.toISOString().slice(0, 19).replace('T', ' ')
+    }), {
+    method: 'GET'
+  })
+}
 
 onMounted(async () => {
   unsetVars();

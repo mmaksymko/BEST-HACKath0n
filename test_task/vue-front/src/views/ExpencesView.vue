@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref , provide } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/LineDiagramExpences.vue"
 import History from "../components/IncomeHistory.vue"
 import TransIncomeExp from "../components/IncExpPopup.vue"
 import {addTransactionModalVis, setPopupVisibility, unsetVars} from "@/visibilityvars";
+import type { MoneyFlowInfo } from '@/types'
 const route = useRoute();
 
+const transactions = ref<MoneyFlowInfo[]>([{
+  id: 0,
+  date: new Date(2023, 5, 18),
+  sum: 100,
+  description: "fdf"
+}]);
+
+provide('transactions', transactions);
 
 onMounted(async () => {
   unsetVars();
@@ -16,13 +25,14 @@ onMounted(async () => {
 
 <template>
   <div class="expences__container">
-    <Diagram></Diagram>
+    <Diagram
+    :transactions="transactions"></Diagram>
       <History
-      :setPopupVisibility="setPopupVisibility"></History>
+      :setPopupVisibility="setPopupVisibility"  
+      ></History>
   </div>
   <TransIncomeExp v-if="addTransactionModalVis"
   :setPopupVisibility="setPopupVisibility"></TransIncomeExp>
-  <RouterView />
 </template>
 
 <style scoped>
