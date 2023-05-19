@@ -13,7 +13,7 @@ function redirectToOtherPage() {
          <div class="popup_head">
             <h3 id="addTransLoanDepPopup">Зареєструватися</h3>
          </div>
-         <button type="button" class="close" id="closePopup" @click="redirectToOtherPage()">✖</button>
+         <button type="button" class="close" id="closePopup" @click="$emit('closeSignUp')">✖</button>
          <form class="input__group">
             <div class="input__item">
                <p class="form__item__title">ім'я</p>
@@ -40,7 +40,7 @@ function redirectToOtherPage() {
                <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
             </div>
             <div class="popup__footer">
-               <button type="button" class="submit_form">підтвердити</button>
+               <button type="button" class="submit_form" @click="$emit('closeSignUp')">підтвердити</button>
             </div>
          </form>
       </div>

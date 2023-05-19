@@ -26,7 +26,7 @@ function redirectToOtherPage() {
             <a id="forgotPass">забули пароль?</a>
             <div class="popup__footer">
                <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
-               <span>На нашому сайті вперше? <router-link to="/register">Зареєструйтеся</router-link>, це займе кілька хвилин</span>
+               <span>На нашому сайті вперше? <a href="#" @click="$emit('openSignUp')">Зареєструйтеся</a>, це займе кілька хвилин</span>
             </div>
          </form>
       </div>

@@ -4,25 +4,30 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Header from "../src/components/Header.vue"
 import TopNavigation from "../src/components/TopNavigation.vue"
 import LogIn from "../src/components/LogInPopup.vue"
+import SingUp from "../src/components/SignUpPopup.vue"
+
 const route = useRoute();
 
-const isVisible = ref<boolean>(false)
-function showPopup(show:boolean) {
-  console.log("in show popup")
-  isVisible.value = show
-  console.log(isVisible.value)
+const isLogInVisible = ref<boolean>(false)
+const isSignUpVisible = ref<boolean>(false)
+function showLoginPopUp(show: boolean) {
+  isLogInVisible.value = show
+  isSignUpVisible.value = !show
 }
-
+function showSignupPopup(show: boolean) {
+  isSignUpVisible.value = show
+  isLogInVisible.value = !show
+}
 </script>
 
 <template>
   <div class="navigation-container">
-    <Header @openLogin="showPopup(true)" v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)"></Header>
+    <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)"></Header>
     <TopNavigation v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)">
     </TopNavigation>
   </div>
-  <LogIn v-if="isVisible" @closeLogin="showPopup(false)"></LogIn>
-  <!--SingUp></SingUp-->
+  <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"></LogIn>
+  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false"></SingUp>
   <RouterView />
 </template>
 
