@@ -61,7 +61,7 @@ function JSONToExpensesArray(json: any) {
 provide('transactions', transactions);
 
 onMounted(async () => {
-  await getTransactions(1, new Date(2022, 5, 19), new Date(2023, 5, 19));
+  await getTransactions(1, new Date(2000, 5, 19), new Date(2023, 5, 19));
   unsetVars();
   console.log(transactions.value);
 });

@@ -81,30 +81,37 @@ interface ExpensesData {
 function getExpensesData(data: MoneyFlowInfo[]): ExpensesData {
   const expensesMap: Map<string, number> = new Map();
 
-// Calculate expenses by month
-for (const item of data) {
-  const monthKey = item.date.getMonth() + '-' + item.date.getFullYear();
-  const monthExpenses = expensesMap.get(monthKey) || 0;
-  expensesMap.set(monthKey, monthExpenses + item.sum);
-}
+  // Calculate expenses by month
+  for (const item of data) {
+    const monthKey = `${item.date.getMonth()}-${item.date.getFullYear()}`;
+    const monthExpenses = expensesMap.get(monthKey) || 0;
+    expensesMap.set(monthKey, monthExpenses + item.sum);
+  }
 
-// Sort by months
-const sortedMap = new Map([...expensesMap.entries()].sort());
+  // Sort by months and years
+  const sortedMap = new Map([...expensesMap.entries()].sort(([aKey], [bKey]) => {
+    const [aMonth, aYear] = aKey.split('-');
+    const [bMonth, bYear] = bKey.split('-');
+    if (aYear === bYear) {
+      return Number(aMonth) - Number(bMonth);
+    }
+    return Number(aYear) - Number(bYear);
+  }));
 
-// Convert Map to arrays
-const expensesData: ExpensesData = {
-  dates: [],
-  expenses: []
-};
+  // Convert Map to arrays
+  const expensesData: ExpensesData = {
+    dates: [],
+    expenses: [],
+  };
 
-for (const [monthKey, expenses] of sortedMap) {
-  const [month, year] = monthKey.split('-');
-  const formattedDate = `${month}/${year}`;
-  expensesData.dates.push(formattedDate);
-  expensesData.expenses.push(expenses);
-}
+  for (const [monthKey, expenses] of sortedMap) {
+    const [month, year] = monthKey.split('-');
+    const formattedDate = `${month}/${year}`;
+    expensesData.dates.push(formattedDate);
+    expensesData.expenses.push(expenses);
+  }
 
-return expensesData;
+  return expensesData;
 }
 
 
