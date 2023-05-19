@@ -1,4 +1,5 @@
-# fiNaNces 
+# [fiNaNces](https://trandafyl-testing.onrender.com/)
+
 ### Cервіс для слідкування за фінансами
 > It's not about having lots of money. It's knowing how to manage it.
 
