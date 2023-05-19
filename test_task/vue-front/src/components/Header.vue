@@ -58,7 +58,6 @@ h1 {
   gap: 1rem;
   width: fit-content;
 }
-
 .header-link {
   position: relative;
   color: var(--color-text);

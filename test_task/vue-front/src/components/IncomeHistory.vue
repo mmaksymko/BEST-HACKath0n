@@ -1,65 +1,26 @@
 <script setup lang="ts">
+import type { MoneyFlowInfo } from '@/types';
 
-const props = defineProps<{
-    setPopupVisibility: (vis: boolean) => void;
-}>()
+
+const { transactions, setPopupVisibility} = defineProps<{
+    transactions: MoneyFlowInfo[];
+    setPopupVisibility: (i: boolean) => void;
+}>();
 </script>
 <template>
     <div class="history__container">
         <div class="transactions">
             <div class="transactions_history">
-                <div class="transaction">
+                <div class="transaction" v-for="transaction in transactions">
                     <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
+                        <p>{{ transaction.sum }} грн</p>
+                        <p>{{ transaction.date.toLocaleDateString() }}</p>
                     </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>+ 18000 грн</p>
-                        <p>05.09.2022</p>
-                    </div>
-                    <p>зарплата</p>
+                    <p>{{ transaction.description}}</p>
                 </div>
             </div>
         </div>
-        <button @click="setPopupVisibility(true)" class="add_transaction">додати дохід</button>
+        <button @click=setPopupVisibility(true) class="add_transaction">додати</button>
     </div>
 </template>
 
@@ -126,13 +87,14 @@ const props = defineProps<{
     align-content: center;
     text-align: center;
     justify-content: center;
-    background: rgba(51, 103, 59, 0.5);
+    background: rgba(22, 126, 13, 0.366);
     border: none;
     color: white;
     font-size: 1rem;
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
+
 @media screen and (max-width: 1280px) {
     .history__container {
         padding-right: 3rem;
@@ -182,4 +144,5 @@ const props = defineProps<{
         gap: 0;
     }
 }
+
 </style>

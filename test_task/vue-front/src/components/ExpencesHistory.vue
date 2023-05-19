@@ -1,62 +1,26 @@
 <script setup lang="ts">
+import type { MoneyFlowInfo } from '@/types';
 
+
+const { transactions, setPopupVisibility} = defineProps<{
+    transactions: MoneyFlowInfo[];
+    setPopupVisibility: (i: boolean) => void;
+}>();
 </script>
 <template>
     <div class="history__container">
         <div class="transactions">
             <div class="transactions_history">
-                <div class="transaction">
+                <div class="transaction" v-for="transaction in transactions">
                     <div class="gen_info">
-                        <p>- 678 грн</p>
-                        <p>05.09.2022</p>
+                        <p>{{ transaction.sum }} грн</p>
+                        <p>{{ transaction.date.toLocaleDateString() }}</p>
                     </div>
-                    <p>продукти</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 1000 грн</p>
-                        <p>09.09.2022</p>
-                    </div>
-                    <p>одяг</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 520 грн</p>
-                        <p>16.09.2022</p>
-                    </div>
-                    <p>кафе</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 480 грн</p>
-                        <p>16.09.2022</p>
-                    </div>
-                    <p>книги</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 1000 грн</p>
-                        <p>16.09.2022</p>
-                    </div>
-                    <p>борг Оксані</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 1322 грн</p>
-                        <p>24.09.2022</p>
-                    </div>
-                    <p>декор з JYSK</p>
-                </div>
-                <div class="transaction">
-                    <div class="gen_info">
-                        <p>- 1678 грн</p>
-                        <p>29.09.2022</p>
-                    </div>
-                    <p>продукти</p>
+                    <p>{{ transaction.description}}</p>
                 </div>
             </div>
         </div>
-        <button class="add_transaction">додати витрати</button>
+        <button @click=setPopupVisibility(true) class="add_transaction">додати витрати</button>
     </div>
 </template>
 
