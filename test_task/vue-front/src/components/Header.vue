@@ -1,13 +1,31 @@
 <script setup lang="ts">
+import { faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import { defineComponent, onMounted, ref } from 'vue'
+import type { Ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
-
 const route = useRoute();
+
+const quote: Ref<HTMLParagraphElement | null> = ref(null);
+
+onMounted(() => {
+  getQuote();
+});
+async function getQuote() {
+  const category = 'money';
+  const response = await fetch('https://api.api-ninjas.com/v1/quotes?category=' + category, {
+    headers: {
+        'X-Api-Key': 'W8j6lWeHGm/1ItBpVi1ibw==pTLo0NfesBKWIrkg'
+    }
+  })
+  const resp = await response.json();
+  quote.value!.textContent = resp[0].quote;
+}
 </script>
 
 <template>
     <header class="main-header">
         <h1>fiNaNce</h1>
+        <div id="quote" ref="quote"></div>
         <div class="navigation-props">
             <router-link to="/about" class="header-link">Про нас</router-link>
             <router-link to="/tutorial" class="header-link">Послуги</router-link>
@@ -38,6 +56,7 @@ h1 {
 .navigation-props {
     display: flex;
     gap: 1rem;
+    width: fit-content;
 }
 .header-link{
     position: relative;
@@ -67,6 +86,14 @@ h1 {
   .header-link:hover::before {
     transform: scaleX(1);
   }
+  #quote{
+    font-weight: 100;
+    font-size: 11px;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.511);
+  }
 @media screen and (max-width: 600px) {
     .main-header {
         padding-left: 0.75rem;
@@ -85,6 +112,9 @@ h1 {
     }
     .header-link {
         font-size: 18px;
+    }
+    #quote{
+        visibility: hidden;
     }
 }
 
