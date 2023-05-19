@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 
 import Diagram from "../components/Diagram.vue"
@@ -20,9 +20,11 @@ const creditsTransactions = ref<CreditInfo[]>([{
 }
 ]);
 const credits = ref<CreditDeposit[]>([]);
+const index = ref<number>(0);
+provide('index', index);
 
 async function getTransactions(id: number, date_start: Date, date_end: Date) {
-  const response = await fetch(`http://localhost:3000/moneyflow/${id}?`
+  const response = await fetch(`https://trandafyl-test.onrender.com/moneyflow/${id}?`
     + new URLSearchParams({
       "date_start": date_start.toISOString().slice(0, 19).replace('T', ' '),
       "date_end": date_end.toISOString().slice(0, 19).replace('T', ' ')
@@ -32,7 +34,7 @@ async function getTransactions(id: number, date_start: Date, date_end: Date) {
 }
 
 async function getCreditDepositTransaction(cd_id: number) {
-  const response = await fetch(`http://localhost:3000/cd_payment/all/${cd_id}`, {
+  const response = await fetch(`https://trandafyl-test.onrender.com/cd_payment/all/${cd_id}`, {
     method: 'GET'
   })
   const resp = await response.json();
@@ -40,7 +42,7 @@ async function getCreditDepositTransaction(cd_id: number) {
 }
 
 async function putCreditTransaction(sum:number,date:Date) {
-  const response = await fetch('http://localhost:3000/cd_payment', {
+  const response = await fetch('https://trandafyl-test.onrender.com/cd_payment', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -63,9 +65,31 @@ async function putCreditTransaction(sum:number,date:Date) {
     sum: sum
   })
 }
-
+async function addCreditOrDeposit(user_id: number, operation_date:Date, duration: number, 
+total_amount: number, interest_rate: number, descript:string, type:string) {
+    const response = await fetch('https://trandafyl-test.onrender.com/credit_deposit', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "user_id": user_id,
+            "operation_date": operation_date.toISOString().slice(0, 19).replace('T', ' '),
+            "duration": duration,
+            "total_amount": total_amount,
+            "interest_rate": interest_rate,
+            "operation_type": type,
+            "descript": descript
+        })
+    })
+    if(response.ok){
+      await getCreditDepositList(user_id,type);
+    }
+    index.value = credits.value.length-1;
+}
 async function getCreditDepositList(user_id: number, type: string) {
-  const response = await fetch(`http://localhost:3000/credit_deposit/in_period/${user_id}?`
+  const response = await fetch(`https://trandafyl-test.onrender.com/credit_deposit/in_period/${user_id}?`
     + new URLSearchParams({
       "operation_type": type
     }), {
@@ -106,10 +130,6 @@ onMounted(async () => {
   setCurrCreditId(credits.value[0].id);
 });
 
-function getCredits() {
-  return credits.value;
-}
-
 function updateCreditTransactions(id: number) {
   getCreditDepositTransaction(id);
 }
@@ -125,11 +145,12 @@ function setCurrCreditId(id: number) {
 <template>
   <div class="credits__container">
     <Diagram v-if="credits.length > 0" 
-      :getCredits="getCredits" 
       :updateCreditTransactions="updateCreditTransactions"
-      :getCurrCreditId="getCurrCreditId" 
       :setCurrCreditId="setCurrCreditId" 
-      :setNewCreditPopupVis="setNewCreditPopupVis"></Diagram>
+      :setNewCreditPopupVis="setNewCreditPopupVis"
+      :credits="credits"
+      :getCreditDepositList="getCreditDepositList"
+      ></Diagram>
     <History :setPopupVisibility=setPopupVisibility 
     :creditsTransactions="creditsTransactions"></History>
   </div>
@@ -138,7 +159,8 @@ function setCurrCreditId(id: number) {
   :addCreditTransaction="putCreditTransaction">
   </TransDepLoan>
   <LoanDep v-if="addNewDepositCreditModalVis" 
-  :setNewCreditPopupVis="setNewCreditPopupVis"></LoanDep>
+  :setNewCreditPopupVis="setNewCreditPopupVis"
+  :addCreditOrDeposit="addCreditOrDeposit"></LoanDep>
 </template>
 
 <style scoped>

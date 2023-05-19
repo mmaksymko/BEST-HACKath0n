@@ -11,7 +11,7 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
             <div class="transactions_history">
                 <div v-for='trans in creditsTransactions' class="transaction">  
                     <span class="transaction-sum">
-                        + {{ trans.sum }} грн
+                       {{ trans.sum }} грн
                     </span>
                     <span class="transaction-date">
                         {{ trans.date.toLocaleDateString() }}

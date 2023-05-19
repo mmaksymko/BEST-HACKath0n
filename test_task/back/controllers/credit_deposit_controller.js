@@ -26,9 +26,9 @@ const addCreditOrDeposit = (req, res) => {
         if (!new Validator()
             .isID(body.user_id)
             .isDate(body.operation_date)
-            .isNumber(body.duration)
-            .isNumber(body.total_amount)
-            .isNumber(body.interest_rate)
+            .isPositiveNumber(body.duration)
+            .isPositiveNumber(body.total_amount)
+            .isPercent(body.interest_rate)
             .isType(body.operation_type)
             .isString(body.descript).validated
         ) throw 'Bad input data'
@@ -83,9 +83,9 @@ const editCreditOrDeposit = (req, res) => {
         if (!new Validator()
             .isID(req.params.id)
             .isDate(body.operation_date)
-            .isNumber(body.duration)
-            .isNumber(body.total_amount)
-            .isNumber(body.interest_rate)
+            .isPositiveNumber(body.duration)
+            .isPositiveNumber(body.total_amount)
+            .isPercent(body.interest_rate)
             .isString(body.descript).validated
         ) throw 'Bad input data'
 

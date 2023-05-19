@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRoute } from 'vue-router';
 
 const { setPopupVisibility, addCreditTransaction } = defineProps<{
   setPopupVisibility: (vis: boolean) => void;
@@ -9,6 +10,11 @@ const { setPopupVisibility, addCreditTransaction } = defineProps<{
 const today = ref(new Date().toISOString().split('T')[0]);
 const sum = ref(0);
 const date = ref(new Date());
+let isDeposit = false;
+const route = useRoute();
+if (['deposits'].includes(route.name?.toString() as any)) {
+    isDeposit = true;
+}
 
 const handleSubmit = () => {
   addCreditTransaction(sum.value, date.value);
@@ -20,7 +26,7 @@ const handleSubmit = () => {
   <div class="popup">
     <div class="popup__container">
       <div class="popup_head">
-        <h3 id="addTransLoanDepPopup">Оплатити</h3>
+        <h3 id="addTransLoanDepPopup">{{isDeposit?"Зняти кошти":"Оплатити"}}</h3>
       </div>
       <button type="button" @click="setPopupVisibility(false)" class="close" id="closePopup">✖</button>
       <form class="input__group" @submit.prevent="handleSubmit">

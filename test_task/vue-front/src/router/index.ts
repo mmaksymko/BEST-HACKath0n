@@ -4,6 +4,8 @@ import HomeView from '@/views/HomeView.vue'
 import DepositViewVue from '@/views/DepositView.vue'
 import ExpencesViewVue from '@/views/ExpencesView.vue'
 import IncomeViewVue from '@/views/IncomeView.vue'
+import LogInPopupVue from '@/components/LogInPopup.vue'
+import SignUpPopupVue from '@/components/SignUpPopup.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +19,16 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LogInPopupVue
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: SignUpPopupVue
     },
     {
       path: '/deposits',

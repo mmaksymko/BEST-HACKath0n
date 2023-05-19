@@ -17,5 +17,5 @@ export type MoneyFlowInfo = {
     id: number;
     date: Date;
     sum: number;
-    description: number;
+    description: string;
 }

@@ -3,8 +3,6 @@ import { ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Header from "../src/components/Header.vue"
 import TopNavigation from "../src/components/TopNavigation.vue"
-import LogIn from "./components/LogInPopup.vue"
-import SingUp from "./components/SignUpPopup.vue"
 const route = useRoute();
 
 const isVisible = ref<boolean>(false)

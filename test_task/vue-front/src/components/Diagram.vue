@@ -1,89 +1,121 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { inject, onMounted, ref, type Ref } from 'vue'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Doughnut } from 'vue-chartjs'
-import * as chartConfig from '../doughnutChartConfigCr.js'
 import type { CreditDeposit } from '@/types';
+import { useRoute } from 'vue-router';
 
-const { setNewCreditPopupVis, getCredits,updateCreditTransactions,getCurrCreditId,setCurrCreditId } = defineProps<{
-    getCredits: () => CreditDeposit[];
-    updateCreditTransactions: (id:number) => void;
-    setCurrCreditId: (i:number) => void;
-    getCurrCreditId: () => number;
+const { credits, setNewCreditPopupVis, updateCreditTransactions, setCurrCreditId } = defineProps<{
+    updateCreditTransactions: (id: number) => void;
+    setCurrCreditId: (i: number) => void;
     setNewCreditPopupVis: (vis: boolean) => void;
+    credits: CreditDeposit[];
 }>();
 
 ChartJS.register(ArcElement, Tooltip, Legend)
-let currIndex = 0;
-const credits = getCredits();
-console.log(credits);
+let currIndex = inject<Ref<number>>('index');
+let isDeposit = false;
+const route = useRoute();
+if (['deposits'].includes(route.name?.toString() as any)) {
+    isDeposit = true;
+}
+
 const newDate = ref(new Date);
 const interest_rate = ref(0);
 const descript = ref("");
 
-let data = {
-    labels: ['виплачено', 'залишилося'],
-    datasets: [
-        {
-            backgroundColor: [
-                'rgba(204, 163, 59, 0.5)',
-                'rgba(204, 163, 59, 0.0)'],
-            data: [credits[currIndex].paid, credits[currIndex].total_amount - credits[currIndex].paid],
-            borderColor: '#CCA43B',
-            borderWidth: 1,
+let data: {
+    labels: string[]; datasets: { backgroundColor: string[]; data: number[]; borderColor: string; borderWidth: number; }[] |
+        { backgroundColor: string[]; data: number[]; borderColor: string; borderWidth: number; }[] |
+        { backgroundColor: string[]; data: number[]; borderColor: string; borderWidth: number; }[];
+};
+setData();
+
+function setData() {
+    if (!currIndex) {
+        return;
+    }
+    if (isDeposit) {
+        data = {
+            labels: ['залишок','зняття коштів'],
+            datasets: [
+                {
+                    backgroundColor: [
+                        'rgba(0, 105, 255, 0.5)',
+                        'rgba(0, 105, 255, 0.0)'],
+                    data: [credits[currIndex.value].total_amount-credits[currIndex.value].paid, credits[currIndex.value].paid],
+                    borderColor: '#242F40',
+                    borderWidth: 1,
+                }
+            ]
         }
-    ]
+    }
+    else {
+        data = {
+            labels: ['виплачено', 'залишилося'],
+            datasets: [
+                {
+                    backgroundColor: [
+                        'rgba(204, 163, 59, 0.5)',
+                        'rgba(204, 163, 59, 0.0)'],
+                    data: [credits[currIndex.value].paid, credits[currIndex.value].total_amount - credits[currIndex.value].paid],
+                    borderColor: '#CCA43B',
+                    borderWidth: 1,
+                }
+            ]
+        }
+    }
 }
+
+
 const options = {
     responsive: true,
     maintainAspectRatio: false
 }
 
 function update() {
-    const originalDate = new Date(credits[currIndex].operation_date); // Assuming you have the original date
-    newDate.value = new Date(originalDate); // Create a new Date object with the original date
-    newDate.value.setMonth(newDate.value.getMonth() + credits[currIndex].duration); // Add 5 months to the new date
-    interest_rate.value = credits[currIndex].interest_rate;
-    descript.value = credits[currIndex].description;
-    data = {
-        labels: ['виплачено', 'залишилося'],
-        datasets: [
-            {
-                backgroundColor: [
-                    'rgba(204, 163, 59, 0.5)',
-                    'rgba(204, 163, 59, 0.0)'],
-                data: [credits[currIndex].paid, credits[currIndex].total_amount - credits[currIndex].paid],
-                borderColor: '#CCA43B',
-                borderWidth: 1,
-            }
-        ]
+    if (!currIndex) {
+        return;
     }
-    updateCreditTransactions(credits[currIndex].id);
+    const originalDate = new Date(credits[currIndex.value].operation_date); // Assuming you have the original date
+    newDate.value = new Date(originalDate); // Create a new Date object with the original date
+    newDate.value.setMonth(newDate.value.getMonth() + credits[currIndex.value].duration); // Add 5 months to the new date
+    interest_rate.value = credits[currIndex.value].interest_rate;
+    descript.value = credits[currIndex.value].description;
+    setData();
+    updateCreditTransactions(credits[currIndex.value].id);
 }
 
 function nextCredit() {
-    if (currIndex < credits.length - 1) {
-        ++currIndex;
+    if (!currIndex) {
+        return;
     }
-    else{
-        currIndex = 0;
+    if (currIndex.value < credits.length - 1) {
+        ++currIndex.value;
     }
-    setCurrCreditId(credits[currIndex].id);
+    else {
+        currIndex.value = 0;
+    }
+    setCurrCreditId(credits[currIndex.value].id);
     update();
 }
-function prevCredit(){
-    if (currIndex > 0) {
-        --currIndex;
+function prevCredit() {
+    if (!currIndex) {
+        return;
     }
-    else{
-        currIndex = credits.length - 1;
+    if (currIndex.value > 0) {
+        --currIndex.value;
     }
-    setCurrCreditId(credits[currIndex].id);
+    else {
+        currIndex.value = credits.length - 1;
+    }
+    setCurrCreditId(credits[currIndex.value].id);
     update();
 }
 
 onMounted(() => {
     update();
+
 })
 </script>
 
@@ -96,7 +128,7 @@ onMounted(() => {
             <div class="diagram_info">
                 <p class="period">Активний до {{ newDate.toLocaleDateString() }}</p>
                 <p class="add_info">ставка: {{ interest_rate }}% щомісяця</p>
-                <p class="add_info">{{ credits[currIndex].description }}</p>
+                <p class="add_info">{{ credits[currIndex as number].description }}</p>
             </div>
         </div>
         <div class="diagram">
@@ -106,7 +138,7 @@ onMounted(() => {
             </div>
             <font-awesome-icon @click="nextCredit" :icon="['fas', 'chevron-right']" style="color: #ffffff;" />
         </div>
-        <div class="diagram__footer"><button @click="setNewCreditPopupVis(true)" class="add_credit">додати</button></div>
+        <div class="diagram__footer" ><button @click="setNewCreditPopupVis(true)" class="add_credit">додати</button></div>
     </div>
 </template>
 
@@ -116,7 +148,7 @@ onMounted(() => {
     background: rgba(0, 0, 0, 0.5);
     border-radius: 1.25rem;
     height: 30rem;
-    flex-grow: 2;
+    width: 100%;
     padding: 1rem;
 }
 
@@ -146,7 +178,6 @@ onMounted(() => {
     width: auto;
     top: -4rem;
     justify-content: space-between;
-    /*flex-direction: row;*/
     padding: 0 1rem;
     align-items: center;
 }
@@ -155,7 +186,7 @@ canvas {
     height: 24rem;
 }
 
-.doghnut__diagram {
+.doughnut__diagram {
     position: relative;
 }
 
@@ -167,7 +198,7 @@ canvas {
 }
 
 .add_credit {
-    background: rgba(204, 163, 59, 0.5);
+    background: rgba(36, 47, 64, 0.5);
     border: none;
     color: white;
     font-size: 1rem;
@@ -183,3 +214,4 @@ canvas {
     }
 }
 </style>
+  

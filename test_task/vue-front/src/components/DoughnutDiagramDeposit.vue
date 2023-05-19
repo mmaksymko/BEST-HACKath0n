@@ -63,7 +63,6 @@ onMounted(() => {
   
 <style scoped>
 .diagram__container {
-  margin-top: var(--header-height);
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 1.25rem;

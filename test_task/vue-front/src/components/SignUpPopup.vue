@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
+function redirectToOtherPage() {
+    router.push('/revenues');
+}
 </script>
 
 <template>
@@ -8,7 +13,7 @@
          <div class="popup_head">
             <h3 id="addTransLoanDepPopup">Зареєструватися</h3>
          </div>
-         <button type="button" class="close" id="closePopup">✖</button>
+         <button type="button" class="close" id="closePopup" @click="redirectToOtherPage()">✖</button>
          <form class="input__group">
             <div class="input__item">
                <p class="form__item__title">ім'я</p>
