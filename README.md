@@ -9,4 +9,4 @@
 # alskalskas
 ### ТзОВ "Трандáфиль"
 
-![alt text](https://i.pinimg.com/474x/90/16/e2/9016e223624cc58d77dc5e157e73341c.jpg)
+![My Remote Image](https://i.pinimg.com/474x/90/16/e2/9016e223624cc58d77dc5e157e73341c.jpg)
