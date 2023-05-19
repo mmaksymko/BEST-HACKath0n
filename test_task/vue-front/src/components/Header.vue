@@ -90,9 +90,8 @@ h1 {
 
 #quote {
   font-weight: 100;
+  width: 50%;
   font-size: 11px;
-  padding-left: 10%;
-  padding-right: 10%;
   text-align: center;
   color: rgba(255, 255, 255, 0.511);
 }
