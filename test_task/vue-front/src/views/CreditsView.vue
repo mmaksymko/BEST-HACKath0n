@@ -167,20 +167,32 @@ function setCurrCreditId(id: number) {
 
 <style scoped>
 .credits__container {
-  display: flex;
+  display: grid;
   width: 100%;
   align-items: center;
   gap: 5rem;
   margin-top: var(--header-height);
+  grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
-
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 1280px) {
+  .credits__container {
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+}
+@media screen and (max-width: 920px) {
   .credits__container {
     display: flex;
     flex-direction: column;
+    margin-bottom: 6rem;
+  }
+}
+@media screen and (max-width: 414px) {
+  .credits__container {
     padding: 0 1rem;
     gap: 2rem;
+    margin-bottom: 3rem;
   }
 }
 </style>

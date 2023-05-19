@@ -210,16 +210,51 @@ canvas {
     padding: 0.5rem 2rem;
     border-radius: 0.75rem;
 }
-
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1320px) {
+    .diagram {
+        top: -3rem;
+        height: 22rem;
+    }
+    canvas {
+        height: 22rem;
+        width: 22rem;
+    }
+    .diagram__footer {
+        top: -3rem;
+    }
+}
+@media screen and (max-width: 920px) {
+    .diagram__container {
+        margin-top: 2rem;
+        height: 30rem;
+    }
+}
+@media screen and (max-width: 740px) {
+    .diagram__container {
+        height: 28rem;
+    }
+    .diagram {
+        top: -2rem;
+        padding: 0;
+    }
+    canvas {
+        height: 18rem;
+    }
+    .add_info {
+        font-size: 1rem;
+    }
+    .period {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+    }
 }
 @media screen and (max-width: 414px) {
     h1 {
         font-size: 1.2rem;
     }
     .period {
-    font-size: 1rem;
-    margin-bottom: 1rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
     }
     .diagram__container {
         height: 25rem;
