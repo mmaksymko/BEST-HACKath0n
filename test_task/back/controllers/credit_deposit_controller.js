@@ -4,8 +4,8 @@ const Validator = require('../middleware/validator')
 const getAllCreditsOrDeposits = (req, res) => {
     try {
         database.connection.query(`
-        SELECT CD.id, CD.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript FROM (
-            SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript
+        SELECT CD.id, CD.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript,operation_type FROM (
+            SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript,operation_type
                 FROM credit_deposit
             ) AS CD
             INNER JOIN cd_payment ON cd_payment.cd_id!=CD.id
@@ -26,9 +26,9 @@ const addCreditOrDeposit = (req, res) => {
         if (!new Validator()
             .isID(body.user_id)
             .isDate(body.operation_date)
-            .isNumber(body.duration)
-            .isNumber(body.total_amount)
-            .isNumber(body.interest_rate)
+            .isPositiveNumber(body.duration)
+            .isPositiveNumber(body.total_amount)
+            .isPercent(body.interest_rate)
             .isType(body.operation_type)
             .isString(body.descript).validated
         ) throw 'Bad input data'
@@ -83,9 +83,9 @@ const editCreditOrDeposit = (req, res) => {
         if (!new Validator()
             .isID(req.params.id)
             .isDate(body.operation_date)
-            .isNumber(body.duration)
-            .isNumber(body.total_amount)
-            .isNumber(body.interest_rate)
+            .isPositiveNumber(body.duration)
+            .isPositiveNumber(body.total_amount)
+            .isPercent(body.interest_rate)
             .isString(body.descript).validated
         ) throw 'Bad input data'
 
@@ -140,8 +140,8 @@ const getUsersCreditsOrDeposits = (req, res) => {
         ) throw 'Bad input data'
 
         database.connection.query(`
-        SELECT CD.id, CD.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript FROM (
-            SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript
+        SELECT CD.id, CD.operation_date, months, duration, total_amount, abs(CAST(((sum(amount)-(SELECT sum(amount) from cd_payment))) AS DECIMAL(13,2))) as paid, interest_rate, descript, operation_type FROM (
+            SELECT id, operation_date, TIMESTAMPDIFF(MONTH, operation_date, CURDATE()) as months, duration, total_amount, interest_rate, descript, operation_type
                 FROM credit_deposit
             WHERE user_id=${req.params.user_id}  AND
                 operation_type='${req.query.operation_type}'

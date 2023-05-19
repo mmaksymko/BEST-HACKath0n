@@ -14,7 +14,7 @@ const addCreditOrDepositPayment = (req, res) => {
         SELECT operation_type FROM credit_deposit WHERE id = ${body.cd_id}`,
             (err, rows, fields) => {
                 if (!err && rows.length === 1) {
-                    body.amount = rows.operation_type == 'credit' ? Math.abs(body.amount) : Math.abs(body.amount) * -1
+                    body.amount = Math.abs(body.amount) * ((rows[0].operation_type === 'credit') ? 1 : -1)
 
                     database.connection.query(`
                     INSERT INTO 
