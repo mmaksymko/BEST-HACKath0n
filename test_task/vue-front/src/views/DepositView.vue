@@ -46,6 +46,7 @@ async function putCreditTransaction(sum:number,date:Date) {
   if(!response.ok){
     return;
   }
+  window.location.reload();
   setPopupVisibility(false);
   creditsTransactions.value.push({
     id: creditsTransactions.value.length,
@@ -72,6 +73,7 @@ total_amount: number, interest_rate: number, descript:string, type:string) {
         })
     })
     if(response.ok){
+      window.location.reload();
       await getCreditDepositList(user_id,type);
     }
     index.value = credits.value.length-1;
