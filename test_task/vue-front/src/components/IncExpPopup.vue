@@ -1,7 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{
+import { ref } from 'vue';
+
+const {addTransaction} = defineProps<{
     setPopupVisibility: (vis: boolean) => void;
+    addTransaction: (user_id: number, operation_date:Date, summa:number, descript:string) => void;
 }>()
+const sum = ref(0);
+const descript = ref("");
+const data = ref(new Date());
+
+const handleSubmit = () => {
+    addTransaction(1,data.value,sum.value,descript.value);
+};
 </script>
 
 <template>
@@ -11,21 +21,21 @@ const props = defineProps<{
             <h3 id="addTransLoanDepPopup">Додати витрати</h3>
          </div>
          <button type="button" class="close" @click="setPopupVisibility(false)" id="closePopup">✖</button>
-         <form class="input__group">
+         <form class="input__group" @submit.prevent="handleSubmit">
             <div class="input__item">
                <p class="form__item__title">сума</p>
-               <input required type="text" pattern="^[0-9]+$">
+               <input required type="text" v-model=sum pattern="^[0-9]+$">
             </div>
             <div class="input__item">
                <p class="form__item__title">дата</p>
-               <input required type="date" id="date">
+               <input required type="date" v-model="data" id="date">
             </div>
             <div class="input__item">
                <p class="form__item__title">опис</p>
-               <input required type="text" pattern="^.{1,40}$">
+               <input required type="text" v-model="descript" pattern="^.{1,40}$">
             </div>
             <div class="popup__footer">
-               <button type="button" class="submit_form">підтвердити</button>
+               <button type="submit" class="submit_form">підтвердити</button>
             </div>
          </form>
       </div>
@@ -45,6 +55,9 @@ const props = defineProps<{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+input{
+    color: var(--text-color);
 }
 .popup__container {
     height: auto;

@@ -62,6 +62,7 @@ h1 {
     position: relative;
     color: var(--color-text);
     font-size: 20px;
+    white-space: nowrap;
     text-decoration: none;
   }
   

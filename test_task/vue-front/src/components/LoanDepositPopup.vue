@@ -17,7 +17,7 @@ if (['deposits'].includes(route.name?.toString() as any)) {
 }
 
 const handleSubmit = () => {
-  addCreditTransaction(sum.value, date.value);
+  addCreditTransaction(sum.value, date.value)
 };
 
 </script>

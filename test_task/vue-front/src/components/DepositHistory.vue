@@ -5,15 +5,6 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     setPopupVisibility: (vis:boolean) => void;
     creditsTransactions: CreditInfo[];
 }>();
-  // const response = await fetch(`http://localhost:3000/moneyflow/expenses/${id}?`
-  //       + new URLSearchParams({
-  //           "date_start": date_start.toISOString().slice(0, 19).replace('T', ' '),
-  //           "date_end": date_end.toISOString().slice(0, 19).replace('T', ' ')
-  //       }), {
-  //       method: 'GET'
-  //   })
-
-  // console.log(await response.json());
 </script>
 <template>
     <div class="history__container">

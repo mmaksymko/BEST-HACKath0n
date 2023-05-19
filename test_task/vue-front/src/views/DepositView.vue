@@ -46,6 +46,7 @@ async function putCreditTransaction(sum:number,date:Date) {
   if(!response.ok){
     return;
   }
+  window.location.reload();
   setPopupVisibility(false);
   creditsTransactions.value.push({
     id: creditsTransactions.value.length,
@@ -72,6 +73,7 @@ total_amount: number, interest_rate: number, descript:string, type:string) {
         })
     })
     if(response.ok){
+      window.location.reload();
       await getCreditDepositList(user_id,type);
     }
     index.value = credits.value.length-1;
@@ -160,7 +162,7 @@ function setCurrCreditId(id: number) {
   margin-top: var(--header-height);
   padding: 0 5rem;
 }
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 450px) {
   .credits__container {
     display: flex;
     flex-direction: column;

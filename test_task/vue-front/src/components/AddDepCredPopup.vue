@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+
 
 const { setNewCreditPopupVis,addCreditOrDeposit } = defineProps<{
   setNewCreditPopupVis: (vis: boolean) => void;
@@ -30,6 +32,12 @@ function getMonthDifference(startDate:Date, endDate:Date) {
   return (endYear - startYear) * 12 + (endMonth - startMonth);
 }
 
+let isDeposit = false;
+const route = useRoute();
+if (['deposits'].includes(route.name?.toString() as any)) {
+    isDeposit = true;
+}
+
 const submitForm = () => {
   const operation_date = new Date(); 
   addCreditOrDeposit(
@@ -39,9 +47,8 @@ const submitForm = () => {
     parseFloat(totalAmount),
     parseFloat(interestRate),
     description,
-    'credit' 
+    isDeposit? 'credit': 'deposit' 
   );
-  setNewCreditPopupVis(false);
 };
 
 </script>
@@ -50,7 +57,7 @@ const submitForm = () => {
   <div class="popup">
     <div class="popup__container">
       <div class="popup_head">
-        <h3 id="addTransLoanDepPopup">Додати кредит</h3>
+        <h3 id="addTransLoanDepPopup">Додати {{isDeposit?"депозит":"кредит"}}</h3>
       </div>
       <button type="button" class="close" @click="setNewCreditPopupVis(false)" id="closePopup">✖</button>
       <form class="input__group">
