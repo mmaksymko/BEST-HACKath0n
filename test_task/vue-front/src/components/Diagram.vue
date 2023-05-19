@@ -231,10 +231,21 @@ canvas {
 }
 @media screen and (max-width: 740px) {
     .diagram__container {
-        height: 26rem;
+        height: 28rem;
+    }
+    .diagram {
+        top: -2rem;
+        padding: 0;
     }
     canvas {
-        height: 20rem;
+        height: 18rem;
+    }
+    .add_info {
+        font-size: 1rem;
+    }
+    .period {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
     }
 }
 @media screen and (max-width: 414px) {

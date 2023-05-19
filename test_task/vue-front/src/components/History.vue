@@ -112,7 +112,7 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
 }
 @media screen and (max-width: 920px) {
     .history__container {
-        padding-right: 3rem;
+        padding-right: 0rem;
         margin-top: 2.75rem;
     }
     .add_transaction {
@@ -132,7 +132,7 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
 }
 @media screen and (max-width: 460px) {
     .transaction {
-        flex-direction: column;
+        flex-direction: row;
         gap: 0;
     }
 }

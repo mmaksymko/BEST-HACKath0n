@@ -153,11 +153,12 @@ function setCurrCreditId(id: number) {
 
 <style scoped>
 .credits__container {
-  display: flex;
+  display: grid;
   width: 100%;
   align-items: center;
   gap: 5rem;
   margin-top: var(--header-height);
+  grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
 @media screen and (max-width: 1280px) {
