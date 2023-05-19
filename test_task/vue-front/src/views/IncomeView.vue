@@ -35,4 +35,12 @@ onMounted(async () => {
   grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
+@media screen and (max-width: 414px) {
+  .income__container {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+}
 </style>

@@ -28,7 +28,6 @@
 
 body {
   min-height: 100vh;
-  display: flex;
   color: var(--color-text);
   background-color: var(--color-background);
   background: url(./back.svg);

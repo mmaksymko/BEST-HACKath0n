@@ -29,7 +29,7 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     flex-grow: 1;
     flex-direction: column;
     justify-content: center;
-    height: 26.825rem;
+    height: 30rem;
 }
 
 .transactions {
@@ -103,13 +103,6 @@ const { setPopupVisibility, creditsTransactions} = defineProps<{
     font-size: 1rem;
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
-}
-
-.topnav-row {
-    display: flex;
-    gap: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
 }
 
 </style>

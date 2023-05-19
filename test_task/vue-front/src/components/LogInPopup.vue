@@ -7,7 +7,7 @@
          <div class="popup_head">
             <h3 id="addTransLoanDepPopup">Увійти</h3>
          </div>
-         <button type="button" class="close" id="closePopup">✖</button>
+         <button type="button" class="close" id="closePopup" @click="$emit('closeLogin')">✖</button>
          <form class="input__group">
             <div class="input__item">
                <p class="form__item__title">пошта</p>
@@ -19,7 +19,7 @@
             </div>
             <a id="forgotPass">забули пароль?</a>
             <div class="popup__footer">
-               <button type="button" class="submit_form">підтвердити</button>
+               <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
             </div>
          </form>
       </div>
@@ -122,5 +122,18 @@
     height: 2.75rem;
     width: 9rem;
     margin: 1rem 0 2rem;
+}
+@media screen and (max-width: 414px) {
+    .popup__container {
+        width: 21rem;
+    }
+    .input__item {
+        width: 15rem;
+        margin-bottom: 0.25rem;
+    }
+    .input__item input {
+        width: 15rem;
+        height: 1.75rem;
+    }
 }
 </style>

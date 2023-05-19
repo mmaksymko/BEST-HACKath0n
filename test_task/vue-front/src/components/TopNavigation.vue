@@ -4,10 +4,14 @@
 
 <template>
     <div class="topnav">
+        <div class="topnav_row">
             <router-link to="/revenues" class="plain-link active">Доходи</router-link>
             <router-link to="/expenses" class="plain-link">Витрати</router-link>
+        </div>
+        <div class="topnav_row">
             <router-link to="/deposits" class="plain-link">Депозити</router-link>
             <router-link to="/credits" class="plain-link">Кредити</router-link>
+        </div>
     </div>
 </template>
 
@@ -60,12 +64,22 @@
 
 }
 
-
-@media screen and (max-width: 600px) {
-    .topnav-row {
-        display: flex;
+@media screen and (max-width: 414px) {
+    .topnav {
         flex-direction: column;
-        gap: 1rem;
+        top: 3.25rem;
+        height: 2rem;
+        gap: 0.2rem;
+        padding: 0 1.5rem;
+    }
+    .topnav_row {
+        display: flex;
+        display: row;
+        gap: 2rem;
+        height: 1rem;
+    }
+    .plain-link {
+        font-size: 16px;
     }
 }
 </style>

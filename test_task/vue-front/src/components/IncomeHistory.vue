@@ -71,7 +71,7 @@ const props = defineProps<{
     justify-content: center;
     width: 100%;
     padding-right: 5rem;
-    height: 26.825rem;
+    height: 30rem;
 }
 .transactions {
     padding: 1.5rem 1rem;
@@ -133,18 +133,43 @@ const props = defineProps<{
     padding: 1rem 6rem;
     border-radius: 0 0 1.25rem 1.25rem;
 }
-.topnav-row {
-    display: flex;
-    gap: 2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-}
 
 @media screen and (max-width: 600px) {
-    .topnav-row {
+
+}
+@media screen and (max-width: 414px) {
+    .history__container {
+        width: 21rem;
+        font-size: 16px;
+        margin-top: 8.5rem;
+        padding: 0;
+        height: 21rem;
+        margin-bottom: 2rem;
+    }
+    .transaction {
+        margin-bottom: 0.5rem;
+    }
+    .transactions {
+        padding: 1.5rem 1rem;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 1.25rem 1.25rem 0 0;
+        height: 100%;
+        
+    }
+    .gen_info {
         display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        gap: 0.5rem;
+    }
+    .add_transaction {
+        align-content: center;
+        text-align: center;
+        justify-content: center;
+        background: rgba(51, 103, 59, 0.5);
+        border: none;
+        color: white;
+        font-size: 1rem;
+        padding: 1rem 6rem;
+        border-radius: 0 0 1.25rem 1.25rem;
     }
 }
 </style>

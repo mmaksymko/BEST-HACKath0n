@@ -41,8 +41,7 @@ export default {
             <div><h1>Історія</h1></div>
         </div>
         <div class="diagram">
-            <div class="line__diagram"><Line :data="data" :options="options" /></div>
-            
+            <div class="line__diagram"><Line :data="data" :options="options" /></div>       
         </div>
     </div>
 </template>
@@ -77,10 +76,27 @@ canvas {
     margin-top: 1rem;
 }
 @media screen and (max-width: 600px) {
-    .topnav-row {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+
+}
+@media screen and (max-width: 414px) {
+    h1 {
+        font-size: 1.2rem;
+    }
+    .diagram__container {
+        height: 19rem;
+        width: 21rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+    }
+    .diagram {
+        width: 18rem;
+        padding: 0;
+        height: 16rem;
+        margin-top: 0.25rem;
+    }
+    canvas {
+        height: 16rem;
+        width: 19rem;
     }
 }
 </style>

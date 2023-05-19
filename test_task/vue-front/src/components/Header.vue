@@ -11,7 +11,7 @@ const route = useRoute();
         <div class="navigation-props">
             <router-link to="/about" class="header-link">Про нас</router-link>
             <router-link to="/tutorial" class="header-link">Послуги</router-link>
-            <router-link to="/login" class="header-link">Увійти</router-link>
+            <a href="#" class="header-link" @click="$emit('openLogin')">Увійти</a>
         </div>
     </header>
 </template>
@@ -31,23 +31,13 @@ const route = useRoute();
 
 h1 {
     font-size: 24px;
+    font-weight: bold;
     word-break: keep-all;
 }
 
 .navigation-props {
     display: flex;
     gap: 1rem;
-}
-
-@media screen and (max-width: 600px) {
-    .main-header {
-        padding-left: 0.75rem;
-        padding-right: 0.5rem;
-    }
-    .navigation-props{
-        gap: 0.75rem;
-    }
-
 }
 .header-link{
     position: relative;
@@ -77,6 +67,25 @@ h1 {
   .header-link:hover::before {
     transform: scaleX(1);
   }
-  
+@media screen and (max-width: 600px) {
+    .main-header {
+        padding-left: 0.75rem;
+        padding-right: 0.5rem;
+    }
+    .navigation-props{
+        gap: 0.75rem;
+    }
+
+}
+
+@media screen and (max-width: 414px) {
+    .main-header {
+        padding: 0 0.5rem;
+        height: 3.25rem;
+    }
+    .header-link {
+        font-size: 18px;
+    }
+}
 
 </style>
