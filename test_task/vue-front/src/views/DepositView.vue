@@ -65,15 +65,17 @@ async function addCreditOrDeposit(user_id: number, operation_date: Date, duratio
     },
     body: JSON.stringify({
       "user_id": user_id,
-      "operation_date": operation_date.toISOString().slice(0, 19).replace('T', ' '),
+      "operation_date": operation_date.toISOString().slice(0, 10).replace('T', ' '),
       "duration": duration,
       "total_amount": total_amount,
       "interest_rate": interest_rate,
-      "operation_type": type,
+      "operation_type": 'deposit',
       "descript": descript
     })
   })
-  if (response.ok) {
+  if (response.status === 400) {
+    console.log('enter correct info please')
+  } else if (response.ok) {
     window.location.reload();
     await getCreditDepositList(user_id, type);
   }

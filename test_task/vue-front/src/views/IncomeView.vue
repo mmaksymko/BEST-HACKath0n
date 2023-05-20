@@ -36,7 +36,9 @@ async function addTransaction(user_id: number, operation_date: Date, summa: numb
       "descript": descript
     })
   })
-  if (response.ok) {
+  if (response.status === 400) {
+    console.log('enter correct info please')
+  } else if (response.ok) {
     window.location.reload();
     transactions.value.push({
       id: transactions.value[transactions.value.length - 1].id + 1,

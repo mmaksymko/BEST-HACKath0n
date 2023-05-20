@@ -83,7 +83,7 @@ function getExpensesData(data: MoneyFlowInfo[]): ExpensesData {
 
   // Calculate expenses by month
   for (const item of data) {
-    const monthKey = `${item.date.getMonth()}-${item.date.getFullYear()}`;
+    const monthKey = `${item.date.getMonth() + 1}-${item.date.getFullYear()}`;
     const monthExpenses = expensesMap.get(monthKey) || 0;
     expensesMap.set(monthKey, monthExpenses + item.sum);
   }
