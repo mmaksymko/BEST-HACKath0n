@@ -157,7 +157,6 @@ updateDiagramInfo();
 }
 
 .diagram__container {
-  width: 100%;
   background: rgba(0, 0, 0, 0.5);
   border-radius: 1.25rem;
   height: 30rem;
@@ -204,15 +203,21 @@ canvas {
 
 @media screen and (max-width: 920px) {
   .diagram__container {
-    margin-top: 9rem;
+    width: 90vw;
+    margin-top: 1rem;
     height: 32rem;
   }
 }
 
 @media screen and (max-width: 740px) {
+
+  .doghnut__diagram {
+    height: 25rem;
+  }
+
   .diagram__container {
-    margin-top: 9rem;
-    height: 26rem;
+    margin-top: 1rem;
+    height: 30rem;
   }
 
   canvas {
@@ -220,16 +225,19 @@ canvas {
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 550px) {
+  .doghnut__diagram {
+    height: 20rem;
+    width: 85vw
+  }
+
   h1 {
     font-size: 1.2rem;
   }
 
   .diagram__container {
-    height: 20rem;
-    width: 21rem;
-    margin-bottom: 2rem;
-    margin-top: 7.5rem;
+    height: 25rem;
+    width: 90vw;
   }
 
   .diagram {
@@ -243,4 +251,5 @@ canvas {
     height: 16rem;
     width: 19rem;
   }
-}</style>
+}
+</style>

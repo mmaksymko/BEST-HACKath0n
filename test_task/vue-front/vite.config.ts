@@ -5,6 +5,8 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // base: '/BEST-HACKath0n/',
+
   plugins: [vue()],
   resolve: {
     alias: {

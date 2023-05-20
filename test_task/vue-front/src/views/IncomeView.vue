@@ -63,7 +63,6 @@ provide('profit-transactions', transactions);
 onMounted(async () => {
   await getTransactions(1, new Date(2000, 5, 19), new Date(2023, 5, 19));
   unsetVars();
-  console.log(transactions.value);
 });
 
 </script>
@@ -97,14 +96,17 @@ onMounted(async () => {
 @media screen and (max-width: 920px) {
   .expences__container {
     display: flex;
+    margin-left: 5vw;
+    padding: 0;
+    width: 90vw;
     flex-direction: column;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
   }
 }
 
-@media screen and (max-width: 414px) {
+@media screen and (max-width: 500px) {
   .expences__container {
-    padding: 0 1rem;
+    width: 90vw;
     gap: 2rem;
     margin-bottom: 3rem;
   }

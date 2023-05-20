@@ -8,8 +8,9 @@ const route = useRoute();
 const quote: Ref<HTMLParagraphElement | null> = ref(null);
 
 onMounted(() => {
-  getQuote();
+  getQuote()
 });
+
 async function getQuote() {
   const category = 'money';
   const response = await fetch('https://api.api-ninjas.com/v1/quotes?category=' + category, {
@@ -29,7 +30,8 @@ async function getQuote() {
     <div class="navigation-props">
       <router-link to="/about" class="header-link">Про нас</router-link>
       <router-link to="/tutorial" class="header-link">Послуги</router-link>
-      <a href="#" class="header-link" @click="$emit('openLogin')">Увійти</a>
+      <!-- <a href="#" class="header-link" @click="$emit('openLogin')">Увійти</a> -->
+      <a href="#" class="header-link">Увійти</a>
     </div>
   </header>
 </template>
@@ -42,7 +44,7 @@ async function getQuote() {
   align-items: center;
   padding: 0.25rem;
   padding-left: 2rem;
-  padding-right: 2rem;
+  padding-right: 1rem;
   padding-top: 0.5rem;
   height: var(--header-part-height);
 }
@@ -58,6 +60,7 @@ h1 {
   gap: 1rem;
   width: fit-content;
 }
+
 .header-link {
   position: relative;
   color: var(--color-text);

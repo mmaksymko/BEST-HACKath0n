@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const {addTransaction} = defineProps<{
+const { addTransaction } = defineProps<{
     setPopupVisibility: (vis: boolean) => void;
-    addTransaction: (user_id: number, operation_date:Date, summa:number, descript:string) => void;
+    addTransaction: (user_id: number, operation_date: Date, summa: number, descript: string) => void;
 }>()
 
 const sum = ref(0);
@@ -11,44 +11,44 @@ const descript = ref("");
 const data = ref(new Date());
 
 const handleSubmit = () => {
-    addTransaction(1,data.value,sum.value,descript.value);
+    addTransaction(1, data.value, sum.value, descript.value);
 };
 
 </script>
 
 <template>
     <div class="popup">
-      <div class="popup__container">
-         <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Додати дохід</h3>
-         </div>
-         <button type="button" class="close" @click="setPopupVisibility(false)" id="closePopup">✖</button>
-         <form class="input__group" @submit.prevent="handleSubmit">
-            <div class="input__item">
-               <p class="form__item__title">сума</p>
-               <input required type="text" v-model=sum pattern="^[0-9]+$">
+        <div class="popup__container">
+            <div class="popup_head">
+                <h3 id="addTransLoanDepPopup">Додати дохід</h3>
             </div>
-            <div class="input__item">
-               <p class="form__item__title">дата</p>
-               <input required type="date" v-model="data" id="date">
-            </div>
-            <div class="input__item">
-               <p class="form__item__title">опис</p>
-               <input required type="text" v-model="descript" pattern="^.{1,40}$">
-            </div>
-            <div class="popup__footer">
-               <button type="submit" class="submit_form">підтвердити</button>
-            </div>
-         </form>
-      </div>
-   </div>
+            <button type="button" class="close" @click="setPopupVisibility(false)" id="closePopup">✖</button>
+            <form class="input__group" @submit.prevent="handleSubmit">
+                <div class="input__item">
+                    <p class="form__item__title">сума</p>
+                    <input required type="text" v-model=sum pattern="^[0-9]+$">
+                </div>
+                <div class="input__item">
+                    <p class="form__item__title">дата</p>
+                    <input required type="date" v-model="data" id="date">
+                </div>
+                <div class="input__item">
+                    <p class="form__item__title">опис</p>
+                    <input required type="text" v-model="descript" pattern="^.{1,40}$">
+                </div>
+                <div class="popup__footer">
+                    <button type="submit" class="submit_form">підтвердити</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <style scoped>
 .popup {
-    background-image: url("../assets/back_random.svg");
+    background-image: url("../assets/back_random.png");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -58,13 +58,15 @@ const handleSubmit = () => {
     align-items: center;
     justify-content: center;
 }
-input{
+
+input {
     color: var(--text-color);
 }
+
 .popup__container {
     height: auto;
     width: 42rem;
-    background-image: url("../assets/popUp-back.svg");
+    background-image: url("../assets/popUp-back.png");
     border-radius: 2rem;
     position: relative;
     text-align: center;
@@ -80,6 +82,7 @@ input{
     margin-top: 0.5rem;
 
 }
+
 .close {
     position: absolute;
     top: 0;
@@ -101,11 +104,13 @@ input{
     align-items: center;
     justify-content: center;
 }
+
 .input__item {
     width: 30rem;
     flex-direction: column;
     margin-bottom: 0.5rem;
 }
+
 .form__item__title {
     display: flex;
     width: 100%;
@@ -113,6 +118,7 @@ input{
     align-items: center;
     text-align: left;
 }
+
 .input__item input {
     border: none;
     background: none;
@@ -121,15 +127,21 @@ input{
     width: 30rem;
     height: 2rem
 }
-.input__item input:focus{ outline: none; }
+
+.input__item input:focus {
+    outline: none;
+}
+
 #expires {
     color-scheme: dark;
 }
+
 .popup__footer {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .submit_form {
     background-color: white;
     color: #242F40;
@@ -141,21 +153,26 @@ input{
     width: 9rem;
     margin: 1rem 0 2rem;
 }
-@media screen and (max-width: 414px) {
+
+@media screen and (max-width: 550px) {
     .popup__container {
-        width: 21rem;
+        width: 96vw;
     }
+
     .popup_head {
         font-size: 1.2rem;
     }
+
     .close {
         width: 1.5rem;
         height: 1.5rem;
     }
+
     .input__item {
         width: 15rem;
         margin-bottom: 0.25rem;
     }
+
     .input__item input {
         width: 15rem;
         height: 1.75rem;

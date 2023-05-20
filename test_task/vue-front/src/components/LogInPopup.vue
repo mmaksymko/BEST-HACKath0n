@@ -9,33 +9,34 @@ function redirectToOtherPage() {
 
 <template>
     <div class="popup">
-      <div class="popup__container">
-         <div class="popup_head">
-            <h3 id="addTransLoanDepPopup">Увійти</h3>
-         </div>
-         <button type="button" class="close" id="closePopup" @click="$emit('closeLogin')">✖</button>
-         <form class="input__group">
-            <div class="input__item">
-               <p class="form__item__title">пошта</p>
-               <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div class="popup__container">
+            <div class="popup_head">
+                <h3 id="addTransLoanDepPopup">Увійти</h3>
             </div>
-            <div class="input__item">
-               <p class="form__item__title">пароль</p>
-               <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
-            </div>
-            <a id="forgotPass">забули пароль?</a>
-            <div class="popup__footer">
-               <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
-               <span>На нашому сайті вперше? <a href="#" @click="$emit('openSignUp')">Зареєструйтеся</a>, це займе кілька хвилин</span>
-            </div>
-         </form>
-      </div>
-   </div>
+            <button type="button" class="close" id="closePopup" @click="$emit('closeLogin')">✖</button>
+            <form class="input__group">
+                <div class="input__item">
+                    <p class="form__item__title">пошта</p>
+                    <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                </div>
+                <div class="input__item">
+                    <p class="form__item__title">пароль</p>
+                    <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                </div>
+                <a id="forgotPass">забули пароль?</a>
+                <div class="popup__footer">
+                    <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
+                    <span>На нашому сайті вперше? <a href="#" @click="$emit('openSignUp')">Зареєструйтеся</a>, це займе
+                        кілька хвилин</span>
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
 
 <style scoped>
 .popup {
-    background-image: url("../assets/back_random.svg");
+    background-image: url("../assets/back_random.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
@@ -51,7 +52,7 @@ function redirectToOtherPage() {
 .popup__container {
     height: auto;
     width: 42rem;
-    background-image: url("../assets/login_back.svg");
+    background-image: url("../assets/login_back.png");
     border-radius: 2rem;
     position: relative;
     text-align: center;
@@ -112,7 +113,10 @@ function redirectToOtherPage() {
     width: 30rem;
     height: 2rem
 }
-.input__item input:focus{ outline: none; }
+
+.input__item input:focus {
+    outline: none;
+}
 
 #expires {
     color-scheme: dark;
@@ -141,21 +145,26 @@ function redirectToOtherPage() {
     width: 9rem;
     margin: 1rem 0 2rem;
 }
+
 @media screen and (max-width: 414px) {
     .popup__container {
         width: 21rem;
     }
+
     .popup_head {
         font-size: 1.2rem;
     }
+
     .close {
         width: 1.5rem;
         height: 1.5rem;
     }
+
     .input__item {
         width: 15rem;
         margin-bottom: 0.25rem;
     }
+
     .input__item input {
         width: 15rem;
         height: 1.75rem;
