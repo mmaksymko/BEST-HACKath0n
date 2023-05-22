@@ -49,7 +49,8 @@ const handleSubmit = () => {
     background-size: cover;
     width: 100%;
     height: 100%;
-    position: absolute;
+    position: fixed;
+    overflow: hidden;
     top: 0;
     z-index: 5;
     display: flex;
