@@ -25,7 +25,7 @@ const route = useRoute();
     background-color: rgba(255, 255, 255, 0.5);
     border: none;
     border-radius: 2rem;
-    width: 20rem;
+    width: 27rem;
     height: 17rem;
     color: black;
     padding: 1.5rem 2rem 3rem 2rem;

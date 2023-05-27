@@ -5,13 +5,15 @@ const http = require('http').Server(app)
 const cors = require('cors')
 app.use(cors())
 app.use(express.json());
-app.use('/chat', require('./routes/user'))
+app.use('/user', require('./routes/user'))
+app.use('/proposition', require('./routes/proposition'))
 
 
 const mongoose = require('mongoose')
 //replace to env variables on deploy
 mongoose.connect("mongodb+srv://UserDB:UserDBPassword@maksymcluster.ozlrsuf.mongodb.net/?retryWrites=true&w=majority").then(console.log("Successful"))
     .catch(console.log)
+
 
 
 // mongoose.connect('mongodb+srv://maksymkomyna:<Qq22012004>@maksymcluster.ozlrsuf.mongodb.net/', { useNewUrlParser: true, useUnifiedtopology: true })
@@ -22,7 +24,7 @@ mongoose.connect("mongodb+srv://UserDB:UserDBPassword@maksymcluster.ozlrsuf.mong
 //.then(console.log(x)).catch(e => console.log(e))
 
 
-// Chat.find({}).then(data => console.log(data[data.length - 1]))
+// User.find({}).then(data)
 
 // Chat.find({ "members.user2": 'maksym.myna.pz.2023' }).then(data => data.forEach(dat => console.log(dat.members)))
 

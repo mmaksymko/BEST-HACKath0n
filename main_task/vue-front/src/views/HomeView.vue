@@ -95,7 +95,6 @@ const route = useRouter();
 .filters__container {
   display: flex;
   padding: 0 6rem;
-  align-items: center;
   gap: 4rem;
   font-size: 20px;
 }

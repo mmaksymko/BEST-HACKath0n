@@ -15,7 +15,7 @@ const route = useRoute();
             <div class="date">термін: 28.09.2023</div>
         </div>
         <div class="request_help__container">
-        <label for="status"></label>
+        <label for="status">статус: </label>
         <select name="status" id="status">
             <option value="volvo">прийнято</option>
             <option value="saab">виконано</option>
@@ -31,8 +31,8 @@ const route = useRoute();
     background-color: rgba(255, 255, 255, 0.5);
     border: none;
     border-radius: 2rem;
-    width: 30rem;
-    height: 34rem;
+    width: 27rem;
+    height: 17rem;
     color: black;
     padding: 1.5rem 2rem 3rem 2rem;
     align-items: center;
@@ -55,5 +55,16 @@ const route = useRoute();
     border-radius: 1.5rem;
     width: 75%;
 }
-
+#status {
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid black;
+    color: black;
+    height: 2rem;
+    border-radius: 1rem;
+    font-size: 16px;
+    padding-left: 0.2rem;
+}
+#status:focus {
+    outline: none;
+}
 </style>
