@@ -14,7 +14,7 @@ let userSchema = new mongoose.Schema({
         creationDate: { type: String, required: true },
         expiringDate: { type: String },
         city: { type: String, required: true },
-        status: { type: String, enum: ['waiting', 'accepted', 'done', 'failed'] },
+        status: { type: String, enum: ['waiting', 'accepted', 'done', 'failed'], default: 'waiting' },
         category: [{
             type: String, enum: ['military', 'clothes', 'animals', 'vehicles', 'food', 'children', 'real_estate', 'enternainment', 'health', 'other']
         }]

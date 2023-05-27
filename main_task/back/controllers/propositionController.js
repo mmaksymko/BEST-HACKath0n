@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.js')
 
-const addProposition = (req, res) => {
+const addProposition = async (req, res) => {
     // console.log(req.body)
     // try {
     // let user = new User({
@@ -14,40 +14,38 @@ const addProposition = (req, res) => {
     // })
     // user.save()
 
-    /*User.find({}).then(users => {
-        users.forEach(user => console.log(user.propositions))
-    })
-*/
+    // User.find({}).then(users => {
+    //     users.forEach(user => console.log(user))
+    // })
 
     User.updateOne(
         {
-            _id: "64721f3989e7f2f65251c107"
+            _id: req.params.id
         }, {
         $push: {
             propositions: {
-                // performerID: { type: String },
                 title: req.body.title,
                 description: req.body.description,
                 creationDate: req.body.creationDate,
                 expiringDate: req.body.expiringDate,
                 city: req.body.city,
-                status: 'waiting',
                 category: req.body.category
             }
         }
-    }).then(user => user.status(200).send(JSON.stringify(user)))
-        .catch(err => console.log)
-
+    }).then(res.status(200).json("Success!"))
+        .catch(err => {
+            console.log(err); res.status(400).json({ "Error": err })
+        })
 
     // User.find({}).then(data => data.forEach(console.log))
-
-    //    res.status(200)
 }
 
 const getAllPropositions = (req, res) => {
     User.find({})
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).filter(prop => prop.status === 'waiting').flat())))
-        .catch(err => res.status(400).json({ "Error": err }))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
+        .catch(err => {
+            res.status(400).json({ "Error": err })
+        })
 }
 
 const getAllUsersPropositions = (req, res) => {
@@ -68,7 +66,7 @@ const getAllExceptUsersPropositions = (req, res) => {
         _id: { $ne: req.params.id },
 
     })
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).filter(prop => prop.status === 'waiting').flat())))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
