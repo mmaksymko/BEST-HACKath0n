@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { addUserVis, setPopupVisibility} from "@/visibilityvars";
 const router = useRouter();
 
 function redirectToOtherPage() {
@@ -26,7 +27,7 @@ function redirectToOtherPage() {
                 <a id="forgotPass">забули пароль?</a>
                 <div class="popup__footer">
                     <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
-                    <span>На нашому сайті вперше? <a href="#" @click="$emit('openSignUp')" class="signup">Зареєструйтеся</a>, це займе
+                    <span>На нашому сайті вперше? <a href="#" @click="setPopupVisibility(true)" class="signup">Зареєструйтеся</a>, це займе
                         кілька хвилин</span>
                 </div>
             </form>
