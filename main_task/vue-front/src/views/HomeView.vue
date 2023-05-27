@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import Request from "/src/components/Request.vue"
+//import Request from "/src/components/Request.vue"
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+const route = useRouter();
 </script>
 
 <template>
@@ -8,7 +10,7 @@ import Request from "/src/components/Request.vue"
       <div class="filters__header">запити про допомогу</div>
       <div class="filters">
         <div class="filter">
-          <label for="cities">категорія</label>
+          <label for="cities">місто</label>
           <input list="cities" name="category">
           <datalist id="cities" name="city">
             <option value="усі"></option>
@@ -43,9 +45,12 @@ import Request from "/src/components/Request.vue"
         <Request></Request>
         <Request></Request>
       </div>
+      <div class="requests__row">
+        <Request></Request>
+      </div>
     </div>
     <div class="request_help__container">
-      <button class="request_help">запросити допомогу</button>
+      <button class="request_help" @click="route.push('')">запросити допомогу</button>
     </div> 
   </div>
 </template>
@@ -107,13 +112,17 @@ import Request from "/src/components/Request.vue"
   gap: 1rem;
 }
 input {
-  border: none;
-  color: black;
+  width: 9rem;
+  height: 1.5rem;
   border-radius: 0.75rem;
-  padding-left: 0.5rem;
   background-color: rgba(255, 255, 255, 0.5);
+  padding-left: 0.5rem;
 }
 input:focus {
     outline: none;
+}
+
+#categories {
+  color: black;
 }
 </style>
