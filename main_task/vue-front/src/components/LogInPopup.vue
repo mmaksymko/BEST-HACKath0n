@@ -3,9 +3,6 @@ import { useRouter } from 'vue-router';
 import { addUserVis, setPopupVisibility} from "@/visibilityvars";
 const router = useRouter();
 
-function redirectToOtherPage() {
-    router.push('/revenues');
-}
 </script>
 
 <template>

@@ -116,10 +116,10 @@ input:focus {
     margin: auto;
     background-color: transparent; 
     border: 1px solid black; 
-     border-radius:10px;
-     min-height:1.5rem; 
-     min-width: auto; 
-     margin: 10px;
+    border-radius:10px;
+    min-height:1.5rem; 
+    min-width: auto; 
+    margin: 10px;
     padding: 5px;
     display: inline-block;   
     color: black; 
@@ -147,4 +147,95 @@ input:focus {
     right: 10px;
     bottom: 10px ;
 }
+
+@media screen and (max-width:800px) {
+   
+   .header{
+       margin-left: auto;
+       margin-bottom: auto;
+       font-weight: bold;
+      
+   }
+   .help-request-modal
+   {
+       background-color: rgba(255, 255, 255, 0.7);
+       width: 80vh;
+       height: auto;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       border-radius: 2rem;
+       padding: 3rem;
+     
+    }
+   }
+
+@media screen and (max-width:700px) {
+   
+   .header{
+       margin-left: auto;
+       margin-bottom: auto;
+       font-weight: bold;
+      
+   }
+   .help-request-modal
+   {
+       background-color: rgba(255, 255, 255, 0.7);
+       width: 60vh;
+       height: auto;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       border-radius: 2rem;
+       padding: 3rem;
+    }
+   }
+   @media screen and (max-width: 600px) {
+   
+   .header{
+       margin-left: auto;
+       margin-bottom: auto;
+       font-weight: bold;
+      
+   }
+   .help-request-modal
+   {
+       background-color: rgba(255, 255, 255, 0.7);
+       width: 55vh;
+       height: auto;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       border-radius: 2rem;
+       padding: 3rem;
+    }
+   }
+@media screen and (max-width: 500px) {
+   
+.header{
+    margin-left: auto;
+    margin-bottom: auto;
+    font-weight: bold;
+   
+}
+.help-request-modal
+{
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 50vh;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 2rem;
+    padding: 3rem;
+ }
+}
+
+
 </style>
+
+

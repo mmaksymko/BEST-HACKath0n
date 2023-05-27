@@ -7,7 +7,7 @@ const route = useRouter();
 
 <template>
   <header class="header">
-    <h1 @click="route.push('/')">ТРАНДАФИЛЬ</h1>
+    <h1 @click="route.push('/')">ТРАНДÁФИЛЬ</h1>
     <div class="navigation">
       <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
     </div>

@@ -35,4 +35,7 @@ lerna-debug.log*
 *.sln
 *.sw?
 
-vue-front/app.js
+test_task\vue-front\app.js
+
+*.http
+.env
