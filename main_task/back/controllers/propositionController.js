@@ -33,19 +33,15 @@ const addProposition = async (req, res) => {
             }
         }
     }).then(res.status(200).json("Success!"))
-        .catch(err => {
-            console.log(err); res.status(400).json({ "Error": err })
-        })
+        .catch(err => res.status(400).json({ "Error": err }))
 
-    // User.find({}).then(data => data.forEach(console.log))
+    User.find({}).then(data => data.forEach(console.log))
 }
 
 const getAllPropositions = (req, res) => {
     User.find({})
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
-        .catch(err => {
-            res.status(400).json({ "Error": err })
-        })
+        .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const getAllUsersPropositions = (req, res) => {
@@ -57,7 +53,7 @@ const getAllUsersPropositions = (req, res) => {
 const getAllUsersTakenPropositions = (req, res) => {
     User.find({
         "propositions.performerID": req.params.id
-    }).then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
+    }).then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(obj => obj.performerID == req.params.id))))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
@@ -66,7 +62,7 @@ const getAllExceptUsersPropositions = (req, res) => {
         _id: { $ne: req.params.id },
 
     })
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(obj => obj.status === 'waiting'))))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
@@ -74,38 +70,51 @@ const getAuthorByPropositionId = (req, res) => {
     User.find({
         "propositions._id": req.params.id
     })
-        .then(user => res.status(200).send(JSON.stringify(user)))
+        .then(user => res.status(200).send(JSON.stringify(user[0]) || []))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const completeProposition = (req, res) => {
     User.updateOne({
-        "propositions.$._id": req.params.id
+        "propositions._id": req.params.id
     }, {
-        '$set': {
+        "$set": {
             "propositions.$.status": "done"
         }
-    }).then(user => res.status(200).json("Success!"))
+    }).then(res.status(200).json("Success!"))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const acceptProposition = (req, res) => {
+    console.log(req.params.performerID)
     User.updateOne({
-        "propositions.$._id": req.params.id
+        "propositions._id": req.params.id
     }, {
         '$set': {
             "propositions.$.performerID": req.params.performerID,
             "propositions.$.status": "accepted"
         }
-    }).then(user => res.status(200).json("Success!"))
+    }).then(res.status(200).json("Success!"))
         .catch(err => res.status(400).json({ "Error": err }))
+
+
+
+
+    // }, {
+    //     '$set': {
+    //         "propositions.$.status": "accepted"
+    //         //,
+    //         // "propositions.$.performerID": req.params.performerID
+    //     }
+    // }).then(res.status(200).json("Success!"))
+    //     .catch(err => res.status(400).json({ "Error": err }))
 }
 
 
 const getProposition = (req, res) => {
     User.findOne({
         "propositions._id": req.params.id
-    }).then(user => res.status(200).send(JSON.stringify(user.propositions.filter(obj => obj._id == req.params.id)[0])))
+    }).then(user => res.status(200).send(JSON.stringify(user.propositions.filter(obj => obj._id == req.params.id)[0] || [])))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 

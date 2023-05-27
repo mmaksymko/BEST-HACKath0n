@@ -8,7 +8,7 @@ let userSchema = new mongoose.Schema({
     phone: { type: String, required: true, unique: true },
     JWTToken: { type: String },
     propositions: [{
-        performerID: { type: String },
+        performerID: { type: String, default: null },
         title: { type: String, required: true },
         description: { type: String, required: true },
         creationDate: { type: String, required: true },
