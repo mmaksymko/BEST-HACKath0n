@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-const route = useRoute();
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+const route = useRouter();
 </script>
 
 <template>
   <header class="header">
-    <h1>ТРАНДАФИЛЬ</h1>
+    <h1 @click="route.push('/')">ТРАНДÁФИЛЬ</h1>
     <div class="navigation">
-      <router-link to="/login" class="header-link">увійти</router-link>
+      <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
     </div>
   </header>
 </template>
@@ -47,7 +47,7 @@ h1 {
 }
 
 .header-link:hover {
-  color: var(--color-text);
+  color: white;
   background-color: transparent;
 }
 
@@ -59,7 +59,7 @@ h1 {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-text);
+  background-color: white;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -94,14 +94,16 @@ h1 {
   }
 }
 
-@media screen and (max-width: 414px) {
-  .main-header {
-    padding: 0 0.5rem;
-    height: 3.25rem;
+@media screen and (max-width: 460px) {
+  .header {
+    padding: 0 1rem;
   }
 
   .header-link {
     font-size: 18px;
+  }
+  h1 {
+    font-size: 20px;
   }
 }
 </style>

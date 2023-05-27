@@ -4,6 +4,10 @@ const port = 7000
 const http = require('http').Server(app)
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+app.use(cors())
+app.use(express.json());
+app.use('/user', require('./routes/user'))
+app.use('/proposition', require('./routes/proposition'))
 
 app.use( cors())
 app.use(express.json())
@@ -18,6 +22,7 @@ mongoose.connect("mongodb+srv://UserDB:UserDBPassword@maksymcluster.ozlrsuf.mong
     .catch(console.log)
 
 
+
 // mongoose.connect('mongodb+srv://maksymkomyna:<Qq22012004>@maksymcluster.ozlrsuf.mongodb.net/', { useNewUrlParser: true, useUnifiedtopology: true })
 //     .then(() => console.log("Connected"))
 //     .catch(err => console.log(err))
@@ -26,7 +31,7 @@ mongoose.connect("mongodb+srv://UserDB:UserDBPassword@maksymcluster.ozlrsuf.mong
 //.then(console.log(x)).catch(e => console.log(e))
 
 
-// Chat.find({}).then(data => console.log(data[data.length - 1]))
+// User.find({}).then(data)
 
 // Chat.find({ "members.user2": 'maksym.myna.pz.2023' }).then(data => data.forEach(dat => console.log(dat.members)))
 
