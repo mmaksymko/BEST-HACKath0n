@@ -22,9 +22,7 @@ function showSignupPopup(show: boolean) {
 
 <template>
   <div class="navigation-container">
-    <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)"></Header>
-    <TopNavigation v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)">
-    </TopNavigation>
+    <Header @openLogin="showLoginPopUp(true)"></Header>
   </div>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"></LogIn>
   <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false"></SingUp>
