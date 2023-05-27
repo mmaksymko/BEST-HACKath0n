@@ -13,7 +13,7 @@ router.route('/:id/:performerID')
 router.route('/author/:id')
     .get(propositionController.getAuthorByPropositionId)
 
-router.route('/all')
+router.route('/api/all')
     .get(propositionController.getAllPropositions)
 
 router.route('/all/:id')
