@@ -46,7 +46,7 @@ const addProposition = (req, res) => {
 
 const getAllPropositions = (req, res) => {
     User.find({})
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).filter(prop => prop.status === 'waiting').flat())))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
@@ -65,9 +65,10 @@ const getAllUsersTakenPropositions = (req, res) => {
 
 const getAllExceptUsersPropositions = (req, res) => {
     User.find({
-        _id: { $ne: req.params.id }
+        _id: { $ne: req.params.id },
+
     })
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).filter(prop => prop.status === 'waiting').flat())))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
