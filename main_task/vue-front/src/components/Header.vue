@@ -25,7 +25,7 @@ const route = useRoute();
   top: 0;
   right: 0;
   left: 0;
-  height: 6rem;
+  height: var(--header-height);
 }
 
 h1 {
