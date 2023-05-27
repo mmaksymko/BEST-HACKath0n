@@ -36,9 +36,7 @@ function redirectToOtherPage() {
 
 <style scoped>
 .popup {
-    background-image: url("../assets/back_random.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
     position: absolute;
