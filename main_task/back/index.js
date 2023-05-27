@@ -3,10 +3,14 @@ const app = express()
 const port = 7000
 const http = require('http').Server(app)
 const cors = require('cors')
-app.use(cors())
-app.use(express.json());
-app.use('/chat', require('./routes/user'))
+const cookieParser = require('cookie-parser')
 
+app.use( cors())
+app.use(express.json())
+app.use(cookieParser())
+app.use('/user', require('./routes/user'))
+app.use('/refresh', require('./routes/refresh'))
+app.use('/logout', require('./routes/logout'))
 
 const mongoose = require('mongoose')
 //replace to env variables on deploy
