@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-const route = useRoute();
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+const route = useRouter();
 </script>
 
 <template>
   <header class="header">
-    <h1>ТРАНДАФИЛЬ</h1>
+    <h1 @click="route.push('/')">ТРАНДАФИЛЬ</h1>
     <div class="navigation">
-      <router-link to="/login" class="header-link">увійти</router-link>
+      <a href="#" class="header-link" @click="$emit('openLogin')">увійти</a>
     </div>
   </header>
 </template>
@@ -47,7 +47,7 @@ h1 {
 }
 
 .header-link:hover {
-  color: var(--color-text);
+  color: white;
   background-color: transparent;
 }
 
@@ -59,7 +59,7 @@ h1 {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-text);
+  background-color: white;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }

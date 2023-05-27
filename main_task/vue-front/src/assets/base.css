@@ -64,9 +64,10 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
+  color: white;
   background-image: linear-gradient(#E9B76C, #9A57F0);
   font-family: Montserrat;
+  overflow: hidden;
 }
 
 .with-header{
@@ -74,7 +75,7 @@ body {
 }
 
 .plain-link {
-  color: var(--color-text);
+  color: white;
   font-size: 20px;
   text-align: center;
   display: inline-block;
@@ -89,7 +90,7 @@ body {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: var(--color-text);
+  background-color: white;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
