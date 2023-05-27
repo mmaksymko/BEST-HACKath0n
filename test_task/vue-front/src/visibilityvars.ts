@@ -8,7 +8,7 @@ export function setPopupVisibility(vis: boolean) {
 }
 export function setNewCreditPopupVis(vis: boolean){
     addNewDepositCreditModalVis.value = vis;
-}
+} 
 export function unsetVars(){
     addTransactionModalVis.value = false;
     addNewDepositCreditModalVis.value = false;

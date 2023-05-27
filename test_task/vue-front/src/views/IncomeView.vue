@@ -9,7 +9,7 @@ import type { MoneyFlowInfo } from '@/types'
 const route = useRoute();
 
 const transactions = ref<MoneyFlowInfo[]>([]);
-const update = ref(true);
+const update = ref(true); 
 
 async function getTransactions(id: number, date_start: Date, date_end: Date) {
   const response = await fetch(`https://trandafyl-test.onrender.com/moneyflow/profits/${id}?`

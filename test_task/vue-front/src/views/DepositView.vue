@@ -81,6 +81,7 @@ async function addCreditOrDeposit(user_id: number, operation_date: Date, duratio
   }
   index.value = credits.value.length - 1;
 }
+
 async function getCreditDepositList(user_id: number, type: string) {
   const response = await fetch(`https://trandafyl-test.onrender.com/credit_deposit/in_period/${user_id}?`
     + new URLSearchParams({
