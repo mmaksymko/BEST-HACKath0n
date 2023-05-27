@@ -50,4 +50,64 @@ const route = useRoute();
     width: 75%;
 }
 
+
+/*--------------------------------adaptation--------------------------------*/
+@media screen and (max-width:1620px) {
+    .request__container {
+        width: 28rem;
+    }
+}
+@media screen and (max-width:1520px) {
+    .request__container {
+        width: 26rem;
+    }
+}
+@media screen and (max-width:1400px) {
+    .request__container {
+        width: 24rem;
+    }
+}
+@media screen and (max-width:1320px) {
+    .request__container {
+        width: 22rem;
+    }
+}
+@media screen and (max-width: 1210px) {
+    .request__container {
+        width: 20rem;
+    }
+}
+@media screen and (max-width: 1090px) {
+    .request__container {
+        width: 18rem;
+    }
+}
+@media screen and (max-width: 940px) {
+    .request__container {
+        width: 17rem;
+    }
+}
+
+@media screen and (max-width: 920px) {
+    .request__container {
+        border-radius: 2rem;
+        width: 100%;
+        height: 22rem;
+        padding: 1.5rem 2rem 3rem 2rem;
+    }
+    .submit_help {
+        width: 50%;
+        font-size: 1rem;
+        height: 4rem;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .request__container {
+        border-radius: 2rem;
+        width: 100%;
+        height: 37.5rem;
+        padding: 1rem 1rem 1.5rem 1rem;
+    }
+}
 </style>

@@ -62,6 +62,7 @@ const route = useRouter();
   right: 0;
   margin-top: 6rem;
   width: 100%;
+  height: 100%;
 }
 .requests__container {
   display: flex;
@@ -83,7 +84,7 @@ const route = useRouter();
   margin-top: 0.25rem;
 }
 .request_help {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
   color: #9A57F0;
   margin: 1rem 4rem 0 0;
   height: 4rem;
@@ -123,5 +124,81 @@ input:focus {
 
 #categories {
   color: black;
+}
+
+/*--------------------------------adaptation--------------------------------*/
+@media screen and (max-width: 1280px) {
+  .credits__container {
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+}
+@media screen and (max-width: 1210px) {
+    .requests__container {
+        padding: 0 3rem;
+    }
+}
+@media screen and (max-width: 980px){
+  .requests__container {
+        padding: 0 2rem;
+    }
+    .filters__container {
+      padding: 0 4rem;
+    }
+}
+@media screen and (max-width: 920px) {
+  .requests__container {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 3rem;
+  height: 45rem;
+  gap: 1rem;
+}
+.filters__header {
+  text-align: center;
+}
+.filters {
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 4rem;
+  margin-bottom: 2rem;
+}
+.filters__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+  .requests__row {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 1rem;
+}
+}
+
+@media screen and (max-width: 750px){
+  .filters__container {
+    padding: 0 2rem;
+  }
+}
+@media screen and (max-width: 460px) {
+  .requests__container {
+    height: 68%;
+  }
+  .filters__container {
+    padding: 0 1rem;
+}
+.filters {
+  padding: 0;
+  font-size: 16px;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+input {
+  width: 6.5rem;
+}
+.filter {
+  gap: 0.5rem;
+}
 }
 </style>
