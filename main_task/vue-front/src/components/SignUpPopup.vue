@@ -2,17 +2,6 @@
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 const router = useRouter();
-
-function redirectToOtherPage() {
-    router.push('/revenues');
-}
-const { addUser} = defineProps<{
-    setPopupVisibility: (vis: boolean) => void;
-    addUser: (firstNameParam: string, lastNameParam: string, emailParam:string, passwordParam:string, phoneParam:number) => void;
-}>()
-const handleSubmit = () => {
-    addUser(" ", " ", " ", " ", 123);
-};
 </script>
 
 <template>
@@ -22,7 +11,7 @@ const handleSubmit = () => {
                 <h3 id="addTransLoanDepPopup">Зареєструватися</h3>
             </div>
             <button type="button" class="close" id="closePopup" @click="$emit('closeSignUp')">✖</button>
-            <form class="input__group" @submit.prevent="handleSubmit">
+            <form class="input__group">
                 <div class="input__item">
                     <p class="form__item__title">ім'я</p>
                     <input required type="text" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
@@ -61,7 +50,7 @@ const handleSubmit = () => {
 
 <style scoped>
 .popup {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.4);
     width: 100%;
     height: 100%;
     position: absolute;

@@ -133,14 +133,25 @@ input:focus {
     padding: 0 3rem;
   }
 }
-
+@media screen and (max-width: 1210px) {
+    .requests__container {
+        padding: 0 3rem;
+    }
+}
+@media screen and (max-width: 980px){
+  .requests__container {
+        padding: 0 2rem;
+    }
+    .filters__container {
+      padding: 0 4rem;
+    }
+}
 @media screen and (max-width: 920px) {
   .requests__container {
   display: flex;
   flex-direction: column;
   padding: 0rem 3rem;
   height: 45rem;
-  overflow-y: scroll;
   gap: 1rem;
 }
 .filters__header {
@@ -161,12 +172,18 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  font-size: 1rem;
 }
 }
 
+@media screen and (max-width: 750px){
+  .filters__container {
+    padding: 0 2rem;
+  }
+}
 @media screen and (max-width: 460px) {
   .requests__container {
-    height: 38rem;
+    height: 68%;
   }
   .filters__container {
     padding: 0 1rem;
