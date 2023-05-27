@@ -3,8 +3,8 @@ import { ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Header from "../src/components/Header.vue"
 //import TopNavigation from "../src/components/TopNavigation.vue"
-//import LogIn from "../src/components/LogInPopup.vue"
-//import SingUp from "../src/components/SignUpPopup.vue"
+import LogIn from "../src/components/LogInPopup.vue"
+import SingUp from "../src/components/SignUpPopup.vue"
 
 const route = useRoute();
 
