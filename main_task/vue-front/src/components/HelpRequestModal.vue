@@ -7,16 +7,16 @@
     <div class="help-request-modal-content">
 
     <div class="header">
-        <h2 class="text">Запит на допомогу</h2>
+        <h2 class="text-style">Запит на допомогу</h2>
     </div><br>
 
     <div class="container">
-        <label class="text">заголовок</label>
+        <label class="text-style">заголовок</label>
         <input type="text" class="text-input"><br>
     </div>
 
     <div class="container">
-        <label class="text">категорія</label>
+        <label class="text-style">категорія</label>
         <input type="text" list="categories-datalist" class="text-input">
         <datalist name="categories" id="categories-datalist">
             <option value="">--Вибрати--</option>
@@ -37,7 +37,7 @@
     </div>
    
     <div class="container">
-        <label class="text" style="margin-bottom: 5px;">місто</label>
+        <label class="text-style" style="margin-bottom: 5px;">місто</label>
         <select class="text-input" name="cities" id="cities-select">
             <option value="">--Вибрати--</option>
             <option value="kyiv">Київ</option>
@@ -51,12 +51,12 @@
     </div>
 
    
-        <br><label class="text">опис</label>
+        <br><label class="text-style">опис</label>
         <textarea class="description"></textarea><br>
     
 
     <div class="container"  >
-        <label class="text" >термін</label>
+        <label class="text-style" >термін</label>
         <input type="date" class="text-input" ><br>
     </div>
 </div>
@@ -93,11 +93,11 @@
     font-weight: bold;
    
 }
-.text
+.text-style
 {
     font-weight: bold;
     color: black;
-  
+    padding: 0;
 }
 .container
 {
