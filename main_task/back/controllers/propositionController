@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.js')
 
-const addProposition = async (req, res) => {
+const addProposition = (req, res) => {
     // console.log(req.body)
     // try {
     // let user = new User({
@@ -44,19 +44,26 @@ const addProposition = async (req, res) => {
     //    res.status(200)
 }
 
-const getAllPropositions = async (req, res) => {
+const getAllPropositions = (req, res) => {
     User.find({})
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
-const getAllUsersPropositions = async (req, res) => {
+const getAllUsersPropositions = (req, res) => {
     User.find({ _id: req.params.id })
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
-const getAllExceptUsersPropositions = async (req, res) => {
+const getAllUsersTakenPropositions = (req, res) => {
+    User.find({
+        "propositions.performerID": req.params.id
+    }).then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
+        .catch(err => res.status(400).json({ "Error": err }))
+}
+
+const getAllExceptUsersPropositions = (req, res) => {
     User.find({
         _id: { $ne: req.params.id }
     })
@@ -72,16 +79,29 @@ const getAuthorByPropositionId = (req, res) => {
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
-const changePropositionStatus = (req, res) => {
+const completeProposition = (req, res) => {
     User.updateOne({
         "propositions.$._id": req.params.id
     }, {
         '$set': {
-            "propositions.$.status": req.body.status
+            "propositions.$.status": "done"
         }
     }).then(user => res.status(200).json("Success!"))
         .catch(err => res.status(400).json({ "Error": err }))
 }
+
+const acceptProposition = (req, res) => {
+    User.updateOne({
+        "propositions.$._id": req.params.id
+    }, {
+        '$set': {
+            "propositions.$.performerID": req.params.performerID,
+            "propositions.$.status": "accepted"
+        }
+    }).then(user => res.status(200).json("Success!"))
+        .catch(err => res.status(400).json({ "Error": err }))
+}
+
 
 const getProposition = (req, res) => {
     User.findOne({
@@ -94,8 +114,10 @@ module.exports = {
     addProposition,
     getAllPropositions,
     getAllUsersPropositions,
+    getAllUsersTakenPropositions,
     getAllExceptUsersPropositions,
     getAuthorByPropositionId,
-    changePropositionStatus,
+    completeProposition,
+    acceptProposition,
     getProposition
 }
