@@ -121,7 +121,8 @@ input:focus {
      min-width: auto; 
      margin: 10px;
     padding: 5px;
-    display: inline-block;    
+    display: inline-block;   
+    color: black; 
 }
 
 .description

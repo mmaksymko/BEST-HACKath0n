@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 const router = useRouter();
 
 function redirectToOtherPage() {
     router.push('/revenues');
 }
+const { addUser} = defineProps<{
+    setPopupVisibility: (vis: boolean) => void;
+    addUser: (firstNameParam: string, lastNameParam: string, emailParam:string, passwordParam:string, phoneParam:number) => void;
+}>()
+const handleSubmit = () => {
+    addUser(" ", " ", " ", " ", 123);
+};
 </script>
 
 <template>
@@ -14,7 +22,7 @@ function redirectToOtherPage() {
                 <h3 id="addTransLoanDepPopup">Зареєструватися</h3>
             </div>
             <button type="button" class="close" id="closePopup" @click="$emit('closeSignUp')">✖</button>
-            <form class="input__group">
+            <form class="input__group" @submit.prevent="handleSubmit">
                 <div class="input__item">
                     <p class="form__item__title">ім'я</p>
                     <input required type="text" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
@@ -44,7 +52,7 @@ function redirectToOtherPage() {
                     <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
                 </div>
                 <div class="popup__footer">
-                    <button type="button" class="submit_form" @click="$emit('closeSignUp')">підтвердити</button>
+                    <button type="submit" class="submit_form" @click="$emit('closeSignUp')">підтвердити</button>
                 </div>
             </form>
         </div>
