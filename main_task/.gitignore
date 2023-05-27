@@ -35,4 +35,4 @@ lerna-debug.log*
 *.sln
 *.sw?
 
-test_task\vue-front\app.js
+vue-front/app.js
