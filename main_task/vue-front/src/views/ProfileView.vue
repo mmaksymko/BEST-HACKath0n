@@ -1,53 +1,68 @@
 <script setup lang="ts">
 import Request from "/src/components/RequestPr.vue"
 import Volunteer from "/src/components/VolunteerPr.vue"
+import Profile from "/src/components/ProfileInfo.vue"
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+
 const route = useRouter();
 </script>
 
 <template>
   <div class="main__container">
-    <div class="requests__container">
-        <div class="requests__header"><h2>волонтерство</h2></div>
-        <div class="requests__row">
-            <Volunteer></Volunteer>
-            <Volunteer></Volunteer>
-        </div>
+    <div class="profile_info__container">
+        <h2>Інформація про профіль</h2>
+        <Profile></Profile>
     </div>
-    <div class="requests__container">
-        <div class="requests__header"><h2>запити</h2></div>
-        <div class="requests__row">
-            <Request></Request>
-            <Request></Request>
+    <div class="history">
+        <div class="history__block">
+            <div class="requests__header"><h2>волонтерство</h2></div>
+            <div class="requests__container">
+                <Volunteer></Volunteer>
+                <Volunteer></Volunteer>
+                <Volunteer></Volunteer>
+            </div>
         </div>
-        <div class="requests__row">
-            <Request></Request>
-            <Request></Request>
+        <div class="history__block">
+            <div class="requests__header"><h2>запити</h2></div>
+            <div class="requests__container">
+                <Request></Request>
+                <Request></Request>
+            </div>
         </div>
-    </div> 
+ 
+    </div>
   </div>
 </template>
 
 <style scoped>
 .main__container {
   position: absolute;
-  display: flex;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  padding: 0 3rem;
   top: 0;
   right: 0;
   margin-top: 6rem;
   width: 100%;
+  gap: 4rem;
+}
+.history {
+    display: flex;
+    gap: 3rem;
 }
 .requests__header {
     text-align: center;
+    margin-bottom: 1rem;
 }
 .requests__container {
   display: flex;
   flex-direction: column;
-  padding: 0rem 4rem;
   height: 38rem;
   overflow-y: scroll;
   gap: 3rem;
-  width: 50%;
+}
+.profile_info__container h2{
+    margin-bottom: 1rem;
 }
 .requests__row {
   display: flex;
