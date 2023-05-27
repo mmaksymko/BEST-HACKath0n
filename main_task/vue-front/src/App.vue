@@ -21,7 +21,7 @@ function showSignupPopup(show: boolean) {
 </script>
 
 <template>
-  <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'help', 'server-down'].includes(route.name?.toString() as any)"></Header>
+  <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"></LogIn>
   <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false"></SingUp>
   <RouterView />

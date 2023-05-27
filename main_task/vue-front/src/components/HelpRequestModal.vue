@@ -49,18 +49,13 @@
             <option value="other">Інші</option>
         </select><br>
     </div>
-
-   
         <br><label class="text-style">опис</label>
         <textarea class="description"></textarea><br>
-    
-
     <div class="container"  >
         <label class="text-style" >термін</label>
         <input type="date" class="text-input" ><br>
     </div>
 </div>
-  
          <button class="accept-button">підтвердити</button>
    
   </div>
@@ -77,7 +72,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius:10px;
+    border-radius: 2rem;
     padding: 3rem;
  }
 .help-request-modal-content
@@ -111,7 +106,9 @@
     border-bottom: 1px solid black;
     margin-left: 1rem;
 }
-
+input:focus {
+    outline: none;
+}
 .categories-chosen{
     display: flex
 }

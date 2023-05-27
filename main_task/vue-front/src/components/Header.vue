@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-import { RouterLink, RouterView, useRoute } from 'vue-router'
-const route = useRoute();
+import { RouterLink, RouterView, useRouter } from 'vue-router'
+const route = useRouter();
 </script>
 
 <template>
   <header class="header">
-    <h1>ТРАНДАФИЛЬ</h1>
+    <h1 @click="route.push('/')">ТРАНДАФИЛЬ</h1>
     <div class="navigation">
       <a href="#" class="header-link" @click="$emit('openLogin')">увійти</a>
     </div>

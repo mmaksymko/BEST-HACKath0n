@@ -1,5 +1,5 @@
 <script setup lang="ts">
-//import Request from "/src/components/Request.vue"
+import Request from "/src/components/Request.vue"
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 const route = useRouter();
 </script>
@@ -50,7 +50,7 @@ const route = useRouter();
       </div>
     </div>
     <div class="request_help__container">
-      <button class="request_help" @click="route.push('')">запросити допомогу</button>
+      <button class="request_help" @click="route.push('/help')">запросити допомогу</button>
     </div> 
   </div>
 </template>
@@ -67,7 +67,7 @@ const route = useRouter();
   display: flex;
   flex-direction: column;
   padding: 0rem 4rem;
-  height: 36rem;
+  height: 35rem;
   overflow-y: scroll;
   gap: 3rem;
 }
