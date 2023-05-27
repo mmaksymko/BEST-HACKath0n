@@ -7,8 +7,10 @@ import History from "../components/History.vue"
 import TransDepLoan from "../components/LoanDepositPopup.vue"
 import LoanDep from "../components/AddDepCredPopup.vue"
 import type { CreditInfo, CreditDeposit } from '../types';
-import {addTransactionModalVis, addNewDepositCreditModalVis, setPopupVisibility, 
-  setNewCreditPopupVis,unsetVars} from "@/visibilityvars";
+import {
+  addTransactionModalVis, addNewDepositCreditModalVis, setPopupVisibility,
+  setNewCreditPopupVis, unsetVars
+} from "@/visibilityvars";
 
 
 const route = useRoute();
@@ -41,7 +43,7 @@ async function getCreditDepositTransaction(cd_id: number) {
   creditsTransactions.value = JSONToCreditTransArray(resp) as any;
 }
 
-async function putCreditTransaction(sum:number,date:Date) {
+async function putCreditTransaction(sum: number, date: Date) {
   const response = await fetch('https://trandafyl-test.onrender.com/cd_payment', {
     method: 'POST',
     headers: {
@@ -54,8 +56,7 @@ async function putCreditTransaction(sum:number,date:Date) {
       "amount": sum
     })
   });
-  console.log(await response.json());
-  if(!response.ok){
+  if (!response.ok) {
     return;
   }
   window.location.reload();
@@ -66,29 +67,31 @@ async function putCreditTransaction(sum:number,date:Date) {
     sum: sum
   })
 }
-async function addCreditOrDeposit(user_id: number, operation_date:Date, duration: number, 
-total_amount: number, interest_rate: number, descript:string, type:string) {
-    const response = await fetch('https://trandafyl-test.onrender.com/credit_deposit', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "user_id": user_id,
-            "operation_date": operation_date.toISOString().slice(0, 19).replace('T', ' '),
-            "duration": duration,
-            "total_amount": total_amount,
-            "interest_rate": interest_rate,
-            "operation_type": type,
-            "descript": descript
-        })
+async function addCreditOrDeposit(user_id: number, operation_date: Date, duration: number,
+  total_amount: number, interest_rate: number, descript: string, type: string) {
+  const response = await fetch('https://trandafyl-test.onrender.com/credit_deposit', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "user_id": user_id,
+      "operation_date": operation_date.toISOString().slice(0, 10).replace('T', ' '),
+      "duration": duration,
+      "total_amount": total_amount,
+      "interest_rate": interest_rate,
+      "operation_type": 'credit',
+      "descript": descript
     })
-    if(response.ok){
-      window.location.reload();
-      await getCreditDepositList(user_id,type);
-    }
-    index.value = credits.value.length-1;
+  })
+  if (response.status === 400) {
+    console.log('enter correct info please')
+  } else if (response.ok) {
+    window.location.reload();
+    await getCreditDepositList(user_id, type);
+  }
+  index.value = credits.value.length - 1;
 }
 async function getCreditDepositList(user_id: number, type: string) {
   const response = await fetch(`https://trandafyl-test.onrender.com/credit_deposit/in_period/${user_id}?`
@@ -99,7 +102,6 @@ async function getCreditDepositList(user_id: number, type: string) {
   })
   const resp = (await response.json());
   credits.value = fillCreditDepositArray(resp);
-  console.log(credits.value);
   getCreditDepositTransaction(credits.value[0].id);
 }
 
@@ -146,23 +148,16 @@ function setCurrCreditId(id: number) {
 
 <template>
   <div class="credits__container">
-    <Diagram v-if="credits.length > 0" 
-      :updateCreditTransactions="updateCreditTransactions"
-      :setCurrCreditId="setCurrCreditId" 
-      :setNewCreditPopupVis="setNewCreditPopupVis"
-      :credits="credits"
-      :getCreditDepositList="getCreditDepositList"
-      ></Diagram>
-    <History :setPopupVisibility=setPopupVisibility 
-    :creditsTransactions="creditsTransactions"></History>
+    <Diagram v-if="credits.length > 0" :updateCreditTransactions="updateCreditTransactions"
+      :setCurrCreditId="setCurrCreditId" :setNewCreditPopupVis="setNewCreditPopupVis" :credits="credits"
+      :getCreditDepositList="getCreditDepositList"></Diagram>
+    <History :setPopupVisibility=setPopupVisibility :creditsTransactions="creditsTransactions"></History>
   </div>
-  <TransDepLoan v-if=addTransactionModalVis 
-  :setPopupVisibility=setPopupVisibility 
-  :addCreditTransaction="putCreditTransaction">
+  <TransDepLoan v-if=addTransactionModalVis :setPopupVisibility=setPopupVisibility
+    :addCreditTransaction="putCreditTransaction">
   </TransDepLoan>
-  <LoanDep v-if="addNewDepositCreditModalVis" 
-  :setNewCreditPopupVis="setNewCreditPopupVis"
-  :addCreditOrDeposit="addCreditOrDeposit"></LoanDep>
+  <LoanDep v-if="addNewDepositCreditModalVis" :setNewCreditPopupVis="setNewCreditPopupVis"
+    :addCreditOrDeposit="addCreditOrDeposit"></LoanDep>
 </template>
 
 <style scoped>
@@ -175,12 +170,14 @@ function setCurrCreditId(id: number) {
   grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
+
 @media screen and (max-width: 1280px) {
   .credits__container {
     gap: 3rem;
     padding: 0 3rem;
   }
 }
+
 @media screen and (max-width: 920px) {
   .credits__container {
     display: flex;
@@ -188,6 +185,7 @@ function setCurrCreditId(id: number) {
     margin-bottom: 6rem;
   }
 }
+
 @media screen and (max-width: 414px) {
   .credits__container {
     padding: 0 1rem;

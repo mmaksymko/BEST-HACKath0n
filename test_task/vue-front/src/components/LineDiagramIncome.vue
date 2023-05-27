@@ -41,8 +41,8 @@ const maxEndDate = computed(() => {
 })
 
 function validateDates() {
-  if (startDate.value> endDate.value) {
-    endDate.value= startDate.value
+  if (startDate.value > endDate.value) {
+    endDate.value = startDate.value
   }
 }
 
@@ -50,25 +50,25 @@ watch(startDate, () => {
   validateDates()
 })
 
-const {getTransactions} = defineProps<{
-    getTransactions: (id: number, date_start: Date, date_end: Date)  => void;
+const { getTransactions } = defineProps<{
+  getTransactions: (id: number, date_start: Date, date_end: Date) => void;
 }>();
 
-function updateTransactionList(startDate:Date,endDate:Date){
-    getTransactions(1,startDate,endDate);
+function updateTransactionList(startDate: Date, endDate: Date) {
+  getTransactions(1, startDate, endDate);
 }
 
 let data = {
-    labels: [
-        ""
-    ],
-    datasets: [
-      {
-        backgroundColor: '#CC3F0C',
-        borderColor: '#CC3F0C',
-        data: [ 0 ]
-      }
-    ]
+  labels: [
+    ""
+  ],
+  datasets: [
+    {
+      backgroundColor: '#CC3F0C',
+      borderColor: '#CC3F0C',
+      data: [0]
+    }
+  ]
 }
 
 const transactions = ref<MoneyFlowInfo[]>(inject('profit-transactions') as any);
@@ -83,7 +83,7 @@ function getExpensesData(data: MoneyFlowInfo[]): ExpensesData {
 
   // Calculate expenses by month
   for (const item of data) {
-    const monthKey = `${item.date.getMonth()}-${item.date.getFullYear()}`;
+    const monthKey = `${item.date.getMonth() + 1}-${item.date.getFullYear()}`;
     const monthExpenses = expensesMap.get(monthKey) || 0;
     expensesMap.set(monthKey, monthExpenses + item.sum);
   }
@@ -115,16 +115,16 @@ function getExpensesData(data: MoneyFlowInfo[]): ExpensesData {
 }
 
 
-function updateDiagramInfo(){
-    const expensesData = getExpensesData(transactions.value);
-    data.labels = expensesData.dates;
-    data.datasets = [
-      {
-        backgroundColor: '#12811d',
-        borderColor: '#12811d',
-        data: expensesData.expenses
-      }
-    ]
+function updateDiagramInfo() {
+  const expensesData = getExpensesData(transactions.value);
+  data.labels = expensesData.dates;
+  data.datasets = [
+    {
+      backgroundColor: '#12811d',
+      borderColor: '#12811d',
+      data: expensesData.expenses
+    }
+  ]
 }
 
 updateDiagramInfo();
@@ -148,30 +148,30 @@ updateDiagramInfo();
 </template>
 <style scoped>
 .diagram__block {
-    margin-top: var(--header-height);
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  margin-top: var(--header-height);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .diagram__container {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 1.25rem;
-    height: 30rem;
-    width: 100%;
-    padding: 1rem;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 1.25rem;
+  height: 30rem;
+  width: 100%;
+  padding: 1rem;
 }
 
 .diagram__header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .period {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
 }
 
 .display-button {
@@ -183,59 +183,72 @@ updateDiagramInfo();
   outline: none;
   cursor: pointer;
 }
+
 .diagram {
-    width: auto;
-    justify-content: space-between;
-    padding: 0 1rem;
-    align-items: center;
+  width: auto;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: center;
 }
 
 canvas {
-    height: 24rem;
+  height: 24rem;
 }
 
 .doghnut__diagram {
-    position: relative;
-    margin-top: 1rem;
+  position: relative;
+  margin-top: 1rem;
 }
+
 @media screen and (max-width: 920px) {
-    .diagram__container {
-        margin-top: 9rem;
-        height: 32rem;
-    }
+  .diagram__container {
+    width: 90vw;
+    margin-top: 1rem;
+    height: 32rem;
+  }
 }
+
 @media screen and (max-width: 740px) {
-    .diagram__container {
-        margin-top: 9rem;
-        height: 26rem;
-    }
-    canvas {
-        height: 20rem;
-    }
+
+  .doghnut__diagram {
+    height: 25rem;
+  }
+
+  .diagram__container {
+    margin-top: 1rem;
+    height: 30rem;
+  }
+
+  canvas {
+    height: 20rem;
+  }
 }
 
-@media screen and (max-width: 414px) {
-    h1 {
-        font-size: 1.2rem;
-    }
+@media screen and (max-width: 550px) {
+  .doghnut__diagram {
+    height: 20rem;
+    width: 85vw
+  }
 
-    .diagram__container {
-        height: 20rem;
-        width: 21rem;
-        margin-bottom: 2rem;
-        margin-top: 7.5rem;
-    }
+  h1 {
+    font-size: 1.2rem;
+  }
 
-    .diagram {
-        width: 18rem;
-        padding: 0;
-        height: 16rem;
-        margin-top: 0.25rem;
-    }
+  .diagram__container {
+    height: 25rem;
+    width: 90vw;
+  }
 
-    canvas {
-        height: 16rem;
-        width: 19rem;
-    }
+  .diagram {
+    width: 18rem;
+    padding: 0;
+    height: 16rem;
+    margin-top: 0.25rem;
+  }
+
+  canvas {
+    height: 16rem;
+    width: 19rem;
+  }
 }
 </style>

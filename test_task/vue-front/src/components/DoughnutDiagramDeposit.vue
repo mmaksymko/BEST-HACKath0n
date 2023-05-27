@@ -15,7 +15,7 @@ const data = ref(chartConfig.data)
 const options = ref(chartConfig.options)
 
 onMounted(() => {
-  const chartCanvas = document.getElementById('chartCanvas')
+  const chartCanvas = document.getElementById('chartCanvas') as HTMLCanvasElement;
 
   if (chartCanvas) {
     const ctx = chartCanvas.getContext('2d')
@@ -126,84 +126,97 @@ canvas {
 }
 
 @media screen and (max-width: 1320px) {
-    .diagram {
-        top: -3rem;
-        height: 22rem;
-    }
-    canvas {
-        height: 22rem;
-        width: 22rem;
-    }
-    .diagram__footer {
-        top: -3rem;
-    }
+  .diagram {
+    top: -3rem;
+    height: 22rem;
+  }
+
+  canvas {
+    height: 22rem;
+    width: 22rem;
+  }
+
+  .diagram__footer {
+    top: -3rem;
+  }
 }
+
 @media screen and (max-width: 920px) {
-    .diagram__container {
-        margin-top: 2rem;
-        height: 30rem;
-    }
+  .diagram__container {
+    margin-top: 2rem;
+    height: 30rem;
+  }
 }
+
 @media screen and (max-width: 740px) {
   .diagram__container {
-        height: 28rem;
-    }
-    .diagram {
-        top: -2rem;
-        padding: 0;
-    }
-    canvas {
-        height: 18rem;
-    }
-    .add_info {
-        font-size: 1rem;
-    }
-    .period {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-    }
+    height: 28rem;
+  }
+
+  .diagram {
+    top: -2rem;
+    padding: 0;
+  }
+
+  canvas {
+    height: 18rem;
+  }
+
+  .add_info {
+    font-size: 1rem;
+  }
+
+  .period {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 @media screen and (max-width: 414px) {
-    h1 {
-        font-size: 1.2rem;
-    }
-    .period {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
-    .diagram__container {
-        height: 25rem;
-        width: 21rem;
-        margin-bottom: 2rem;
-    }
-    .add_info {
-        text-align: right;
-        font-size: 0.75rem;
-    }
+  h1 {
+    font-size: 1.2rem;
+  }
 
-    .add_info:first-child {
-        margin-bottom: 0.75rem;
-    }
+  .period {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 
-    .diagram {
-        width: 19rem;
-        padding: 0;
-        height: 16rem;
-        margin-top: 0.25rem;
-        top: 0rem;
-    }
-    canvas {
-        height: 16rem;
-        width: 16rem;
-    }
-    .diagram__footer {
-        position: relative;
-        top: 0;
-        display: flex;
-        margin-top: 0.5rem;
-        justify-content: right;
-    }
+  .diagram__container {
+    height: 25rem;
+    width: 21rem;
+    margin-bottom: 2rem;
+  }
+
+  .add_info {
+    text-align: right;
+    font-size: 0.75rem;
+  }
+
+  .add_info:first-child {
+    margin-bottom: 0.75rem;
+  }
+
+  .diagram {
+    width: 19rem;
+    padding: 0;
+    height: 16rem;
+    margin-top: 0.25rem;
+    top: 0rem;
+  }
+
+  canvas {
+    height: 16rem;
+    width: 16rem;
+  }
+
+  .diagram__footer {
+    position: relative;
+    top: 0;
+    display: flex;
+    margin-top: 0.5rem;
+    justify-content: right;
+  }
 }
 </style>
   

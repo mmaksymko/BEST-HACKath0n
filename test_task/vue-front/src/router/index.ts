@@ -8,13 +8,14 @@ import LogInPopupVue from '@/components/LogInPopup.vue'
 import SignUpPopupVue from '@/components/SignUpPopup.vue'
 
 const router = createRouter({
+
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/credits',
       name: 'credits',
       component: CreditsView
-    },    
+    },
     {
       path: '/',
       name: 'home',
@@ -45,7 +46,7 @@ const router = createRouter({
       name: 'revenues',
       component: IncomeViewVue
     },
-    
+
   ]
 })
 

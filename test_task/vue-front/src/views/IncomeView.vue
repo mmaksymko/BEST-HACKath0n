@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref , provide} from 'vue'
+import { onMounted, ref, provide } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Diagram from "../components/LineDiagramIncome.vue"
 import History from "../components/IncomeHistory.vue"
 import TransIncomeExp from "../components/IncomeExpencesPopup.vue"
-import {addTransactionModalVis, setPopupVisibility, unsetVars} from "@/visibilityvars";
+import { addTransactionModalVis, setPopupVisibility, unsetVars } from "@/visibilityvars";
 import type { MoneyFlowInfo } from '@/types'
 const route = useRoute();
 
@@ -22,31 +22,33 @@ async function getTransactions(id: number, date_start: Date, date_end: Date) {
   JSONToExpensesArray(await response.json());
 }
 
-async function addTransaction(user_id: number, operation_date:Date, summa:number, descript:string) {
-    const response = await fetch('https://trandafyl-test.onrender.com/moneyflow/', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "user_id": user_id,
-            "operation_date": operation_date,
-            "summa": summa,
-            "descript": descript
-        })
+async function addTransaction(user_id: number, operation_date: Date, summa: number, descript: string) {
+  const response = await fetch('https://trandafyl-test.onrender.com/moneyflow/', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "user_id": user_id,
+      "operation_date": operation_date,
+      "summa": summa,
+      "descript": descript
     })
-    if(response.ok){
-      window.location.reload();
-      transactions.value.push({
-        id: transactions.value[transactions.value.length-1].id+1,
-        date: operation_date,
-        sum: summa,
-        description: descript
-      });
-    }
-    update.value = false;
-    update.value = true;
+  })
+  if (response.status === 400) {
+    console.log('enter correct info please')
+  } else if (response.ok) {
+    window.location.reload();
+    transactions.value.push({
+      id: transactions.value[transactions.value.length - 1].id + 1,
+      date: operation_date,
+      sum: summa,
+      description: descript
+    });
+  }
+  update.value = false;
+  update.value = true;
 }
 
 function JSONToExpensesArray(json: any) {
@@ -63,20 +65,17 @@ provide('profit-transactions', transactions);
 onMounted(async () => {
   await getTransactions(1, new Date(2000, 5, 19), new Date(2023, 5, 19));
   unsetVars();
-  console.log(transactions.value);
 });
 
 </script>
 
 <template v-if="update">
   <div class="expences__container" v-if="transactions.length">
-    <Diagram
-    :getTransactions="getTransactions"></Diagram>
-    <History :setPopupVisibility="setPopupVisibility" :transactions="transactions"
-    ></History>
+    <Diagram :getTransactions="getTransactions"></Diagram>
+    <History :setPopupVisibility="setPopupVisibility" :transactions="transactions"></History>
   </div>
-  <TransIncomeExp v-if="addTransactionModalVis" :setPopupVisibility="setPopupVisibility"
-  :addTransaction="addTransaction"></TransIncomeExp>
+  <TransIncomeExp v-if="addTransactionModalVis" :setPopupVisibility="setPopupVisibility" :addTransaction="addTransaction">
+  </TransIncomeExp>
 </template>
 
 <style scoped>
@@ -88,22 +87,28 @@ onMounted(async () => {
   grid-template-columns: 70% 30%;
   padding: 0 5rem;
 }
+
 @media screen and (max-width: 1280px) {
-  .income__container {
+  .expences__container {
     gap: 3rem;
     padding: 0 3rem;
   }
 }
+
 @media screen and (max-width: 920px) {
-  .income__container {
+  .expences__container {
     display: flex;
+    margin-left: 5vw;
+    padding: 0;
+    width: 90vw;
     flex-direction: column;
-    margin-bottom: 6rem;
+    margin-bottom: 4rem;
   }
 }
-@media screen and (max-width: 414px) {
-  .income__container {
-    padding: 0 1rem;
+
+@media screen and (max-width: 500px) {
+  .expences__container {
+    width: 90vw;
     gap: 2rem;
     margin-bottom: 3rem;
   }

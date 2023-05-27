@@ -1,5 +1,4 @@
 # fiNaNces 
-# Чинне посилання на деплой: https://trandafyl-testing.onrender.com/
 
 ### Cервіс для слідкування за фінансами
 > It's not about having lots of money. It's knowing how to manage it.
@@ -26,7 +25,7 @@
 - Express
 - MySQL
 ---
-#### [Затестуйте!](https://mmaksymko.github.io/)
+#### [Затестуйте!](https://trandafyl-testing.onrender.com/)
 
 ###### прикол
 ![My Remote Image](https://i.pinimg.com/474x/90/16/e2/9016e223624cc58d77dc5e157e73341c.jpg)
