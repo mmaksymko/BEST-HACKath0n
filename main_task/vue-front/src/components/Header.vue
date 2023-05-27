@@ -9,7 +9,7 @@ const route = useRouter();
   <header class="header">
     <h1 @click="route.push('/')">ТРАНДАФИЛЬ</h1>
     <div class="navigation">
-      <a href="#" class="header-link" @click="$emit('openLogin')">увійти</a>
+      <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
     </div>
   </header>
 </template>
@@ -94,14 +94,16 @@ h1 {
   }
 }
 
-@media screen and (max-width: 414px) {
-  .main-header {
-    padding: 0 0.5rem;
-    height: 3.25rem;
+@media screen and (max-width: 460px) {
+  .header {
+    padding: 0 1rem;
   }
 
   .header-link {
     font-size: 18px;
+  }
+  h1 {
+    font-size: 20px;
   }
 }
 </style>

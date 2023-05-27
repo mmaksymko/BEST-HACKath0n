@@ -50,4 +50,33 @@ const route = useRoute();
     width: 75%;
 }
 
+
+/*--------------------------------adaptation--------------------------------*/
+@media screen and (max-width: 1280px) {
+  .credits__container {
+    gap: 3rem;
+    padding: 0 3rem;
+  }
+}
+
+@media screen and (max-width: 920px) {
+    .request__container {
+        border-radius: 2rem;
+        width: 100%;
+        height: 22rem;
+        padding: 1.5rem 2rem 3rem 2rem;
+    }
+    .submit_help {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .request__container {
+        border-radius: 2rem;
+        width: 100%;
+        height: 36rem;
+        padding: 1rem 1rem 1.5rem 1rem;
+    }
+}
 </style>
