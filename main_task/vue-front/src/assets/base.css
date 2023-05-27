@@ -64,7 +64,6 @@ body {
   min-height: 100vh;
   color: var(--color-text);
   background-image: linear-gradient(#E9B76C, #9A57F0);
-  font-family: 'Times New Roman', Times, serif;
   font-family: Montserrat;
 }
 
