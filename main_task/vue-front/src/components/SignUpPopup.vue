@@ -130,9 +130,9 @@ function redirectToOtherPage() {
     width: 30rem;
     height: 2rem
 }
-
-
-
+.input__item input:focus {
+    outline: none;
+}
 .popup__footer {
     display: flex;
     justify-content: center;

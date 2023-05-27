@@ -61,7 +61,7 @@ import Request from "/src/components/Request.vue"
 .requests__container {
   display: flex;
   flex-direction: column;
-  padding: 1rem 4rem;
+  padding: 0rem 4rem;
   height: 36rem;
   overflow-y: scroll;
   gap: 3rem;
@@ -96,6 +96,7 @@ import Request from "/src/components/Request.vue"
 }
 .filters__header {
   font-size: 20px;
+  margin-bottom: 1rem;
 }
 .filters {
   display: flex;
@@ -104,5 +105,15 @@ import Request from "/src/components/Request.vue"
 .filter {
   display: flex;
   gap: 1rem;
+}
+input {
+  border: none;
+  color: black;
+  border-radius: 0.75rem;
+  padding-left: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+input:focus {
+    outline: none;
 }
 </style>
