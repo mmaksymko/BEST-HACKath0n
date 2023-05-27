@@ -5,9 +5,8 @@ const http = require('http').Server(app)
 const cors = require('cors')
 app.use(cors())
 app.use(express.json());
+app.use('/chat', require('./routes/user'))
 
-// const chatRouter = require('./routes/chatRouter')
-// app.use('/chat', chatRouter)
 
 const mongoose = require('mongoose')
 //replace to env variables on deploy
