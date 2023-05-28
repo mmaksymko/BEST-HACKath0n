@@ -16,7 +16,7 @@ export const useUserStore = defineStore('user', {
       Object.assign(this, user);
     },
     async getUser(id:string) {
-      const response = await fetch(`http://localhost:7000/user/get/${id}`, {
+      const response = await fetch(`https://trandafyl-server.onrender.com/user/get/${id}`, {
           method: 'GET'
       })
       if (!response.ok) return response.statusText

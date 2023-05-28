@@ -31,7 +31,7 @@ function parseCategory(category: string) {
 async function addProposition(id: string, title: string, description: string,
     creationDate: Date, expiringDate: Date, city: string, category: string) {
     console.log(id)
-    const response = await fetch(`http://localhost:7000/proposition/${id}`, {
+    const response = await fetch(`https://trandafyl-server.onrender.com/proposition/${id}`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

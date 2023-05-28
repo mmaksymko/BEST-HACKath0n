@@ -6,15 +6,16 @@ import { useUserStore } from "@/stores/user"
 const route = useRoute();
 const user = useUserStore();
 
-const { item,getAuthorByPropositionId } = defineProps<{
+
+const { item, getAuthorByPropositionId } = defineProps<{
     item: Item;
-    getAuthorByPropositionId: (id:string) => Promise<string>;
-    acceptProposition: (id:string, performerID:string) => void;
+    getAuthorByPropositionId: (id: string) => Promise<string>;
+    acceptProposition: (id: string, performerID: string) => void;
 }>();
 
 const string = ref<string>("1");
 
-onMounted( async () => {
+onMounted(async () => {
     string.value = await getAuthorByPropositionId(item._id);
     console.log(string);
 })
@@ -31,7 +32,8 @@ onMounted( async () => {
             <div class="description">опис: {{ item.description }}</div>
             <div class="date">термін: {{ item.expiringDate }}</div>
         </div>
-        <button class="submit_help" @click="acceptProposition(item._id,user._id)" v-if="item.status===`waiting`">відгукнутися</button>
+        <button class="submit_help" @click="acceptProposition(item._id, user._id)"
+            v-if="item.status === `waiting`">відгукнутися</button>
     </div>
 </template>
 
@@ -43,21 +45,24 @@ onMounted( async () => {
     border: none;
     border-radius: 2rem;
     width: 30rem;
-    height: 30rem;
+    height: 28rem;
     color: black;
     padding: 1.5rem 2rem 3rem 2rem;
     align-items: center;
 }
+
 .request__header {
     font-size: 20px;
     text-align: center;
     margin-bottom: 2rem;
 }
+
 .request__info {
     width: 100%;
     margin-bottom: 3rem;
     height: 80%;
 }
+
 .submit_help {
     background-color: black;
     color: white;
@@ -74,31 +79,37 @@ onMounted( async () => {
         width: 28rem;
     }
 }
+
 @media screen and (max-width:1520px) {
     .request__container {
         width: 26rem;
     }
 }
+
 @media screen and (max-width:1400px) {
     .request__container {
         width: 24rem;
     }
 }
+
 @media screen and (max-width:1320px) {
     .request__container {
         width: 22rem;
     }
 }
+
 @media screen and (max-width: 1210px) {
     .request__container {
         width: 20rem;
     }
 }
+
 @media screen and (max-width: 1090px) {
     .request__container {
         width: 18rem;
     }
 }
+
 @media screen and (max-width: 940px) {
     .request__container {
         width: 17rem;
@@ -112,6 +123,7 @@ onMounted( async () => {
         height: 22rem;
         padding: 1.5rem 2rem 3rem 2rem;
     }
+
     .submit_help {
         width: 50%;
         font-size: 1rem;
@@ -126,5 +138,4 @@ onMounted( async () => {
         height: 37.2rem;
         padding: 1rem 1rem 1.5rem 1rem;
     }
-}
-</style>
+}</style>

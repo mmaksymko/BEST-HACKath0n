@@ -25,11 +25,7 @@ function handleStatusChange(){
             <div class="date">термін: {{ item.expiringDate }}</div>
         </div>
         <div class="request_help__container">
-        <label for="status">статус: </label>
-        <select name="status" v-model="selectedStatus"  @change="handleStatusChange" id="status">
-            <option value="volvo">прийнято</option>
-            <option value="saab">виконано</option>
-        </select>
+        <button @click="handleStatusChange" id="status">виконати</button>
     </div>
     </div>
 </template>
@@ -52,6 +48,10 @@ function handleStatusChange(){
     text-align: center;
     margin-bottom: 1rem;
 }
+.request_help__container{
+    display: flex;
+    gap:0.5rem;
+}
 .request__info {
     width: 100%;
     margin-bottom: 3rem;
@@ -69,13 +69,24 @@ function handleStatusChange(){
     background-color: rgba(255, 255, 255, 0);
     border: 2px solid black;
     color: black;
+    padding: 0 0.8rem;
     height: 2rem;
+    padding: 0 0.8rem;
     border-radius: 1rem;
     font-size: 16px;
-    padding-left: 0.2rem;
 }
 #status:focus {
     outline: none;
+}
+
+.compl{
+    border: none;
+    color: white;
+    background-color: black;
+    height: 2.5rem;
+    border-radius: 0.75rem;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 @media screen and (max-width:1520px) {

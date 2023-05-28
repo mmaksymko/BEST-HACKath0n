@@ -2,7 +2,22 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useUserStore } from "@/stores/user"
 const route = useRouter();
+const user = useUserStore();
+
+const { openLogin } = defineProps<{
+  openLogin: (show: boolean) => void;
+}>();
+
+function toProfile(){
+  if(user._id.length>1){
+    route.push("/profile");
+  }
+  else{
+    openLogin(true);
+  }
+}
 </script>
 
 <template>
@@ -10,7 +25,7 @@ const route = useRouter();
     <h1 @click="route.push('/')">ТРАНДÁФИЛЬ</h1>
     <button class="good_will" @click="$emit('openGoodWill')">акт допомоги</button>
     <div class="navigation">
-      <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
+      <a href="#" class="header-link" @click="toProfile()">профіль</a>
     </div>
   </header>
 </template>
