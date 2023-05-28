@@ -74,7 +74,7 @@ async function loginUser(emailParam: string, passwordParam: string){
       "password": passwordParam
     })
   })
-  console.log(response)
+  console.log(response.body)
 }
 
 </script>
