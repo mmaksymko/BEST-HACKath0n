@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import Request from "/src/components/Request.vue"
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 const route = useRouter();
+onMounted(() => {
+
+})
 </script>
 
 <template>
@@ -68,7 +72,7 @@ const route = useRouter();
   display: flex;
   flex-direction: column;
   padding: 0rem 4rem;
-  height: 35rem;
+  height: 30rem;
   overflow-y: scroll;
   gap: 3rem;
 }
@@ -151,7 +155,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   padding: 0rem 3rem;
-  height: 45rem;
+  height: 70%;
   gap: 1rem;
 }
 .filters__header {
@@ -172,7 +176,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  font-size: 1rem;
+
 }
 }
 
