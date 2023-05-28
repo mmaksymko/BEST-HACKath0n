@@ -45,6 +45,20 @@ async function getAllUsersTakenPropositions(id:string) {
     return response.json()
 }
 
+// завершити пропозицію
+async function completeProposition(id:string) {
+    const response = await fetch(`http://localhost:7000/proposition/${id}`, {
+        method: 'PUT'
+    })
+    if (!response.ok) return response.statusText
+    let index = -1;
+    index = volunteersArr.value.findIndex((item: Item)=>item._id===id);
+    if(index>=0){
+      volunteersArr.value[index].status = "done";
+    }
+    return response.json()
+}
+
 onMounted(async () => {
   if(localStorage.getItem("userId")!==null){
     console.log(await user.getUser(localStorage.getItem("userId") as string));
@@ -65,7 +79,8 @@ onMounted(async () => {
         <div class="history__block">
             <div class="requests__header"><h2>волонтерство</h2></div>
             <div class="requests__container">
-                <Volunteer :getAuthorByPropositionId="getNameOfAuthorByPropositionId" v-for="item in volunteersArr" :item="item" 
+                <Volunteer :getAuthorByPropositionId="getNameOfAuthorByPropositionId" :completeProposition="completeProposition"
+                v-for="item in volunteersArr" :item="item" 
                 ></Volunteer>
             </div>
         </div>

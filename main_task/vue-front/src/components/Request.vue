@@ -31,7 +31,7 @@ onMounted( async () => {
             <div class="description">опис: {{ item.description }}</div>
             <div class="date">термін: {{ item.expiringDate }}</div>
         </div>
-        <button class="submit_help" @click="acceptProposition(item._id,user._id)" v-if="item.status===`waiting`">відГУКнутися</button>
+        <button class="submit_help" @click="acceptProposition(item._id,user._id)" v-if="item.status===`waiting`">відгукнутися</button>
     </div>
 </template>
 

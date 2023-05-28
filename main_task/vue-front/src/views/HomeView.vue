@@ -135,6 +135,7 @@ async function acceptProposition(id:string, performerID:string) {
         method: 'PUT'
     })
     if (!response.ok) return response.statusText
+    window.location.reload();
     return await response.json();
 }
 
