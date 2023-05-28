@@ -5,20 +5,21 @@ const jwt = require('jsonwebtoken')
 require("dotenv").config()
 
 const signup = async (req, res) => {
-    try { 
+    try {
+        const pass = await bcrypt.hash(req.body.password, 10)
         const response = await User.create({
-            firstName : req.body.firstName,
-            lastName : req.body.lastName,
-            email : req.body.email,
-            password : await bcrypt.hash(req.body.password, 10),
-            phone : req.body.phone
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: pass,
+            phone: req.body.phone
         })
-        console.log("User created ", response)
-        User.find({}).then(console.log)
+        // console.log("User created ", response)
+        // User.find({}).then(console.log)
         res.status(200).send(await User.findOne({ email: req.body.email }).lean())
     } catch (error) {
-        if(error.code === 11000){
-            return res.status(400).json({error:"Email or phone already in use"})
+        if (error.code === 11000) {
+            return res.status(400).json({ error: "Email or phone already in use" })
         }
         console.log(error.message)
         res.status(400).send(error)
@@ -30,37 +31,37 @@ const login = async (req, res) => {
         User.find({}).then(console.log)
         const { email, password } = req.body
         let user = await User.findOne({ email }).lean()
-        if(user === null){
-            return res.status(400).json({error:"User does not exist"})
-        }
-        if(await bcrypt.compare(password, user.password)){
+        if (!user)
+            return res.status(400).json({ error: "User does not exist" })
+
+        if (await bcrypt.compare(password, user.password)) {
+            console.log(1)
             const accessToken = jwt.sign(
-                {email: user.email},
+                { email: user.email },
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn: '30s'} //must be 15m
+                { expiresIn: '30s' } //must be 15m
             )
             const refreshToken = jwt.sign(
-                {email: user.email},
+                { email: user.email },
                 process.env.REFRESH_TOKEN_SECRET,
-                {expiresIn: '1d'}
+                { expiresIn: '1d' }
             )
             await User.updateOne({ email: req.body.email },
                 { $set: { JWTToken: refreshToken } },
-                { upset: true }, 
-                function(err){
-                    if (err) return res.send(500, {error: err});
-                    return res.send('Succesfully saved.');
+                { upset: true },
+                (err) => {
+                    if (err) return res.send(500, { error: err });
                 })
-                user = await User.findOne({ email }).lean()
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 *  60 * 60 * 1000})
+            user = await User.findOne({ email }).lean()
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
             console.log("SLAAAAAAAAAAAAAAAAY")
-            res.json({user, accessToken})
+            res.json({ user, accessToken })
+            return;
             // return res.status(200).send(user)
         }
-        return res.status(400).json({error:"Wrong password"})
+        return res.status(400).json({ error: "Wrong password" })
     } catch (error) {
         console.log(error.message)
-        res.json({status:"error"})
     }
 }
 module.exports = {

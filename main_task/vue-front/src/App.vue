@@ -82,7 +82,7 @@ async function loginUser(emailParam: string, passwordParam: string){
 <template>
   <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)" :loginUser="loginUser"></LogIn>
-  <SingUp v-if="addUserVis" :setPopupVisibility="setPopupVisibility" :addUser="addUser"></SingUp>
+  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" :addUser="addUser"></SingUp>
   <RouterView />
 </template>
 
