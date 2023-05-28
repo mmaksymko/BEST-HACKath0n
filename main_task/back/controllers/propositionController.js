@@ -1,8 +1,17 @@
 const mongoose = require('mongoose')
 const User = require('../models/user.js')
+const Validator = require('../middleware/validator')
 
 const addProposition = async (req, res) => {
-    // console.log(req.body)
+    const body = req.body
+    if (!new Validator()
+        .isID(req.params.id)
+        .isString(body.title)
+        .isString(body.description)
+        .isString(body.city)
+        .datesAreInOrder(body.creationDate, body.expiringDate).validated
+    ) return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     // try {
     // let user = new User({
     //     firstName: 'name',
@@ -33,9 +42,7 @@ const addProposition = async (req, res) => {
             }
         }
     }).then(res.status(200).json("Success!"))
-        .catch(err => {
-            console.log(err); res.status(400).json({ "Error": err })
-        })
+        .catch(err => res.status(400))
 
     // User.find({}).then(data => data.forEach(console.log))
 }
@@ -43,69 +50,89 @@ const addProposition = async (req, res) => {
 const getAllPropositions = (req, res) => {
     User.find({})
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
-        .catch(err => {
-            res.status(400).json({ "Error": err })
-        })
+        .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const getAllUsersPropositions = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.find({ _id: req.params.id })
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const getAllUsersTakenPropositions = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.find({
         "propositions.performerID": req.params.id
-    }).then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat())))
+    }).then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(obj => obj.performerID == req.params.id))))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const getAllExceptUsersPropositions = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.find({
         _id: { $ne: req.params.id },
 
     })
-        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
+        .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(obj => obj.status === 'waiting'))))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const getAuthorByPropositionId = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
+
     User.find({
         "propositions._id": req.params.id
     })
-        .then(user => res.status(200).send(JSON.stringify(user)))
+        .then(user => res.status(200).send(JSON.stringify(user[0]) || []))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const completeProposition = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.updateOne({
-        "propositions.$._id": req.params.id
+        "propositions._id": req.params.id
     }, {
-        '$set': {
+        "$set": {
             "propositions.$.status": "done"
         }
-    }).then(user => res.status(200).json("Success!"))
+    }).then(res.status(200).json("Success!"))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 const acceptProposition = (req, res) => {
+    if (!new Validator().isID(req.params.id).isID(req.params.performerID).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.updateOne({
-        "propositions.$._id": req.params.id
+        "propositions._id": req.params.id
     }, {
         '$set': {
             "propositions.$.performerID": req.params.performerID,
             "propositions.$.status": "accepted"
         }
-    }).then(user => res.status(200).json("Success!"))
+    }).then(res.status(200).json("Success!"))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 
 
 const getProposition = (req, res) => {
+    if (!new Validator().isID(req.params.id).validated)
+        return res.status(422).json(JSON.stringify({ error: "bad input data" }))
+
     User.findOne({
         "propositions._id": req.params.id
-    }).then(user => res.status(200).send(JSON.stringify(user.propositions.filter(obj => obj._id == req.params.id)[0])))
+    }).then(user => res.status(200).send(JSON.stringify(user.propositions.filter(obj => obj._id == req.params.id)[0] || [])))
         .catch(err => res.status(400).json({ "Error": err }))
 }
 

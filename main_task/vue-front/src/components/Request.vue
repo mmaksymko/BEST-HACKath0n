@@ -40,7 +40,7 @@ onMounted( async () => {
     border: none;
     border-radius: 2rem;
     width: 30rem;
-    height: 34rem;
+    height: 30rem;
     color: black;
     padding: 1.5rem 2rem 3rem 2rem;
     align-items: center;
@@ -120,7 +120,7 @@ onMounted( async () => {
     .request__container {
         border-radius: 2rem;
         width: 100%;
-        height: 37.5rem;
+        height: 37.2rem;
         padding: 1rem 1rem 1.5rem 1rem;
     }
 }
