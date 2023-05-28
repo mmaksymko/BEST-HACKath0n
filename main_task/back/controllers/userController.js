@@ -49,9 +49,8 @@ const login = async (req, res) => {
             await User.updateOne({ email: req.body.email },
                 { $set: { JWTToken: refreshToken } },
                 { upset: true },
-                function (err) {
+                (err) => {
                     if (err) return res.send(500, { error: err });
-                    // return res.send('Succesfully saved.');
                 })
             user = await User.findOne({ email }).lean()
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
