@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Request from "/src/components/RequestPr.vue"
-import Volunteer from "/src/components/VolunteerPr.vue"
-import Profile from "/src/components/ProfileInfo.vue"
+import Request from "@/components/RequestPr.vue"
+import Volunteer from "@/components/VolunteerPr.vue"
+import Profile from "@/components/ProfileInfo.vue"
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 
 const route = useRouter();

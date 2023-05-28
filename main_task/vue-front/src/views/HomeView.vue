@@ -1,10 +1,63 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import Request from "/src/components/Request.vue"
+import Request from "@/components/Request.vue"
+import type { Item } from "@/types";
+import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 const route = useRouter();
-onMounted(() => {
+const helpRequestList = ref<Item[]>([]);
 
+async function getAllPropositions() {
+  const response = await fetch('http://localhost:7000/proposition/api/all', {
+    method: 'GET'
+  })
+  if (!response.ok) return response.statusText;
+  helpRequestList.value = parseJsonToItems(await response.json());
+  console.log(helpRequestList.value);
+}
+
+function parseJsonToItems(json: any): Item[] {
+  const items: Item[] = json.map((itemData: any) => {
+    const item: Item = {
+      _id: itemData._id || "",
+      category: itemData.category || [],
+      city: itemData.city || "",
+      creationDate: itemData.creationDate || "",
+      description: itemData.description || "",
+      expiringDate: itemData.expiringDate || "",
+      status: itemData.status || "",
+      title: itemData.title || "",
+    };
+    return item;
+  });
+  return items;
+}
+
+async function getAuthorByPropositionId(id:string) {
+    const response = await fetch(`http://localhost:7000/proposition/author/${id}`, {
+        method: 'GET'
+    })
+    if (!response.ok) return response.statusText
+    return await response.json()
+}
+
+async function getNameOfAuthorByPropositionId(id:string) : Promise<string>{
+  const json = await getAuthorByPropositionId(id);
+  return json[0]["firstName"] + " " + json[0]["lastName"];
+}
+
+const dividedItems = ref<Item[][]>();
+
+function divideArrayIntoChunks(array: Item[], chunkSize: number): Item[][] {
+  const result: Item[][] = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    result.push(array.slice(i, i + chunkSize));
+  }
+  return result;
+}
+
+onMounted(async () => {
+  await getAllPropositions();
+  dividedItems.value = divideArrayIntoChunks(helpRequestList.value,3);
 })
 </script>
 
@@ -37,26 +90,16 @@ onMounted(() => {
           </datalist>
         </div>
       </div>
-    <div class="chosen_filters"></div>
+      <div class="chosen_filters"></div>
     </div>
-    <div class="requests__container">
-      <div class="requests__row">
-        <Request></Request>
-        <Request></Request>
-        <Request></Request>
-      </div>
-      <div class="requests__row">
-        <Request></Request>
-        <Request></Request>
-        <Request></Request>
-      </div>
-      <div class="requests__row">
-        <Request></Request>
+    <div class="requests__container" >
+      <div class="requests__row" v-for="row in dividedItems">
+        <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId"></Request>
       </div>
     </div>
     <div class="request_help__container">
       <button class="request_help" @click="route.push('/help')">запросити допомогу</button>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -69,6 +112,7 @@ onMounted(() => {
   width: 100%;
   height: 100%;
 }
+
 .requests__container {
   display: flex;
   flex-direction: column;
@@ -77,10 +121,12 @@ onMounted(() => {
   overflow-y: scroll;
   gap: 3rem;
 }
+
 .requests__row {
   display: flex;
   justify-content: space-between;
 }
+
 .request_help__container {
   width: 100%;
   display: flex;
@@ -88,6 +134,7 @@ onMounted(() => {
   justify-content: right;
   margin-top: 0.25rem;
 }
+
 .request_help {
   background-color: rgba(255, 255, 255, 0.75);
   color: #9A57F0;
@@ -98,24 +145,29 @@ onMounted(() => {
   border-radius: 2rem;
   width: 18rem;
 }
+
 .filters__container {
   display: flex;
   padding: 0 6rem;
   gap: 4rem;
   font-size: 20px;
 }
+
 .filters__header {
   font-size: 20px;
   margin-bottom: 1rem;
 }
+
 .filters {
   display: flex;
   gap: 2rem;
 }
+
 .filter {
   display: flex;
   gap: 1rem;
 }
+
 input {
   width: 9rem;
   height: 1.5rem;
@@ -123,8 +175,9 @@ input {
   background-color: rgba(255, 255, 255, 0.5);
   padding-left: 0.5rem;
 }
+
 input:focus {
-    outline: none;
+  outline: none;
 }
 
 #categories {
@@ -138,6 +191,7 @@ input:focus {
     padding: 0 3rem;
   }
 }
+
 @media screen and (max-width: 1210px) {
     .requests__container {
         padding: 0 3rem;
@@ -156,7 +210,7 @@ input:focus {
   display: flex;
   flex-direction: column;
   padding: 0rem 3rem;
-  height: 70%;
+  height: 45rem;
   gap: 1rem;
 }
 .filters__header {
@@ -174,36 +228,40 @@ input:focus {
   gap: 0;
 }
   .requests__row {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1rem;
+  }
 }
-}
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 750px) {
   .filters__container {
     padding: 0 2rem;
   }
 }
+
 @media screen and (max-width: 460px) {
   .requests__container {
     height: 68%;
   }
+
   .filters__container {
     padding: 0 1rem;
-}
-.filters {
-  padding: 0;
-  font-size: 16px;
-  gap: 0;
-  margin-bottom: 1.5rem;
-}
-input {
-  width: 6.5rem;
-}
-.filter {
-  gap: 0.5rem;
-}
-}
-</style>
+  }
+
+  .filters {
+    padding: 0;
+    font-size: 16px;
+    gap: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  input {
+    width: 6.5rem;
+  }
+
+  .filter {
+    gap: 0.5rem;
+  }
+}</style>
