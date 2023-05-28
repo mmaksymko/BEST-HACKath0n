@@ -12,6 +12,7 @@ const emailParam = ref("");
 const passwordParam = ref("");
 
 const handleSubmit = () => {
+    console.log("user add process start")
     addUser(firstNameParam.value, lastNameParam.value, emailParam.value, passwordParam.value, parseInt(phoneParam.value));
 };
 
