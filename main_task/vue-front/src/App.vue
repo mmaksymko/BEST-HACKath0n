@@ -6,6 +6,7 @@ import { useUserStore } from "@/stores/user"
 //import TopNavigation from "../src/components/TopNavigation.vue"
 import LogIn from "../src/components/LogInPopup.vue"
 import SingUp from "../src/components/SignUpPopup.vue"
+import InfoPopup from "../src/components/InfoPopup.vue"
 import type { UserPostResponse } from './types';
 import { addUserVis, setPopupVisibility } from "@/visibilityvars";
 
@@ -14,6 +15,7 @@ const user = useUserStore();
 
 const isLogInVisible = ref<boolean>(false)
 const isSignUpVisible = ref<boolean>(false)
+  const isInfoVisible = ref<boolean>(false)
 function showLoginPopUp(show: boolean) {
   isLogInVisible.value = show
   isSignUpVisible.value = !show
@@ -91,7 +93,8 @@ onBeforeUnmount(()=>{
     v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"
     :loginUser="loginUser"></LogIn>
-  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" :addUser="addUser"></SingUp>
+  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" @submitSignUp="isSignUpVisible = false, isInfoVisible = true" :addUser="addUser"></SingUp>
+  <InfoPopup v-if="isInfoVisible" @closeInfo="isInfoVisible = false"></InfoPopup>
   <RouterView />
 </template>
 

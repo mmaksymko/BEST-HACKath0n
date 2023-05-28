@@ -55,7 +55,7 @@ const handleSubmit = () => {
                     <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
                 </div>
                 <div class="popup__footer">
-                    <button type="submit" class="submit_form" @click="$emit('closeSignUp')">підтвердити</button>
+                    <button type="submit" class="submit_form" @click="$emit('submitSignUp')">підтвердити</button>
                 </div>
             </form>
         </div>
