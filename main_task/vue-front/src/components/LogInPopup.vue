@@ -13,6 +13,8 @@ const passwordParam = ref("");
 const handleSubmit = () => {
     event?.preventDefault()
     loginUser(emailParam.value, passwordParam.value);
+    let element: HTMLElement = document.getElementById("closePopup") as HTMLElement;
+    element.click();
 };
 
 </script>

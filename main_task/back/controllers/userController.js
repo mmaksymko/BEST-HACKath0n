@@ -72,8 +72,20 @@ const login = async (req, res) => {
         return res.status(400)
     }
 }
+
+const getUser = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.params.id }).lean()
+        if(user === null) return res.status(400).json({ error: "User does not exist" })
+        res.status(200).send(user)
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).send(error)
+    }
+}
 module.exports = {
     signup,
-    login
+    login,
+    getUser
 }
 

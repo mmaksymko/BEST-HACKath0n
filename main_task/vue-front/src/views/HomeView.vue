@@ -2,10 +2,15 @@
 import Request from "@/components/Request.vue"
 import type { Item } from "@/types";
 import { computed, onMounted, ref } from "vue";
-import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router';
+import { useUserStore } from "@/stores/user"
+import { toast } from 'vue3-toastify';
 const route = useRouter();
 const helpRequestList = ref<Item[]>([]);
 const startHelpRequestList = ref<Item[]>([]);
+
+const user = useUserStore();
+console.log(user.$state);
 
 async function getAllPropositions() {
   const response = await fetch('http://localhost:7000/proposition/api/all', {
@@ -14,7 +19,7 @@ async function getAllPropositions() {
   if (!response.ok) return response.statusText;
   helpRequestList.value = parseJsonToItems(await response.json());
   console.log(helpRequestList.value);
-  startHelpRequestList.value=helpRequestList.value;
+  startHelpRequestList.value = helpRequestList.value;
 }
 
 function parseJsonToItems(json: any): Item[] {
@@ -34,31 +39,41 @@ function parseJsonToItems(json: any): Item[] {
   return items;
 }
 
-function filterByCity(city:string){
-  helpRequestList.value = helpRequestList.value.filter((value)=>value.city===city);
-  if(startHelpRequestList.value.length==0){
-    helpRequestList.value=startHelpRequestList.value;
+function filterByCity(city: string) {
+  helpRequestList.value = helpRequestList.value.filter((value) => value.city === city);
+  if (helpRequestList.value.length == 0) {
+      if (city.length > 0)
+      toast.error("Запитів з вашими параметрами немає, перевірте ввід чи виберіть інші", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    helpRequestList.value = startHelpRequestList.value;
   }
+  dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
 }
-function filterByCategory(tempcategory:string){
-  helpRequestList.value = helpRequestList.value.filter((value)=>
-  value.category.findIndex((category)=>category===tempcategory));
-  if(startHelpRequestList.value.length==0){
-    helpRequestList.value=startHelpRequestList.value;
+function filterByCategory(tempcategory: string) {
+  helpRequestList.value = helpRequestList.value.filter((value) =>
+    value.category.findIndex((category) => category === tempcategory)>=0);
+  if (helpRequestList.value.length == 0) {
+    helpRequestList.value = startHelpRequestList.value;
+    if (tempcategory.length > 0)
+      toast.error("Запитів з вашими параметрами немає, перевірте ввід чи виберіть інші", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
   }
+  dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
 }
 
-async function getAuthorByPropositionId(id:string) {
-    const response = await fetch(`http://localhost:7000/proposition/author/${id}`, {
-        method: 'GET'
-    })
-    if (!response.ok) return response.statusText
-    return await response.json()
+async function getAuthorByPropositionId(id: string) {
+  const response = await fetch(`http://localhost:7000/proposition/author/${id}`, {
+    method: 'GET'
+  })
+  if (!response.ok) return response.statusText
+  return await response.json()
 }
 
-async function getNameOfAuthorByPropositionId(id:string) : Promise<string>{
+async function getNameOfAuthorByPropositionId(id: string): Promise<string> {
   const json = await getAuthorByPropositionId(id);
-  return json[0]["firstName"] + " " + json[0]["lastName"];
+  return json["firstName"] + " " + json["lastName"];
 }
 
 const dividedItems = ref<Item[][]>();
@@ -71,9 +86,19 @@ function divideArrayIntoChunks(array: Item[], chunkSize: number): Item[][] {
   return result;
 }
 
+function handleCityFilter(event: Event) {
+  const selectedCity = (event.target as HTMLInputElement).value;
+  filterByCity(selectedCity);
+}
+
+function handleCategoryFilter(event: Event) {
+  const selectedCategory = (event.target as HTMLInputElement).value;
+  filterByCategory(selectedCategory);
+}
+
 onMounted(async () => {
   await getAllPropositions();
-  dividedItems.value = divideArrayIntoChunks(helpRequestList.value,3);
+  dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
 })
 </script>
 
@@ -84,7 +109,7 @@ onMounted(async () => {
       <div class="filters">
         <div class="filter">
           <label for="cities">місто</label>
-          <input list="cities" name="category">
+          <input list="cities" name="category" @change="handleCityFilter">
           <datalist id="cities" name="city">
             <option value="усі"></option>
             <option value="Київ"></option>
@@ -95,7 +120,7 @@ onMounted(async () => {
         </div>
         <div class="filter">
           <label for="categories">категорія</label>
-          <input list="categories" name="category" id="browser">
+          <input list="categories" name="category" @change="handleCategoryFilter" id="browser">
           <datalist id="categories" name="category">
             <option value="усі"></option>
             <option value="їжа"></option>
@@ -108,7 +133,7 @@ onMounted(async () => {
       </div>
       <div class="chosen_filters"></div>
     </div>
-    <div class="requests__container" >
+    <div class="requests__container">
       <div class="requests__row" v-for="row in dividedItems">
         <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId"></Request>
       </div>
@@ -210,40 +235,47 @@ input:focus {
 }
 
 @media screen and (max-width: 1210px) {
-    .requests__container {
-        padding: 0 3rem;
-    }
-}
-@media screen and (max-width: 980px){
   .requests__container {
-        padding: 0 2rem;
-    }
-    .filters__container {
-      padding: 0 4rem;
-    }
+    padding: 0 3rem;
+  }
 }
+
+@media screen and (max-width: 980px) {
+  .requests__container {
+    padding: 0 2rem;
+  }
+
+  .filters__container {
+    padding: 0 4rem;
+  }
+}
+
 @media screen and (max-width: 920px) {
   .requests__container {
-  display: flex;
-  flex-direction: column;
-  padding: 0rem 3rem;
-  height: 45rem;
-  gap: 1rem;
-}
-.filters__header {
-  text-align: center;
-}
-.filters {
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 4rem;
-  margin-bottom: 2rem;
-}
-.filters__container {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+    display: flex;
+    flex-direction: column;
+    padding: 0rem 3rem;
+    height: 45rem;
+    gap: 1rem;
+  }
+
+  .filters__header {
+    text-align: center;
+  }
+
+  .filters {
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .filters__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
   .requests__row {
     display: flex;
     flex-direction: column;

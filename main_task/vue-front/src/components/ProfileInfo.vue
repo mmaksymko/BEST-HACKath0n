@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
+import { useUserStore } from "@/stores/user"
+const user = useUserStore();
+console.log(user.$state);
 const route = useRoute();
 </script>
 
@@ -9,23 +12,19 @@ const route = useRoute();
         <div class="profile__info">
             <div class="profile__item">
                 <div class="first_name _header">ім'я</div>
-                <div class="first_name">Василь</div>
+                <div class="first_name">{{ user.firstName }}</div>
             </div>
             <div class="profile__item">
                 <div class="last_name _header">прізвище</div>
-                <div class="last_name">Голобородько</div>
-            </div>
-            <div class="profile__item">
-                <div class="birthday _header">дата народження</div>
-                <div class="birthday">19.05.1978</div>
+                <div class="last_name">{{ user.lastName }}</div>
             </div>
             <div class="profile__item">
                 <div class="phone _header">номер телефону</div>
-                <div class="phone">+380935687799</div>
+                <div class="phone">{{ user.phone }}</div>
             </div>
             <div class="profile__item">
                 <div class="email _header">пошта</div>
-                <div class="email">vasyl@gmail.com</div>
+                <div class="email">{{ user.email }}</div>
             </div>
             <div class="profile__item">
                 <div class="email _header">пароль</div>

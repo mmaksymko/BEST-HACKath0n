@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Header from "../src/components/Header.vue"
-import socket from "@/socket"
+import { useUserStore } from "@/stores/user"
 //import TopNavigation from "../src/components/TopNavigation.vue"
 import LogIn from "../src/components/LogInPopup.vue"
 import SingUp from "../src/components/SignUpPopup.vue"
@@ -11,6 +11,7 @@ import { addUserVis, setPopupVisibility } from "@/visibilityvars";
 import { getCookie, setCookie } from 'typescript-cookie'
 
 const route = useRoute();
+const user = useUserStore();
 
 const isLogInVisible = ref<boolean>(false)
 const isSignUpVisible = ref<boolean>(false)
@@ -44,9 +45,8 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
   if (response.status === 400) {
     console.log(response)
   } else if (response.ok) {
-    window.location.reload();
     users.value.push({
-      _id: users.value[users.value.length - 1]._id + 1,
+      _id: users.value.length ? users.value[users.value.length - 1]._id + 1 : 0,
       firstName: firstNameParam,
       lastName: lastNameParam,
       email: emailParam,
@@ -55,7 +55,8 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
       __v: 0
     });
   }
-  console.log(response)
+  console.log(await response.json())
+  user.setUser(JSON.parse(await response.json()));
   update.value = false;
   update.value = true;
 }
