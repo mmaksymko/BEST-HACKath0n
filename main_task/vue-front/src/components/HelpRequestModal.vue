@@ -65,15 +65,15 @@
 
 .help-request-modal
 {
-    background-color: rgba(255, 255, 255, 0.7);
-    width: 50rem;
-    height: 30rem; 
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 70%;
+    height: 70%; 
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border-radius: 2rem;
-    padding: 3rem;
+    padding: 1rem 2rem 3rem 2rem;
  }
 .help-request-modal-content
 {
@@ -137,15 +137,16 @@ input:focus {
 }
 .accept-button{
     float: right;
-    position: absolute;
-    background-color:#0a0a23;
+    background-color: black;
     color: #fff;
     border:none;
-    border-radius:15px;
-    min-height:2rem; 
+    border-radius: 1.25rem;
+    min-height: 2.5rem; 
     min-width: 9rem;
-    right: 10px;
-    bottom: 10px ;
+    margin-top: 1rem;
+}
+textarea:focus {
+    outline: none;
 }
 
 @media screen and (max-width:800px) {
