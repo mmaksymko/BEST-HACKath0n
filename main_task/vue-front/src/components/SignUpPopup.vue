@@ -63,7 +63,7 @@ const handleSubmit = () => {
 
 <style scoped>
 .popup {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.5);
     width: 100%;
     height: 100%;
     position: absolute;
@@ -157,6 +157,7 @@ const handleSubmit = () => {
     height: 2.75rem;
     width: 9rem;
     margin: 1rem 0 2rem;
+    cursor: pointer;
 }
 .submit_form:hover {
     color: #E9B76C;

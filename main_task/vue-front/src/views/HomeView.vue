@@ -160,6 +160,7 @@ onMounted(async () => {
   border: none;
   border-radius: 2rem;
   width: 18rem;
+  cursor: pointer;
 }
 
 .filters__container {
