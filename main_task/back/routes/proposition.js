@@ -3,19 +3,19 @@ const router = express.Router()
 const propositionController = require('../controllers/propositionController')
 const verifyJWT = require('../middleware/verifyJWT')
 
+router.route('/:id/:performerID')
+    .put(propositionController.acceptProposition)
+
 router.route('/:id')
     .get(propositionController.getProposition)
     .post(propositionController.addProposition)
     .put(propositionController.completeProposition)
 
-router.route('/:id/:performerID')
-    .put(propositionController.acceptProposition)
-
 router.route('/author/:id')
     .get(propositionController.getAuthorByPropositionId)
 
 router.route('/api/all')
-    .get(verifyJWT, propositionController.getAllPropositions)
+    .get(propositionController.getAllPropositions)
 
 router.route('/all/:id')
     .get(propositionController.getAllUsersPropositions)

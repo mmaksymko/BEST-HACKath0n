@@ -65,7 +65,8 @@ onMounted(async () => {
         <div class="history__block">
             <div class="requests__header"><h2>волонтерство</h2></div>
             <div class="requests__container">
-                <Volunteer :getAuthorByPropositionId="getNameOfAuthorByPropositionId" v-for="item in volunteersArr" :item="item" ></Volunteer>
+                <Volunteer :getAuthorByPropositionId="getNameOfAuthorByPropositionId" v-for="item in volunteersArr" :item="item" 
+                ></Volunteer>
             </div>
         </div>
         <div class="history__block">
@@ -105,42 +106,7 @@ onMounted(async () => {
   flex-direction: column;
   height: 33rem;
   overflow-y: scroll;
-  overflow-x: hidden;
-  gap: 1.5rem;
-  padding-right: 0.5rem;
-}
-::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
-}
-
-::-webkit-scrollbar-track {
-    background: #eee;
-    border-radius: 0.25rem;
-}
-
-.requests__container::-webkit-scrollbar {
-    width: 0.5rem;
-    background-color: #f1f1f1;
-    border-radius: 0.5rem;
-}
-
-.requests__container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 0.5rem;
-}
-
-.requests__container::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+  gap: 2rem;
 }
 .profile_info__container h2{
     margin-bottom: 1rem;

@@ -8,7 +8,6 @@ import LogIn from "../src/components/LogInPopup.vue"
 import SingUp from "../src/components/SignUpPopup.vue"
 import type { UserPostResponse } from './types';
 import { addUserVis, setPopupVisibility } from "@/visibilityvars";
-import { getCookie, setCookie } from 'typescript-cookie'
 
 const route = useRoute();
 const user = useUserStore();

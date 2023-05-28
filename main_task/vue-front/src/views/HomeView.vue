@@ -30,7 +30,7 @@ const Categories: StringByString = {
   'other': 'інша'
 }
 
-function parseResponse(response: Array<UserDb>) {
+function parseResponse(response: Array<Item>) {
   for (let i = 0; i != response.length; ++i)
     response[i].category = response.map(resp => resp.category.map(category => Categories[`${category}`]))[i]
 
@@ -130,6 +130,14 @@ async function getUser(id:string) {
     return response.json();
 }
 
+async function acceptProposition(id:string, performerID:string) {
+    const response = await fetch(`http://localhost:7000/proposition/${id}/${performerID}`, {
+        method: 'PUT'
+    })
+    if (!response.ok) return response.statusText
+    return await response.json();
+}
+
 onMounted(async () => {
   await getAllPropositions();
   dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
@@ -137,6 +145,7 @@ onMounted(async () => {
     await getUser(localStorage.getItem("userId") as string);
   }
 })
+
 </script>
 
 <template>
@@ -178,7 +187,8 @@ onMounted(async () => {
     </div>
     <div class="requests__container">
       <div class="requests__row" v-for="row in dividedItems">
-        <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId"></Request>
+        <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId" 
+        :acceptProposition="acceptProposition"></Request>
       </div>
     </div>
     <div class="request_help__container">

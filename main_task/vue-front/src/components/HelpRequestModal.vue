@@ -1,4 +1,22 @@
 <script setup lang="ts">
+import { useUserStore } from "@/stores/user"
+import { ref } from 'vue';
+const user = useUserStore();
+
+const { addProposition } = defineProps<{
+    addProposition: (id:string, title:string, description:string,
+   creationDate:Date, expiringDate:Date, city:string, category:string) => void;
+}>();
+
+const title = ref("");
+const category = ref("");
+const city = ref("");
+const description = ref("");
+const endTime = ref(new Date());
+
+function handleAdd(){
+    addProposition(user._id,title.value,description.value,new Date(),endTime.value,city.value,category.value);
+}
 
 </script>
 
@@ -12,12 +30,12 @@
 
     <div class="container">
         <label class="text-style">заголовок</label>
-        <input type="text" class="text-input"><br>
+        <input type="text" v-model="title" class="text-input"><br>
     </div>
 
     <div class="container">
         <label class="text-style">категорія</label>
-        <input type="text" list="categories-datalist" class="text-input">
+        <input type="text" v-model="category" list="categories-datalist" class="text-input">
         <datalist name="categories" id="categories-datalist">
             <option value="">--Вибрати--</option>
             <option value="Медична допомога" id="medicine"></option>
@@ -38,7 +56,7 @@
    
     <div class="container">
         <label class="text-style" style="margin-bottom: 5px;">місто</label>
-        <select class="text-input" name="cities" id="cities-select">
+        <select class="text-input" v-model="city" name="cities" id="cities-select">
             <option value="">--Вибрати--</option>
             <option value="kyiv">Київ</option>
             <option value="kharkiv">Харків</option>
@@ -50,13 +68,13 @@
         </select><br>
     </div>
         <br><label class="text-style">опис</label>
-        <textarea class="description"></textarea><br>
+        <textarea class="description" v-model="description"></textarea><br>
     <div class="container"  >
         <label class="text-style" >термін</label>
-        <input type="date" class="text-input" ><br>
+        <input type="date" v-model="endTime" class="text-input" ><br>
     </div>
 </div>
-         <button class="accept-button">підтвердити</button>
+         <button class="accept-button" @click="handleAdd">підтвердити</button>
    
   </div>
 </template>
