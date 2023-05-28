@@ -5,6 +5,7 @@ import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 const route = useRouter();
 const helpRequestList = ref<Item[]>([]);
+const startHelpRequestList = ref<Item[]>([]);
 
 async function getAllPropositions() {
   const response = await fetch('http://localhost:7000/proposition/api/all', {
@@ -13,6 +14,7 @@ async function getAllPropositions() {
   if (!response.ok) return response.statusText;
   helpRequestList.value = parseJsonToItems(await response.json());
   console.log(helpRequestList.value);
+  startHelpRequestList.value=helpRequestList.value;
 }
 
 function parseJsonToItems(json: any): Item[] {
@@ -30,6 +32,20 @@ function parseJsonToItems(json: any): Item[] {
     return item;
   });
   return items;
+}
+
+function filterByCity(city:string){
+  helpRequestList.value = helpRequestList.value.filter((value)=>value.city===city);
+  if(startHelpRequestList.value.length==0){
+    helpRequestList.value=startHelpRequestList.value;
+  }
+}
+function filterByCategory(tempcategory:string){
+  helpRequestList.value = helpRequestList.value.filter((value)=>
+  value.category.findIndex((category)=>category===tempcategory));
+  if(startHelpRequestList.value.length==0){
+    helpRequestList.value=startHelpRequestList.value;
+  }
 }
 
 async function getAuthorByPropositionId(id:string) {
