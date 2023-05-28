@@ -3,7 +3,6 @@ import type { Ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { useUserStore } from "@/stores/user"
 const user = useUserStore();
-console.log(user.$state);
 const route = useRoute();
 </script>
 

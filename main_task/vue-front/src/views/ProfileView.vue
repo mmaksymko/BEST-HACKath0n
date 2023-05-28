@@ -3,8 +3,56 @@ import Request from "@/components/RequestPr.vue"
 import Volunteer from "@/components/VolunteerPr.vue"
 import Profile from "@/components/ProfileInfo.vue"
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useUserStore } from "@/stores/user"
+import { onMounted, ref } from "vue";
+import type { Item } from "@/types";
 
 const route = useRouter();
+const volunteersArr = ref<Item[]>([]);
+const requestsArr = ref<Item[]>([]);
+const user = useUserStore();
+console.log(user.$state);
+
+// повертає всі користувачеві пропозиції
+async function getAllUsersPropositions(id:string) {
+    const response = await fetch(`http://localhost:7000/proposition/all/${id}`, {
+        method: 'GET'
+    })
+    if (!response.ok) return response.statusText
+    return response.json()
+}
+
+async function getAuthorByPropositionId(id: string) {
+  const response = await fetch(`http://localhost:7000/proposition/author/${id}`, {
+    method: 'GET'
+  })
+  if (!response.ok) return response.statusText
+  return await response.json()
+}
+
+async function getNameOfAuthorByPropositionId(id: string): Promise<string> {
+  const json = await getAuthorByPropositionId(id);
+  return json["firstName"] + " " + json["lastName"];
+}
+
+
+// повертає всі пропозиції взяті користувачем
+async function getAllUsersTakenPropositions(id:string) {
+    const response = await fetch(`http://localhost:7000/proposition/all-taken/${id}`, {
+        method: 'GET'
+    })
+    if (!response.ok) return response.statusText
+    return response.json()
+}
+
+onMounted(async () => {
+  if(localStorage.getItem("userId")!==null){
+    console.log(await user.getUser(localStorage.getItem("userId") as string));
+  }
+  volunteersArr.value = await getAllUsersTakenPropositions(user._id);
+  requestsArr.value = await getAllUsersPropositions(user._id);
+})
+
 </script>
 
 <template>
@@ -17,16 +65,13 @@ const route = useRouter();
         <div class="history__block">
             <div class="requests__header"><h2>волонтерство</h2></div>
             <div class="requests__container">
-                <Volunteer></Volunteer>
-                <Volunteer></Volunteer>
-                <Volunteer></Volunteer>
+                <Volunteer :getAuthorByPropositionId="getNameOfAuthorByPropositionId" v-for="item in volunteersArr" :item="item" ></Volunteer>
             </div>
         </div>
         <div class="history__block">
             <div class="requests__header"><h2>запити</h2></div>
             <div class="requests__container">
-                <Request></Request>
-                <Request></Request>
+                <Request v-for="item in requestsArr" :item="item" ></Request>
             </div>
         </div>
  

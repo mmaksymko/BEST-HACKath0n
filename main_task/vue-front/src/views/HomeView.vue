@@ -96,9 +96,20 @@ function handleCategoryFilter(event: Event) {
   filterByCategory(selectedCategory);
 }
 
+async function getUser(id:string) {
+    const response = await fetch(`http://localhost:7000/user/${id}`, {
+        method: 'GET'
+    })
+    if (!response.ok) return response.statusText
+    return response.json();
+}
+
 onMounted(async () => {
   await getAllPropositions();
   dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
+  if(localStorage.getItem("userId")!==null){
+    await getUser(localStorage.getItem("userId") as string);
+  }
 })
 </script>
 

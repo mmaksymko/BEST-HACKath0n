@@ -15,5 +15,14 @@ export const useUserStore = defineStore('user', {
     setUser(user:User) {
       Object.assign(this, user);
     },
+    async getUser(id:string) {
+      const response = await fetch(`http://localhost:7000/user/get/${id}`, {
+          method: 'GET'
+      })
+      if (!response.ok) return response.statusText
+      this.setUser(await response.json());
+    }
+    
+  
   },
 });

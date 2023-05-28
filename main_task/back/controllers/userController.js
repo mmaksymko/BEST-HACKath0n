@@ -66,8 +66,10 @@ const login = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    try {
+    try {console.log(21324584365233456786564625465767)
         const user = await User.findOne({ _id: req.params.id }).lean()
+        console.log(1324584365233456786564625465767)
+        console.log(user)
         if(user === null) return res.status(400).json({ error: "User does not exist" })
         res.status(200).send(user)
     } catch (error) {

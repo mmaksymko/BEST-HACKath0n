@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import Header from "../src/components/Header.vue"
 import { useUserStore } from "@/stores/user"
@@ -76,9 +76,13 @@ async function loginUser(emailParam: string, passwordParam: string){
     })
   })
   user.setUser((await response.json()).user);
-  localStorage.setItem('userId', user.$id);
+  localStorage.setItem('userId', user._id);
   console.log(user.$state);
 }
+
+onBeforeUnmount(()=>{
+  localStorage.clear();
+})
 
 </script>
 
