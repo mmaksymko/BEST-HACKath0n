@@ -7,7 +7,8 @@ import { useUserStore } from "@/stores/user"
 import LogIn from "../src/components/LogInPopup.vue"
 import SingUp from "../src/components/SignUpPopup.vue"
 import type { UserPostResponse } from './types';
-import { addUserVis, setPopupVisibility} from "@/visibilityvars";
+import { addUserVis, setPopupVisibility } from "@/visibilityvars";
+import { getCookie, setCookie } from 'typescript-cookie'
 
 const route = useRoute();
 const user = useUserStore();
@@ -26,7 +27,7 @@ function showSignupPopup(show: boolean) {
 const users = ref<UserPostResponse[]>([]);
 const update = ref(true);
 
-async function addUser(firstNameParam: string, lastNameParam: string, emailParam:string, passwordParam:string, phoneParam:number) {
+async function addUser(firstNameParam: string, lastNameParam: string, emailParam: string, passwordParam: string, phoneParam: number) {
   const response = await fetch('http://localhost:7000/user/signup', {
     method: 'POST',
     headers: {
@@ -45,13 +46,13 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
     console.log(response)
   } else if (response.ok) {
     users.value.push({
-      _id: users.value.length? users.value[users.value.length - 1]._id + 1 : 0,
+      _id: users.value.length ? users.value[users.value.length - 1]._id + 1 : 0,
       firstName: firstNameParam,
       lastName: lastNameParam,
       email: emailParam,
       phone: phoneParam,
       propositions: "[]",
-      __v:0
+      __v: 0
     });
   }
   console.log(await response.json())
@@ -60,7 +61,7 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
   update.value = true;
 }
 
-async function loginUser(emailParam: string, passwordParam: string){
+async function loginUser(emailParam: string, passwordParam: string) {
   console.log(emailParam)
   console.log(passwordParam)
   const response = await fetch('http://localhost:7000/user/login', {
@@ -87,11 +88,12 @@ onBeforeUnmount(()=>{
 </script>
 
 <template>
-  <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
-  <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)" :loginUser="loginUser"></LogIn>
+  <Header @openLogin="showLoginPopUp(true)"
+    v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
+  <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"
+    :loginUser="loginUser"></LogIn>
   <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" :addUser="addUser"></SingUp>
   <RouterView />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

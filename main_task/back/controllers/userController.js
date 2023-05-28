@@ -28,40 +28,48 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        User.find({}).then(console.log)
         const { email, password } = req.body
         let user = await User.findOne({ email }).lean()
         if (!user)
             return res.status(400).json({ error: "User does not exist" })
 
         if (await bcrypt.compare(password, user.password)) {
-            console.log(1)
             const accessToken = jwt.sign(
-                { email: user.email },
+                { "email": user.email },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '30s' } //must be 15m
+                { expiresIn: '15m' } //must be 15m
             )
             const refreshToken = jwt.sign(
                 { email: user.email },
                 process.env.REFRESH_TOKEN_SECRET,
-                { expiresIn: '1d' }
+                { expiresIn: '10d' }
             )
-            await User.updateOne({ email: req.body.email },
-                { $set: { JWTToken: refreshToken } },
-                { upset: true },
-                (err) => {
-                    if (err) return res.send(500, { error: err });
-                })
+
+            User.updateOne({
+                "email": req.body.email
+            }, {
+                "$set": {
+                    "JWTToken": refreshToken
+                }
+            })
+
             user = await User.findOne({ email }).lean()
-            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 })
-            console.log("SLAAAAAAAAAAAAAAAAY")
-            res.json({ user, accessToken })
+            // res.cookie('jwt-refresh', refreshToken, {
+            //     httpOnly: true,
+            //     sameSite: 'None', secure: true,
+            //     maxAge: 24 * 60 * 60 * 1000
+            // })
+            // res.cookie('jwt-access', accessToken, {
+            // httpOnly: true,
+            //  sameSite: 'None', secure: true, 
+            // maxAge: 15 * 60 * 1000
+            // })
+            res.status(200).json({ user, accessToken })
             return;
-            // return res.status(200).send(user)
         }
-        return res.status(400).json({ error: "Wrong password" })
+        return res.status(422)
     } catch (error) {
-        console.log(error.message)
+        return res.status(400)
     }
 }
 

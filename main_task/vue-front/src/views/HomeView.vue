@@ -5,20 +5,46 @@ import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView, useRouter } from 'vue-router';
 import { useUserStore } from "@/stores/user"
 import { toast } from 'vue3-toastify';
+import { parse } from "@vue/compiler-dom";
+import type { UserDb } from "@/types";
 const route = useRouter();
 const helpRequestList = ref<Item[]>([]);
 const startHelpRequestList = ref<Item[]>([]);
 
 const user = useUserStore();
 console.log(user.$state);
+interface StringByString {
+  [key: string]: string;
+}
+
+const Categories: StringByString = {
+  'military': 'військове',
+  'clothes': 'одяг',
+  'animals': 'тварини',
+  'vehicles': 'транспорт',
+  'food': 'харчі',
+  'children': 'діти',
+  'real_estate': 'житло',
+  'enternainment': 'розваги',
+  'health': 'медицина',
+  'other': 'інша'
+}
+
+function parseResponse(response: Array<UserDb>) {
+  for (let i = 0; i != response.length; ++i)
+    response[i].category = response.map(resp => resp.category.map(category => Categories[`${category}`]))[i]
+
+  return response
+}
 
 async function getAllPropositions() {
   const response = await fetch('http://localhost:7000/proposition/api/all', {
     method: 'GET'
   })
   if (!response.ok) return response.statusText;
-  helpRequestList.value = parseJsonToItems(await response.json());
-  console.log(helpRequestList.value);
+
+  helpRequestList.value = parseJsonToItems(parseResponse(await response.json()));
+
   startHelpRequestList.value = helpRequestList.value;
 }
 
@@ -42,7 +68,7 @@ function parseJsonToItems(json: any): Item[] {
 function filterByCity(city: string) {
   helpRequestList.value = helpRequestList.value.filter((value) => value.city === city);
   if (helpRequestList.value.length == 0) {
-      if (city.length > 0)
+    if (city.length > 0)
       toast.error("Запитів з вашими параметрами немає, перевірте ввід чи виберіть інші", {
         position: toast.POSITION.BOTTOM_RIGHT,
       });
@@ -52,7 +78,7 @@ function filterByCity(city: string) {
 }
 function filterByCategory(tempcategory: string) {
   helpRequestList.value = helpRequestList.value.filter((value) =>
-    value.category.findIndex((category) => category === tempcategory)>=0);
+    value.category.findIndex((category) => category === tempcategory) >= 0);
   if (helpRequestList.value.length == 0) {
     helpRequestList.value = startHelpRequestList.value;
     if (tempcategory.length > 0)
@@ -137,8 +163,14 @@ onMounted(async () => {
             <option value="їжа"></option>
             <option value="медицина"></option>
             <option value="військове"></option>
+            <option value="харчі"></option>
             <option value="житло"></option>
-            <option value="евакуація"></option>
+            <option value="транспорт"></option>
+            <option value="одяг"></option>
+            <option value="діти"></option>
+            <option value="розваги"></option>
+            <option value="тварини"></option>
+            <option value="інша"></option>
           </datalist>
         </div>
       </div>
@@ -168,10 +200,44 @@ onMounted(async () => {
 .requests__container {
   display: flex;
   flex-direction: column;
-  padding: 0rem 4rem;
+  padding: 0rem 3rem 0 4rem;
+  margin-right: 1rem;
   height: 30rem;
   overflow-y: scroll;
   gap: 3rem;
+}
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+
+::-webkit-scrollbar-track {
+    background: #eee;
+    border-radius: 0.25rem;
+}
+
+.requests__container::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: #f1f1f1;
+    border-radius: 0.5rem;
+}
+
+.requests__container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 0.5rem;
+}
+
+.requests__container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
 
 .requests__row {
@@ -324,4 +390,5 @@ input:focus {
   .filter {
     gap: 0.5rem;
   }
-}</style>
+}
+</style>
