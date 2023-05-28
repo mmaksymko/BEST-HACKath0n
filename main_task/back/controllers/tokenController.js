@@ -9,9 +9,7 @@ const handleRefreshToken = async (req, res) => {
         if (!cookies?.jwt) return res.sendStatus(401)
         const refreshToken = cookies.jwt
         const user = await User.findOne({ email: email, JWTToken: refreshToken }).lean()
-        if (user === null) {
-            return res.status(400)
-        }
+        if (!user) return res.status(400)
 
         jwt.verify(
             refreshToken,
@@ -40,7 +38,7 @@ const handleLogout = async (req, res) => {
 
         const refreshToken = cookies.jwt
         const user = await User.findOne({ email: email, JWTToken: refreshToken }).lean()
-        if (user === null) {
+        if (!user) {
             res.clearCookie('jwt', { httpOnly: true })
             return res.sendStatus(204).json("Success!")
         }

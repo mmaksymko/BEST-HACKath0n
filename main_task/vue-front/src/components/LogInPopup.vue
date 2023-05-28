@@ -40,7 +40,7 @@ const handleSubmit = () => {
                 <div class="popup__footer">
                     <!-- <button type="submit" class="submit_form" @click="$emit('closeLogin')">підтвердити</button> -->
                     <button type="submit" class="submit_form" @click="handleSubmit">підтвердити</button>
-                    <span>На нашому сайті вперше? <a href="#" @click="setPopupVisibility(true)" class="signup">Зареєструйтеся</a>, це займе
+                    <span>На нашому сайті вперше? <a href="#" @click="$emit('openSignUp')" class="signup">Зареєструйтеся</a>, це займе
                         кілька хвилин</span>
                 </div>
             </form>
@@ -153,6 +153,7 @@ const handleSubmit = () => {
     height: 2.75rem;
     width: 9rem;
     margin: 1rem 0 1rem;
+    cursor: pointer;
 }
 .submit_form:hover {
     color: #E9B76C;
