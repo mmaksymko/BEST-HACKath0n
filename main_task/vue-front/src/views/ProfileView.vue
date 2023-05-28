@@ -38,13 +38,14 @@ const route = useRouter();
 .main__container {
   position: absolute;
   display: grid;
-  grid-template-columns: 40% 60%;
+  grid-template-columns: 30% 70%;
   padding: 0 3rem;
   top: 0;
   right: 0;
   margin-top: 6rem;
   width: 100%;
   gap: 4rem;
+  height: 100%;
 }
 .history {
     display: flex;
@@ -57,9 +58,9 @@ const route = useRouter();
 .requests__container {
   display: flex;
   flex-direction: column;
-  height: 38rem;
+  height: 33rem;
   overflow-y: scroll;
-  gap: 3rem;
+  gap: 2rem;
 }
 .profile_info__container h2{
     margin-bottom: 1rem;
@@ -117,5 +118,60 @@ input:focus {
 
 #categories {
   color: black;
+}
+
+@media screen and (max-width:1420px) {
+  .main__container {
+  gap: 3rem;
+}
+.history {
+    display: flex;
+    gap: 2rem;
+}
+}
+@media screen and (max-width:1180px) {
+  .main__container {
+  gap: 2rem;
+  padding: 0 2rem;
+}
+.history {
+    display: flex;
+    gap: 1.5rem;
+}
+  h2 {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width:940px){
+  .main__container {
+    display: flex;
+    flex-direction: column;
+  }
+  .history {
+    flex-direction: row;
+  }
+  .requests__container {
+  display: flex;
+  flex-direction: column;
+  height: 18rem;
+  overflow-y: scroll;
+  gap: 1.5rem;
+}
+}
+@media screen and (max-width:460px){
+  .main__container {
+    gap: 1.4rem;
+  }
+  .history {
+    flex-direction: column;
+    margin-bottom: 9rem;
+  }
+  .requests__container {
+  display: flex;
+  flex-direction: column;
+  height: 18rem;
+  overflow-y: scroll;
+  gap: 1.8rem;
+}
 }
 </style>
