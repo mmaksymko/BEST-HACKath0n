@@ -49,7 +49,7 @@ const login = async (req, res) => {
                 { upset: true }, 
                 function(err){
                     if (err) return res.send(500, {error: err});
-                    return res.send('Succesfully saved.');
+                    // return res.send('Succesfully saved.');
                 })
                 user = await User.findOne({ email }).lean()
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 *  60 * 60 * 1000})
