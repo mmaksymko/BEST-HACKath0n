@@ -47,6 +47,7 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   word-break: keep-all;
+  cursor: pointer;
 }
 
 .navigation {

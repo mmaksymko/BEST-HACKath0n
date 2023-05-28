@@ -44,7 +44,7 @@ onMounted( async () => {
     border: none;
     border-radius: 2rem;
     width: 30rem;
-    height: 30rem;
+    height: 28rem;
     color: black;
     padding: 1.5rem 2rem 3rem 2rem;
     align-items: center;

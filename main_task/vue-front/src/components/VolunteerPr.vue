@@ -69,6 +69,7 @@ function handleStatusChange(){
     background-color: rgba(255, 255, 255, 0);
     border: 2px solid black;
     color: black;
+    padding: 0 0.8rem;
     height: 2rem;
     padding: 0 0.8rem;
     border-radius: 1rem;
