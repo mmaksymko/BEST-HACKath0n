@@ -100,7 +100,7 @@ h1 {
   }
 
   .header-link {
-    font-size: 18px;
+    font-size: 20px;
   }
   h1 {
     font-size: 20px;

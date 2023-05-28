@@ -1,28 +1,29 @@
 const express = require("express")
 const router = express.Router()
 const propositionController = require('../controllers/propositionController')
+const verifyJWT = require('../middleware/verifyJWT')
 
 router.route('/:id')
-    .get(propositionController.getProposition)
-    .post(propositionController.addProposition)
-    .put(propositionController.completeProposition)
+    .get(verifyJWT, propositionController.getProposition)
+    .post(verifyJWT, propositionController.addProposition)
+    .put(verifyJWT, propositionController.completeProposition)
 
 router.route('/:id/:performerID')
-    .put(propositionController.acceptProposition)
+    .put(verifyJWT, propositionController.acceptProposition)
 
 router.route('/author/:id')
-    .get(propositionController.getAuthorByPropositionId)
+    .get(verifyJWT, propositionController.getAuthorByPropositionId)
 
 router.route('/api/all')
     .get(propositionController.getAllPropositions)
 
 router.route('/all/:id')
-    .get(propositionController.getAllUsersPropositions)
+    .get(verifyJWT, propositionController.getAllUsersPropositions)
 
 router.route('/all-taken/:id')
-    .get(propositionController.getAllUsersTakenPropositions)
+    .get(verifyJWT, propositionController.getAllUsersTakenPropositions)
 
 router.route('/all-except/:id')
-    .get(propositionController.getAllExceptUsersPropositions)
+    .get(verifyJWT, propositionController.getAllExceptUsersPropositions)
 
 module.exports = router
