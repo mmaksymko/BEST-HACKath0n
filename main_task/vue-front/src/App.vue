@@ -7,6 +7,8 @@ import { useUserStore } from "@/stores/user"
 import LogIn from "../src/components/LogInPopup.vue"
 import SingUp from "../src/components/SignUpPopup.vue"
 import InfoPopup from "../src/components/InfoPopup.vue"
+import GoodWillPopup from "../src/components/GoodWillPopup.vue"
+import HomeView from "./views/HomeView.vue"
 import type { UserPostResponse } from './types';
 import { addUserVis, setPopupVisibility } from "@/visibilityvars";
 
@@ -15,7 +17,8 @@ const user = useUserStore();
 
 const isLogInVisible = ref<boolean>(false)
 const isSignUpVisible = ref<boolean>(false)
-  const isInfoVisible = ref<boolean>(false)
+const isInfoVisible = ref<boolean>(false)
+const isGoodWillVisible = ref<boolean>(false)
 function showLoginPopUp(show: boolean) {
   isLogInVisible.value = show
   isSignUpVisible.value = !show
@@ -23,6 +26,9 @@ function showLoginPopUp(show: boolean) {
 function showSignupPopup(show: boolean) {
   isSignUpVisible.value = show
   isLogInVisible.value = !show
+}
+function showGoodWillPopup(show: boolean){
+  isGoodWillVisible.value = show
 }
 
 const users = ref<UserPostResponse[]>([]);
@@ -61,7 +67,7 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
   update.value = false;
   update.value = true;
 }
-
+console.log(isGoodWillVisible.value)
 async function loginUser(emailParam: string, passwordParam: string) {
   console.log(emailParam)
   console.log(passwordParam)
@@ -89,12 +95,13 @@ onBeforeUnmount(()=>{
 </script>
 
 <template>
-  <Header @openLogin="showLoginPopUp(true)"
+  <Header @openLogin="showLoginPopUp(true)" @openGoodWill="isGoodWillVisible = true"
     v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"
     :loginUser="loginUser"></LogIn>
   <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" @submitSignUp="isSignUpVisible = false, isInfoVisible = true" :addUser="addUser"></SingUp>
   <InfoPopup v-if="isInfoVisible" @closeInfo="isInfoVisible = false"></InfoPopup>
+  <GoodWillPopup v-if="isGoodWillVisible" @closeGoodWill="isGoodWillVisible = false" ></GoodWillPopup>
   <RouterView />
 </template>
 

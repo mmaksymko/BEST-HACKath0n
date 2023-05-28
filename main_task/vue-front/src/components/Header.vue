@@ -8,6 +8,7 @@ const route = useRouter();
 <template>
   <header class="header">
     <h1 @click="route.push('/')">ТРАНДÁФИЛЬ</h1>
+    <button class="good_will" @click="$emit('openGoodWill')">акт допомоги</button>
     <div class="navigation">
       <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
     </div>
@@ -32,6 +33,18 @@ h1 {
   font-size: 24px;
   font-weight: bold;
   word-break: keep-all;
+  cursor: pointer;
+}
+
+.good_will {
+  background-color: rgba(255, 255, 255, 0.75);
+  color: #9A57F0;
+  height: auto;
+  font-size: 20px;
+  border: none;
+  border-radius: 2rem;
+  padding: 1% 4%;
+  width: auto;
   cursor: pointer;
 }
 
@@ -81,6 +94,9 @@ h1 {
   #quote {
     visibility: hidden;
   }
+  .good_will {
+  font-size: 16px;
+}
 }
 
 @media screen and (max-width: 600px) {

@@ -187,13 +187,14 @@ onMounted(async () => {
       <div class="chosen_filters"></div>
     </div>
     <div class="requests__container">
-      <div class="requests__row" v-for="row in dividedItems">
+      <div class="requests__row" v-for="row in dividedItems">        
         <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId" 
         :acceptProposition="acceptProposition"></Request>
       </div>
     </div>
     <div class="request_help__container">
       <button class="request_help" @click="route.push('/help')">запросити допомогу</button>
+      
     </div>
   </div>
 </template>
@@ -257,17 +258,19 @@ onMounted(async () => {
 }
 
 .request_help__container {
+  justify-content: space-around;
+  flex-wrap: wrap;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: right;
+  /* justify-content: right; */
   margin-top: 0.25rem;
 }
 
 .request_help {
   background-color: rgba(255, 255, 255, 0.75);
   color: #9A57F0;
-  margin: 1rem 4rem 0 0;
+  margin: 1rem 0 0 0;
   height: 4rem;
   font-size: 20px;
   border: none;
