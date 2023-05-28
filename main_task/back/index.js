@@ -17,8 +17,9 @@ app.use('/refresh', require('./routes/refresh'))
 app.use('/logout', require('./routes/logout'))
 
 const mongoose = require('mongoose')
-//replace to env variables on deploy
-mongoose.connect("mongodb+srv://UserDB:UserDBPassword@maksymcluster.ozlrsuf.mongodb.net/?retryWrites=true&w=majority").then(console.log("Successful"))
+//replace to env variables on deploy 
+
+mongoose.connect(`mongodb+srv://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@maksymcluster.ozlrsuf.mongodb.net/?retryWrites=true&w=majority`).then(console.log("Successful"))
     .catch(console.log)
 
 const io = require("socket.io")(http, {
