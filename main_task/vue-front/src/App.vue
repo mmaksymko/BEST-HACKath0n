@@ -95,7 +95,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Header @openLogin="showLoginPopUp(true)" @openGoodWill="isGoodWillVisible = true"
+  <Header :openLogin="showLoginPopUp" @openGoodWill="isGoodWillVisible = true"
     v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"
     :loginUser="loginUser"></LogIn>
