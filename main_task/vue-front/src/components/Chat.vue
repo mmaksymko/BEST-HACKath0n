@@ -144,11 +144,11 @@ export default defineComponent({
 
 <template>
     <div class="chat with-header">
-        <div class="my-sender-name normal-font-weight">{{ senderName }}</div>
+        <div class="my-sender-name">{{ senderName }}</div>
         <div class="scrollable-div" ref="myScrollableDiv">
             <div class="message" v-for="message in selectedUser.messages" :class="{ 'current-user': message.fromSelf }">
                 <div class="content">
-                    <div class="text">
+                    <div class="text normal-font-weight">
                         {{ message.content }}
                         <div class="time normal-font-weight">{{ message.time }}</div>
                     </div>
@@ -188,6 +188,12 @@ export default defineComponent({
     font-weight: normal;
 }
 
+@media screen and (max-width: 600px){
+    .normal-font-weight {
+        font-size: 12px;
+    }
+}
+
 .my-sender-name {
     margin-left: 1rem;
     margin-top: 1rem;
@@ -214,18 +220,6 @@ export default defineComponent({
     min-width: 5rem;
     flex-direction: column;
 }
-
-/* .sender-name {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-}
-
-.time {
-    font-size: 0.75rem;
-    color: #999;
-    white-space: nowrap;
-    margin-top: 0.25rem;
-} */
 
 .message.current-user .content {
     text-align: right;
@@ -267,13 +261,11 @@ export default defineComponent({
 .text {
     position: relative;
     padding: 0.75rem 1rem 0.5rem 1rem;
-    /* add padding to bottom */
     border-radius: 1.25rem;
     background-color: #f1f0f0;
     color: #000;
     word-break: break-all;
     max-width: 100%;
-    font-weight: normal;
     line-height: 1.4;
 }
 
@@ -281,14 +273,6 @@ export default defineComponent({
     background-color: #9305a0;
     color: #fff;
 }
-
-/* .time {
-    font-size: 0.75rem;
-    color: #999;
-    position: absolute;
-    bottom: 0.5rem;
-    right: 0.75rem;
-} */
 
 .time {
     bottom: 0.5rem;
