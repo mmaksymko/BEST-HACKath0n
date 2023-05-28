@@ -67,7 +67,7 @@ const login = async (req, res) => {
 
 const getUser = async (req, res) => {
     try {
-        const user = await User.findOne({ _id: req.body.id }).lean()
+        const user = await User.findOne({ _id: req.params.id }).lean()
         if(user === null) return res.status(400).json({ error: "User does not exist" })
         res.status(200).send(user)
     } catch (error) {
