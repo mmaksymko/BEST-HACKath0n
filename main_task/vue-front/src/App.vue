@@ -74,6 +74,7 @@ async function loginUser(emailParam: string, passwordParam: string){
       "password": passwordParam
     })
   })
+
   console.log(await response.json());
 }
 
