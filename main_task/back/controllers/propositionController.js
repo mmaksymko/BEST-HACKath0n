@@ -43,11 +43,11 @@ const addProposition = async (req, res) => {
         }
     }).then(res.status(200).json("Success!"))
         .catch(err => res.status(400))
-
-    // User.find({}).then(data => data.forEach(console.log))
 }
 
 const getAllPropositions = (req, res) => {
+    // User.find({}).then(data => data.forEach(console.log))
+
     User.find({})
         .then(users => res.status(200).send(JSON.stringify(users.map(user => user.propositions).flat().filter(prop => prop.status === 'waiting'))))
         .catch(err => res.status(400).json({ "Error": err }))

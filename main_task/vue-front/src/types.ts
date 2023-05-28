@@ -37,6 +37,7 @@ export type Item = {
 }
 
 export type UserDb = {
+    _id: string;
     email: string;
     firstName: string;
     lastName: string;

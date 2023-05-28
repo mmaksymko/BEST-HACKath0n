@@ -3,10 +3,14 @@ import Request from "@/components/Request.vue"
 import type { Item } from "@/types";
 import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView, useRouter } from 'vue-router';
+import { useUserStore } from "@/stores/user"
 import { toast } from 'vue3-toastify';
 const route = useRouter();
 const helpRequestList = ref<Item[]>([]);
 const startHelpRequestList = ref<Item[]>([]);
+
+const user = useUserStore();
+console.log(user.$state);
 
 async function getAllPropositions() {
   const response = await fetch('http://localhost:7000/proposition/api/all', {

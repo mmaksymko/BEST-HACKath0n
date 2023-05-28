@@ -15,7 +15,7 @@ router.route('/author/:id')
     .get(propositionController.getAuthorByPropositionId)
 
 router.route('/api/all')
-    .get(propositionController.getAllPropositions)
+    .get(verifyJWT, propositionController.getAllPropositions)
 
 router.route('/all/:id')
     .get(propositionController.getAllUsersPropositions)
