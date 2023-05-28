@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { addUserVis, setPopupVisibility} from "@/visibilityvars";
+import { ref } from 'vue';
 const router = useRouter();
+const { loginUser } = defineProps<{
+    loginUser: (emailParam:string, passwordParam:string) => void;
+}>()
+
+const emailParam = ref("");
+const passwordParam = ref("");
+
+const handleSubmit = () => {
+    event?.preventDefault()
+    loginUser(emailParam.value, passwordParam.value);
+};
 
 </script>
 
@@ -12,18 +24,20 @@ const router = useRouter();
                 <h3 id="addTransLoanDepPopup">Увійти</h3>
             </div>
             <button type="button" class="close" id="closePopup" @click="$emit('closeLogin')">✖</button>
-            <form class="input__group">
+            <form class="input__group" >
                 <div class="input__item">
                     <p class="form__item__title">пошта</p>
-                    <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                    <input required type="email" v-model="emailParam">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">пароль</p>
-                    <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                    <!-- <input required type="text" v-model="passwordParam" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"> -->
+                    <input required type="text" v-model="passwordParam">
                 </div>
                 <a id="forgotPass">забули пароль?</a>
                 <div class="popup__footer">
-                    <button type="button" class="submit_form" @click="$emit('closeLogin')">підтвердити</button>
+                    <!-- <button type="submit" class="submit_form" @click="$emit('closeLogin')">підтвердити</button> -->
+                    <button type="submit" class="submit_form" @click="handleSubmit">підтвердити</button>
                     <span>На нашому сайті вперше? <a href="#" @click="setPopupVisibility(true)" class="signup">Зареєструйтеся</a>, це займе
                         кілька хвилин</span>
                 </div>

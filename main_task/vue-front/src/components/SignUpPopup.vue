@@ -2,6 +2,19 @@
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 const router = useRouter();
+const { addUser } = defineProps<{
+    addUser: (firstNameParam: string, lastNameParam: string, emailParam:string, passwordParam:string, phoneParam:number) => void;
+}>()
+const firstNameParam = ref("");
+const lastNameParam = ref("");
+const phoneParam = ref("");
+const emailParam = ref("");
+const passwordParam = ref("");
+
+const handleSubmit = () => {
+    addUser(firstNameParam.value, lastNameParam.value, emailParam.value, passwordParam.value, parseInt(phoneParam.value));
+};
+
 </script>
 
 <template>
@@ -11,14 +24,14 @@ const router = useRouter();
                 <h3 id="addTransLoanDepPopup">Зареєструватися</h3>
             </div>
             <button type="button" class="close" id="closePopup" @click="$emit('closeSignUp')">✖</button>
-            <form class="input__group">
+            <form class="input__group" @submit.prevent="handleSubmit">
                 <div class="input__item">
                     <p class="form__item__title">ім'я</p>
-                    <input required type="text" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
+                    <input required type="text" v-model="firstNameParam" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">прізвище</p>
-                    <input required type="text" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
+                    <input required type="text" v-model="lastNameParam" pattern="^[A-Za-zА-Яа-яІіЇїҐґЄє]{2,}$">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">день народження</p>
@@ -26,15 +39,15 @@ const router = useRouter();
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">номер телефону</p>
-                    <input required type="text">
+                    <input required type="text" v-model="phoneParam">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">пошта</p>
-                    <input required type="text" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                    <input required type="email" v-model="emailParam">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">пароль</p>
-                    <input required type="text" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                    <input required type="text" v-model="passwordParam" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
                 </div>
                 <div class="input__item">
                     <p class="form__item__title">пароль</p>
