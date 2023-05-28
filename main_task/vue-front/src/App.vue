@@ -15,7 +15,7 @@ const user = useUserStore();
 
 const isLogInVisible = ref<boolean>(false)
 const isSignUpVisible = ref<boolean>(false)
-  const isInfoVisible = ref<boolean>(false)
+const isInfoVisible = ref<boolean>(false)
 function showLoginPopUp(show: boolean) {
   isLogInVisible.value = show
   isSignUpVisible.value = !show
@@ -29,7 +29,7 @@ const users = ref<UserPostResponse[]>([]);
 const update = ref(true);
 
 async function addUser(firstNameParam: string, lastNameParam: string, emailParam: string, passwordParam: string, phoneParam: number) {
-  const response = await fetch('http://localhost:7000/user/signup', {
+  const response = await fetch('https://trandafyl-server.onrender.com/user/signup', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -65,7 +65,7 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
 async function loginUser(emailParam: string, passwordParam: string) {
   console.log(emailParam)
   console.log(passwordParam)
-  const response = await fetch('http://localhost:7000/user/login', {
+  const response = await fetch('https://trandafyl-server.onrender.com/user/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -82,7 +82,7 @@ async function loginUser(emailParam: string, passwordParam: string) {
   console.log(user.$state);
 }
 
-onBeforeUnmount(()=>{
+onBeforeUnmount(() => {
   localStorage.clear();
 })
 
@@ -93,7 +93,8 @@ onBeforeUnmount(()=>{
     v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
   <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"
     :loginUser="loginUser"></LogIn>
-  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false" @submitSignUp="isSignUpVisible = false, isInfoVisible = true" :addUser="addUser"></SingUp>
+  <SingUp v-if="isSignUpVisible" @closeSignUp="isSignUpVisible = false"
+    @submitSignUp="isSignUpVisible = false, isInfoVisible = true" :addUser="addUser"></SingUp>
   <InfoPopup v-if="isInfoVisible" @closeInfo="isInfoVisible = false"></InfoPopup>
   <RouterView />
 </template>

@@ -38,7 +38,7 @@ function parseResponse(response: Array<Item>) {
 }
 
 async function getAllPropositions() {
-  const response = await fetch('http://localhost:7000/proposition/api/all', {
+  const response = await fetch('https://trandafyl-server.onrender.com/proposition/api/all', {
     method: 'GET'
   })
   if (!response.ok) return response.statusText;
@@ -90,7 +90,7 @@ function filterByCategory(tempcategory: string) {
 }
 
 async function getAuthorByPropositionId(id: string) {
-  const response = await fetch(`http://localhost:7000/proposition/author/${id}`, {
+  const response = await fetch(`https://trandafyl-server.onrender.com/proposition/author/${id}`, {
     method: 'GET'
   })
   if (!response.ok) return response.statusText
@@ -122,27 +122,27 @@ function handleCategoryFilter(event: Event) {
   filterByCategory(selectedCategory);
 }
 
-async function getUser(id:string) {
-    const response = await fetch(`http://localhost:7000/user/${id}`, {
-        method: 'GET'
-    })
-    if (!response.ok) return response.statusText
-    return response.json();
+async function getUser(id: string) {
+  const response = await fetch(`https://trandafyl-server.onrender.com/user/${id}`, {
+    method: 'GET'
+  })
+  if (!response.ok) return response.statusText
+  return response.json();
 }
 
-async function acceptProposition(id:string, performerID:string) {
-    const response = await fetch(`http://localhost:7000/proposition/${id}/${performerID}`, {
-        method: 'PUT'
-    })
-    if (!response.ok) return response.statusText
-    window.location.reload();
-    return await response.json();
+async function acceptProposition(id: string, performerID: string) {
+  const response = await fetch(`https://trandafyl-server.onrender.com/proposition/${id}/${performerID}`, {
+    method: 'PUT'
+  })
+  if (!response.ok) return response.statusText
+  window.location.reload();
+  return await response.json();
 }
 
 onMounted(async () => {
   await getAllPropositions();
   dividedItems.value = divideArrayIntoChunks(helpRequestList.value, 3);
-  if(localStorage.getItem("userId")!==null){
+  if (localStorage.getItem("userId") !== null) {
     await getUser(localStorage.getItem("userId") as string);
   }
 })
@@ -188,8 +188,8 @@ onMounted(async () => {
     </div>
     <div class="requests__container">
       <div class="requests__row" v-for="row in dividedItems">
-        <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId" 
-        :acceptProposition="acceptProposition"></Request>
+        <Request v-for="item in row" :item="item" :getAuthorByPropositionId="getNameOfAuthorByPropositionId"
+          :acceptProposition="acceptProposition"></Request>
       </div>
     </div>
     <div class="request_help__container">
@@ -217,38 +217,39 @@ onMounted(async () => {
   overflow-y: scroll;
   gap: 3rem;
 }
+
 ::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+  background: #ccc;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #aaa;
+  background: #aaa;
 }
 
 ::-webkit-scrollbar-track {
-    background: #eee;
-    border-radius: 0.25rem;
+  background: #eee;
+  border-radius: 0.25rem;
 }
 
 .requests__container::-webkit-scrollbar {
-    width: 0.5rem;
-    background-color: #f1f1f1;
-    border-radius: 0.5rem;
+  width: 0.5rem;
+  background-color: #f1f1f1;
+  border-radius: 0.5rem;
 }
 
 .requests__container::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 0.5rem;
+  background-color: #888;
+  border-radius: 0.5rem;
 }
 
 .requests__container::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+  background-color: #555;
 }
 
 .requests__row {
