@@ -26,10 +26,7 @@ function handleStatusChange(){
         </div>
         <div class="request_help__container">
         <label for="status">статус: </label>
-        <select name="status" v-model="selectedStatus"  @change="handleStatusChange" id="status">
-            <option value="volvo">прийнято</option>
-            <option value="saab">виконано</option>
-        </select>
+        <button @change="handleStatusChange" id="status">виконати</button>
     </div>
     </div>
 </template>
@@ -69,10 +66,10 @@ function handleStatusChange(){
     background-color: rgba(255, 255, 255, 0);
     border: 2px solid black;
     color: black;
+    padding: 0 0.8rem;
     height: 2rem;
     border-radius: 1rem;
     font-size: 16px;
-    padding-left: 0.2rem;
 }
 #status:focus {
     outline: none;

@@ -213,7 +213,7 @@ onMounted(async () => {
   flex-direction: column;
   padding: 0rem 3rem 0 4rem;
   margin-right: 1rem;
-  height: 30rem;
+  height: 65%;
   overflow-y: scroll;
   gap: 3rem;
 }
