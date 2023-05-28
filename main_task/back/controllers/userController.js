@@ -27,6 +27,7 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
     try {
+        User.find({}).then(console.log)
         const { email, password } = req.body
         let user = await User.findOne({ email }).lean()
         if(user === null){
@@ -52,8 +53,9 @@ const login = async (req, res) => {
                 })
                 user = await User.findOne({ email }).lean()
             res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 *  60 * 60 * 1000})
-            res.json({accessToken})
-            return res.status(200).send(user)
+            console.log("SLAAAAAAAAAAAAAAAAY")
+            res.json({user, accessToken})
+            // return res.status(200).send(user)
         }
         return res.status(400).json({error:"Wrong password"})
     } catch (error) {

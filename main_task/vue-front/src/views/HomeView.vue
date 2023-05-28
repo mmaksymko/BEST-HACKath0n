@@ -102,6 +102,7 @@ onMounted(async () => {
             <option value="медицина"></option>
             <option value="військове"></option>
             <option value="житло"></option>
+            <option value="евакуація"></option>
           </datalist>
         </div>
       </div>

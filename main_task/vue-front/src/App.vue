@@ -59,11 +59,29 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
   update.value = true;
 }
 
+async function loginUser(emailParam: string, passwordParam: string){
+  console.log(emailParam)
+  console.log(passwordParam)
+  const response = await fetch('http://localhost:7000/user/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'credentials': 'include'
+    },
+    body: JSON.stringify({
+      "email": emailParam,
+      "password": passwordParam
+    })
+  })
+  console.log(response)
+}
+
 </script>
 
 <template>
   <Header @openLogin="showLoginPopUp(true)" v-if="!['login', 'register', 'server-down'].includes(route.name?.toString() as any)"></Header>
-  <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)"></LogIn>
+  <LogIn v-if="isLogInVisible" @closeLogin="isLogInVisible = false" @openSignUp="showSignupPopup(true)" :loginUser="loginUser"></LogIn>
   <SingUp v-if="addUserVis" :setPopupVisibility="setPopupVisibility" :addUser="addUser"></SingUp>
   <RouterView />
 </template>
