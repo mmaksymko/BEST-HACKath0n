@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import type { Item } from '@/types';
-import type { Ref } from 'vue'
+import { ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 const route = useRoute();
-const { item,getAuthorByPropositionId } = defineProps<{
+const { item,getAuthorByPropositionId,completeProposition } = defineProps<{
     item: Item;
     getAuthorByPropositionId: (id:string) => Promise<string>;
+    completeProposition: (id:string) => void;
 }>();
+const selectedStatus = ref("");
+function handleStatusChange(){
+    completeProposition(item._id);
+}
 </script>
 
 <template>
@@ -21,7 +26,7 @@ const { item,getAuthorByPropositionId } = defineProps<{
         </div>
         <div class="request_help__container">
         <label for="status">статус: </label>
-        <select name="status" id="status">
+        <select name="status" v-model="selectedStatus"  @change="handleStatusChange" id="status">
             <option value="volvo">прийнято</option>
             <option value="saab">виконано</option>
         </select>
