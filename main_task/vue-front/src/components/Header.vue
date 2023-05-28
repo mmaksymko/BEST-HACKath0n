@@ -2,14 +2,29 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { RouterLink, RouterView, useRouter } from 'vue-router'
+import { useUserStore } from "@/stores/user"
 const route = useRouter();
+const user = useUserStore();
+
+const { openLogin } = defineProps<{
+  openLogin: (show: boolean) => void;
+}>();
+
+function toProfile(){
+  if(user._id.length>1){
+    route.push("/profile");
+  }
+  else{
+    openLogin(true);
+  }
+}
 </script>
 
 <template>
   <header class="header">
     <h1 @click="route.push('/')">ТРАНДÁФИЛЬ</h1>
     <div class="navigation">
-      <a href="#" class="header-link" @click="$emit('openLogin')">профіль</a>
+      <a href="#" class="header-link" @click="toProfile()">профіль</a>
     </div>
   </header>
 </template>
