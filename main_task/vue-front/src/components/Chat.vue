@@ -6,15 +6,6 @@ import type { User } from '@/types';
 
 let senderName = ref("Микола Стеценко");
 
-interface Message {
-    id: number;
-    text: string;
-    time: string;
-    sender: {
-        isCurrentUser: boolean;
-    };
-}
-
 export default defineComponent({
     setup() {
         const inputText = ref('');

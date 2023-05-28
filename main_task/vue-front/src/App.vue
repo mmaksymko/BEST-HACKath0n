@@ -45,7 +45,7 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
   } else if (response.ok) {
     window.location.reload();
     users.value.push({
-      _id: users.value[users.value.length - 1]._id + 1,
+      _id: users.value.length? users.value[users.value.length - 1]._id + 1 : 0,
       firstName: firstNameParam,
       lastName: lastNameParam,
       email: emailParam,
@@ -54,7 +54,7 @@ async function addUser(firstNameParam: string, lastNameParam: string, emailParam
       __v:0
     });
   }
-  console.log(response)
+  console.log(await response.json())
   update.value = false;
   update.value = true;
 }
@@ -74,7 +74,7 @@ async function loginUser(emailParam: string, passwordParam: string){
       "password": passwordParam
     })
   })
-  console.log(response)
+  console.log(await response.json());
 }
 
 </script>
