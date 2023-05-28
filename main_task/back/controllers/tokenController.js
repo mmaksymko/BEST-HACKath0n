@@ -6,18 +6,18 @@ require("dotenv").config()
 const handleRefreshToken = async (req, res) => {
     try {
         const cookies = req.cookies
-        if (!cookies?.jwt) return res.sendStatus(401).json({ error: 'Unathorized' })
+        if (!cookies?.jwt) return res.sendStatus(401)
         const refreshToken = cookies.jwt
         const user = await User.findOne({ email: email, JWTToken: refreshToken }).lean()
         if (user === null) {
-            return res.status(400).json({ error: "User does not exist" })
+            return res.status(400)
         }
 
         jwt.verify(
             refreshToken,
             process.env.REFRESH_TOKEN_SECRET,
             (err, decoder) => {
-                if (err || user.email !== decoded.email) return res.sendStatus(403).json({ error: 'Access not allowed' })
+                if (err || user.email !== decoded.email) return res.sendStatus(403)
                 const accessToken = jwt.sign(
                     { "email": decoded.email },
                     process.env.ACCESS_TOKEN_SECRET,
