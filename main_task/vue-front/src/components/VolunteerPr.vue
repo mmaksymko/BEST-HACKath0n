@@ -32,15 +32,15 @@ const route = useRoute();
     border: none;
     border-radius: 2rem;
     width: 27rem;
-    height: 17rem;
+    height: 15.5rem;
     color: black;
-    padding: 1.5rem 2rem 3rem 2rem;
+    padding: 1.5rem 1rem 3rem 1rem;
     align-items: center;
 }
 .request__header {
     font-size: 20px;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 .request__info {
     width: 100%;

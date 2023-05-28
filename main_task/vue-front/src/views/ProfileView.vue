@@ -159,8 +159,12 @@ input:focus {
 }
 }
 @media screen and (max-width:460px){
+  .profile_info__container {
+    margin-bottom: 3rem;
+  }
   .main__container {
     gap: 1.4rem;
+    overflow-y: scroll;
   }
   .history {
     flex-direction: column;
@@ -171,7 +175,7 @@ input:focus {
   flex-direction: column;
   height: 18rem;
   overflow-y: scroll;
-  gap: 1.8rem;
+  gap: 2.8rem;
 }
 }
 </style>

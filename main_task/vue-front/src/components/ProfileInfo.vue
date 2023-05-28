@@ -57,15 +57,15 @@ const route = useRoute();
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     height: 90%;
-    gap: 2rem;
+    gap: 1.5rem;
 }
 .change_profile {
     border: none;
     color: white;
     background-color: black;
-    height: 2.5rem;
+    height: 4rem;
     border-radius: 1.25rem;
     width: 75%;
 
@@ -86,6 +86,7 @@ const route = useRoute();
 @media screen and (max-width:460px){
     .request__container {
     padding: 1.5rem 1rem 1.5rem 1rem;
+    height: 100%;
     }
     .profile__item {
         font-size: 18px;

@@ -106,7 +106,7 @@ const route = useRoute();
     .request__container {
         border-radius: 2rem;
         width: 100%;
-        height: 37.5rem;
+        height: 37.2rem;
         padding: 1rem 1rem 1.5rem 1rem;
     }
 }
