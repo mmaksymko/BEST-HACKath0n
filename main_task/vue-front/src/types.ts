@@ -24,3 +24,23 @@ export type UserPostResponse = {
     propositions:string;
     __v:number;
 }
+
+export type Item = {
+    _id: string;
+    category: string[];
+    city: string;
+    creationDate: string;
+    description: string;
+    expiringDate: string;
+    status: string;
+    title: string;
+}
+
+export type UserDb = {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    phone: string;
+  };
+  

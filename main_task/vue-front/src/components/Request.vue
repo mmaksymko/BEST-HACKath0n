@@ -1,18 +1,32 @@
 <script setup lang="ts">
-import type { Ref } from 'vue'
+import type { Item } from '@/types';
+import { onMounted, ref, type Ref } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 const route = useRoute();
+
+const { item,getAuthorByPropositionId } = defineProps<{
+    item: Item;
+    getAuthorByPropositionId: (id:string) => Promise<string>;
+}>();
+
+const string = ref<string>("1");
+
+onMounted( async () => {
+    string.value = await getAuthorByPropositionId(item._id);
+    console.log(string);
+})
+
 </script>
 
 <template>
     <div class="request__container">
-        <div class="request__header">Заголовок</div>
+        <div class="request__header">{{ item.title }}</div>
         <div class="request__info">
-            <div class="from">від: Петро</div>
-            <div class="category">категорія: військове</div>
-            <div class="city">місто: військове</div>
-            <div class="description">опис: збираю на мавік</div>
-            <div class="date">термін: 28.09.2023</div>
+            <div class="from">від: {{ string }}</div>
+            <div class="category">категорія: {{ item.category.join(',') }}</div>
+            <div class="city">місто: {{ item.city }}</div>
+            <div class="description">опис: {{ item.description }}</div>
+            <div class="date">термін: {{ item.expiringDate }}</div>
         </div>
         <button class="submit_help">відгукнутися</button>
     </div>
